@@ -11,7 +11,7 @@ Zephy is an iOS application designed to be a private secure wallet for Zeph/ZSD/
 ## App UI
 Here you can see some of the main screens of the app:
 
-![Demo](https://github.com/DeMemeTree/Zephy/demo/demo.gif)
+![Demo](https://github.com/DeMemeTree/Zephy/blob/master/demo/demo.gif)
 
 ## To-Do
 - [ ] Debug create wallet functionality (Currently freezes on invocation and I think its due to needed to setup the node first as its freezing on the genesis block fetch)
