@@ -1,0 +1,6 @@
+framework module ZephySDK {
+  umbrella header "ZephySDK.h"
+  export *
+
+  module * { export * }
+}

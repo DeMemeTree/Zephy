@@ -1,0 +1,837 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135D2B138633009BAB48 /* SeedPhraseView.swift */; };
+		B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */; };
+		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
+		B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; };
+		B188B5A62B18E28400CB37CE /* ZephySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A682B144E7800FA86A2 /* FileService.swift */; };
+		B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761A2B113FD2008C2F16 /* Zephy.swift */; };
+		B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761C2B113FD2008C2F16 /* ContentView.swift */; };
+		B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761E2B113FD2008C2F16 /* Item.swift */; };
+		B1D176212B113FD4008C2F16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D176202B113FD4008C2F16 /* Assets.xcassets */; };
+		B1D1762E2B113FD5008C2F16 /* ZephyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1762D2B113FD5008C2F16 /* ZephyTests.swift */; };
+		B1D176382B113FD5008C2F16 /* ZephyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176372B113FD5008C2F16 /* ZephyUITests.swift */; };
+		B1D1763A2B113FD5008C2F16 /* ZephyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176392B113FD5008C2F16 /* ZephyUITestsLaunchTests.swift */; };
+		B1D1764A2B11403D008C2F16 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176492B11403D008C2F16 /* Router.swift */; };
+		B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1764B2B114049008C2F16 /* RouterView.swift */; };
+		B1D1764F2B1140BE008C2F16 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1764E2B1140BE008C2F16 /* SplashView.swift */; };
+		B1D176512B1140DD008C2F16 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D176502B1140DD008C2F16 /* Splash.storyboard */; };
+		B1D176542B1141D5008C2F16 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176532B1141D5008C2F16 /* WalletView.swift */; };
+		B1D176562B11422E008C2F16 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176552B11422E008C2F16 /* WalletViewModel.swift */; };
+		B1D176592B1143F9008C2F16 /* Color+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176582B1143F9008C2F16 /* Color+zephy.swift */; };
+		B1D1765C2B114468008C2F16 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1765B2B114468008C2F16 /* StatsView.swift */; };
+		B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176612B115CB7008C2F16 /* SwapView.swift */; };
+		B1D176642B115CC4008C2F16 /* ReceiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176632B115CC4008C2F16 /* ReceiveView.swift */; };
+		B1D176662B115CCB008C2F16 /* SendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176652B115CCB008C2F16 /* SendView.swift */; };
+		B1D176682B11A521008C2F16 /* SendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176672B11A521008C2F16 /* SendViewModel.swift */; };
+		B1D1766D2B11A792008C2F16 /* View+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1766C2B11A792008C2F16 /* View+zephy.swift */; };
+		B1D176702B11A9B2008C2F16 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1766F2B11A9B2008C2F16 /* QRCodeReader.swift */; };
+		B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176712B11B08D008C2F16 /* ReceiveViewModel.swift */; };
+		B1D176742B11B276008C2F16 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176732B11B276008C2F16 /* ToastView.swift */; };
+		B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176752B11B834008C2F16 /* SwapViewModel.swift */; };
+		B1D176792B11B869008C2F16 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176782B11B869008C2F16 /* Assets.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B1D1762A2B113FD5008C2F16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1D1760F2B113FD2008C2F16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1D176162B113FD2008C2F16;
+			remoteInfo = Zephy;
+		};
+		B1D176342B113FD5008C2F16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1D1760F2B113FD2008C2F16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1D176162B113FD2008C2F16;
+			remoteInfo = Zephy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B1C89A7C2B14545300FA86A2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B188B5A62B18E28400CB37CE /* ZephySDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B11E135D2B138633009BAB48 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
+		B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseViewModel.swift; sourceTree = "<group>"; };
+		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
+		B188B5A32B18E27100CB37CE /* ZephySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZephySDK.framework; sourceTree = "<group>"; };
+		B188B5A82B18E33C00CB37CE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		B188B5AD2B18E43C00CB37CE /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		B1C89A682B144E7800FA86A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		B1D176172B113FD2008C2F16 /* Zephy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D1761A2B113FD2008C2F16 /* Zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephy.swift; sourceTree = "<group>"; };
+		B1D1761C2B113FD2008C2F16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B1D1761E2B113FD2008C2F16 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		B1D176202B113FD4008C2F16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B1D176292B113FD5008C2F16 /* ZephyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZephyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D1762D2B113FD5008C2F16 /* ZephyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZephyTests.swift; sourceTree = "<group>"; };
+		B1D176332B113FD5008C2F16 /* ZephyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZephyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D176372B113FD5008C2F16 /* ZephyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZephyUITests.swift; sourceTree = "<group>"; };
+		B1D176392B113FD5008C2F16 /* ZephyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZephyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B1D176492B11403D008C2F16 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		B1D1764B2B114049008C2F16 /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
+		B1D1764E2B1140BE008C2F16 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B1D176502B1140DD008C2F16 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		B1D176532B1141D5008C2F16 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		B1D176552B11422E008C2F16 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
+		B1D176582B1143F9008C2F16 /* Color+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+zephy.swift"; sourceTree = "<group>"; };
+		B1D1765B2B114468008C2F16 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		B1D176612B115CB7008C2F16 /* SwapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapView.swift; sourceTree = "<group>"; };
+		B1D176632B115CC4008C2F16 /* ReceiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveView.swift; sourceTree = "<group>"; };
+		B1D176652B115CCB008C2F16 /* SendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendView.swift; sourceTree = "<group>"; };
+		B1D176672B11A521008C2F16 /* SendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewModel.swift; sourceTree = "<group>"; };
+		B1D1766C2B11A792008C2F16 /* View+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+zephy.swift"; sourceTree = "<group>"; };
+		B1D1766F2B11A9B2008C2F16 /* QRCodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
+		B1D176712B11B08D008C2F16 /* ReceiveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewModel.swift; sourceTree = "<group>"; };
+		B1D176732B11B276008C2F16 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		B1D176752B11B834008C2F16 /* SwapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapViewModel.swift; sourceTree = "<group>"; };
+		B1D176782B11B869008C2F16 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B1D176142B113FD2008C2F16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D176262B113FD5008C2F16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D176302B113FD5008C2F16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B11E135C2B138610009BAB48 /* SeedPhrase */ = {
+			isa = PBXGroup;
+			children = (
+				B11E135D2B138633009BAB48 /* SeedPhraseView.swift */,
+				B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */,
+				B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */,
+			);
+			path = SeedPhrase;
+			sourceTree = "<group>";
+		};
+		B188B5A72B18E33B00CB37CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B188B5AD2B18E43C00CB37CE /* CoreAudioTypes.framework */,
+				B188B5A82B18E33C00CB37CE /* CoreAudio.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1C89A672B144E6600FA86A2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B1C89A682B144E7800FA86A2 /* FileService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B1D1760E2B113FD2008C2F16 = {
+			isa = PBXGroup;
+			children = (
+				B1D176192B113FD2008C2F16 /* Zephy */,
+				B1D1762C2B113FD5008C2F16 /* ZephyTests */,
+				B1D176362B113FD5008C2F16 /* ZephyUITests */,
+				B1D176182B113FD2008C2F16 /* Products */,
+				B188B5A72B18E33B00CB37CE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B1D176182B113FD2008C2F16 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176172B113FD2008C2F16 /* Zephy.app */,
+				B1D176292B113FD5008C2F16 /* ZephyTests.xctest */,
+				B1D176332B113FD5008C2F16 /* ZephyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B1D176192B113FD2008C2F16 /* Zephy */ = {
+			isa = PBXGroup;
+			children = (
+				B1D1761A2B113FD2008C2F16 /* Zephy.swift */,
+				B1D176472B114022008C2F16 /* App */,
+				B1D176572B1143E7008C2F16 /* Extensions */,
+				B1D176482B114032008C2F16 /* Router */,
+				B1D176462B113FF4008C2F16 /* Resources */,
+				B1C89A672B144E6600FA86A2 /* Services */,
+				B1D1761C2B113FD2008C2F16 /* ContentView.swift */,
+				B1D1761E2B113FD2008C2F16 /* Item.swift */,
+			);
+			path = Zephy;
+			sourceTree = "<group>";
+		};
+		B1D1762C2B113FD5008C2F16 /* ZephyTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1D1762D2B113FD5008C2F16 /* ZephyTests.swift */,
+			);
+			path = ZephyTests;
+			sourceTree = "<group>";
+		};
+		B1D176362B113FD5008C2F16 /* ZephyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176372B113FD5008C2F16 /* ZephyUITests.swift */,
+				B1D176392B113FD5008C2F16 /* ZephyUITestsLaunchTests.swift */,
+			);
+			path = ZephyUITests;
+			sourceTree = "<group>";
+		};
+		B1D176462B113FF4008C2F16 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B188B5A32B18E27100CB37CE /* ZephySDK.framework */,
+				B1D176202B113FD4008C2F16 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B1D176472B114022008C2F16 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B11E135C2B138610009BAB48 /* SeedPhrase */,
+				B1D1765A2B114460008C2F16 /* Stats */,
+				B1D1764D2B1140B4008C2F16 /* Splash */,
+				B1D176772B11B84F008C2F16 /* Models */,
+				B1D176692B11A762008C2F16 /* ViewUtils */,
+				B1D176522B1141BA008C2F16 /* Wallet */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B1D176482B114032008C2F16 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176492B11403D008C2F16 /* Router.swift */,
+				B1D1764B2B114049008C2F16 /* RouterView.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		B1D1764D2B1140B4008C2F16 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176502B1140DD008C2F16 /* Splash.storyboard */,
+				B1D1764E2B1140BE008C2F16 /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		B1D176522B1141BA008C2F16 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176602B115A12008C2F16 /* Actions */,
+				B1D176532B1141D5008C2F16 /* WalletView.swift */,
+				B1D176552B11422E008C2F16 /* WalletViewModel.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		B1D176572B1143E7008C2F16 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176582B1143F9008C2F16 /* Color+zephy.swift */,
+				B1D1766C2B11A792008C2F16 /* View+zephy.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B1D1765A2B114460008C2F16 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				B1D1765B2B114468008C2F16 /* StatsView.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		B1D1765D2B115A02008C2F16 /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176652B115CCB008C2F16 /* SendView.swift */,
+				B1D176672B11A521008C2F16 /* SendViewModel.swift */,
+				B1D1766F2B11A9B2008C2F16 /* QRCodeReader.swift */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		B1D1765E2B115A06008C2F16 /* Receive */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176632B115CC4008C2F16 /* ReceiveView.swift */,
+				B1D176712B11B08D008C2F16 /* ReceiveViewModel.swift */,
+			);
+			path = Receive;
+			sourceTree = "<group>";
+		};
+		B1D1765F2B115A0D008C2F16 /* Swap */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176612B115CB7008C2F16 /* SwapView.swift */,
+				B1D176752B11B834008C2F16 /* SwapViewModel.swift */,
+			);
+			path = Swap;
+			sourceTree = "<group>";
+		};
+		B1D176602B115A12008C2F16 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				B1D1765F2B115A0D008C2F16 /* Swap */,
+				B1D1765E2B115A06008C2F16 /* Receive */,
+				B1D1765D2B115A02008C2F16 /* Send */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		B1D176692B11A762008C2F16 /* ViewUtils */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176732B11B276008C2F16 /* ToastView.swift */,
+			);
+			path = ViewUtils;
+			sourceTree = "<group>";
+		};
+		B1D176772B11B84F008C2F16 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B1D176782B11B869008C2F16 /* Assets.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B1D176162B113FD2008C2F16 /* Zephy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1D1763D2B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "Zephy" */;
+			buildPhases = (
+				B1D176132B113FD2008C2F16 /* Sources */,
+				B1D176142B113FD2008C2F16 /* Frameworks */,
+				B1D176152B113FD2008C2F16 /* Resources */,
+				B1C89A7C2B14545300FA86A2 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Zephy;
+			productName = Zephy;
+			productReference = B1D176172B113FD2008C2F16 /* Zephy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B1D176282B113FD5008C2F16 /* ZephyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1D176402B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "ZephyTests" */;
+			buildPhases = (
+				B1D176252B113FD5008C2F16 /* Sources */,
+				B1D176262B113FD5008C2F16 /* Frameworks */,
+				B1D176272B113FD5008C2F16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1D1762B2B113FD5008C2F16 /* PBXTargetDependency */,
+			);
+			name = ZephyTests;
+			productName = ZephyTests;
+			productReference = B1D176292B113FD5008C2F16 /* ZephyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B1D176322B113FD5008C2F16 /* ZephyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1D176432B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "ZephyUITests" */;
+			buildPhases = (
+				B1D1762F2B113FD5008C2F16 /* Sources */,
+				B1D176302B113FD5008C2F16 /* Frameworks */,
+				B1D176312B113FD5008C2F16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1D176352B113FD5008C2F16 /* PBXTargetDependency */,
+			);
+			name = ZephyUITests;
+			productName = ZephyUITests;
+			productReference = B1D176332B113FD5008C2F16 /* ZephyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B1D1760F2B113FD2008C2F16 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					B1D176162B113FD2008C2F16 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					B1D176282B113FD5008C2F16 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = B1D176162B113FD2008C2F16;
+					};
+					B1D176322B113FD5008C2F16 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = B1D176162B113FD2008C2F16;
+					};
+				};
+			};
+			buildConfigurationList = B1D176122B113FD2008C2F16 /* Build configuration list for PBXProject "Zephy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B1D1760E2B113FD2008C2F16;
+			productRefGroup = B1D176182B113FD2008C2F16 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1D176162B113FD2008C2F16 /* Zephy */,
+				B1D176282B113FD5008C2F16 /* ZephyTests */,
+				B1D176322B113FD5008C2F16 /* ZephyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B1D176152B113FD2008C2F16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1D176212B113FD4008C2F16 /* Assets.xcassets in Resources */,
+				B1D176512B1140DD008C2F16 /* Splash.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D176272B113FD5008C2F16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D176312B113FD5008C2F16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B1D176132B113FD2008C2F16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
+				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
+				B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */,
+				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,
+				B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */,
+				B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */,
+				B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */,
+				B1D1766D2B11A792008C2F16 /* View+zephy.swift in Sources */,
+				B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */,
+				B1D176542B1141D5008C2F16 /* WalletView.swift in Sources */,
+				B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */,
+				B1D176682B11A521008C2F16 /* SendViewModel.swift in Sources */,
+				B1D176642B115CC4008C2F16 /* ReceiveView.swift in Sources */,
+				B1D176592B1143F9008C2F16 /* Color+zephy.swift in Sources */,
+				B1D1765C2B114468008C2F16 /* StatsView.swift in Sources */,
+				B1D176562B11422E008C2F16 /* WalletViewModel.swift in Sources */,
+				B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */,
+				B1D176662B115CCB008C2F16 /* SendView.swift in Sources */,
+				B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */,
+				B1D176702B11A9B2008C2F16 /* QRCodeReader.swift in Sources */,
+				B1D176742B11B276008C2F16 /* ToastView.swift in Sources */,
+				B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */,
+				B1D176792B11B869008C2F16 /* Assets.swift in Sources */,
+				B1D1764F2B1140BE008C2F16 /* SplashView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D176252B113FD5008C2F16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1D1762E2B113FD5008C2F16 /* ZephyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1D1762F2B113FD5008C2F16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1D176382B113FD5008C2F16 /* ZephyUITests.swift in Sources */,
+				B1D1763A2B113FD5008C2F16 /* ZephyUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B1D1762B2B113FD5008C2F16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1D176162B113FD2008C2F16 /* Zephy */;
+			targetProxy = B1D1762A2B113FD5008C2F16 /* PBXContainerItemProxy */;
+		};
+		B1D176352B113FD5008C2F16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1D176162B113FD2008C2F16 /* Zephy */;
+			targetProxy = B1D176342B113FD5008C2F16 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B1D1763B2B113FD5008C2F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B1D1763C2B113FD5008C2F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B1D1763E2B113FD5008C2F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zephy/Resources",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.Zephy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B1D1763F2B113FD5008C2F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Zephy/Resources",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.Zephy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B1D176412B113FD5008C2F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.ZephyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zephy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Zephy";
+			};
+			name = Debug;
+		};
+		B1D176422B113FD5008C2F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.ZephyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zephy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Zephy";
+			};
+			name = Release;
+		};
+		B1D176442B113FD5008C2F16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.ZephyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Zephy;
+			};
+			name = Debug;
+		};
+		B1D176452B113FD5008C2F16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZL6B8A9W99;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.ZephyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Zephy;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B1D176122B113FD2008C2F16 /* Build configuration list for PBXProject "Zephy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1D1763B2B113FD5008C2F16 /* Debug */,
+				B1D1763C2B113FD5008C2F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1D1763D2B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "Zephy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1D1763E2B113FD5008C2F16 /* Debug */,
+				B1D1763F2B113FD5008C2F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1D176402B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "ZephyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1D176412B113FD5008C2F16 /* Debug */,
+				B1D176422B113FD5008C2F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1D176432B113FD5008C2F16 /* Build configuration list for PBXNativeTarget "ZephyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1D176442B113FD5008C2F16 /* Debug */,
+				B1D176452B113FD5008C2F16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B1D1760F2B113FD2008C2F16 /* Project object */;
+}
