@@ -4,7 +4,7 @@
 Zephy is an iOS application designed to be a private secure wallet for Zeph/ZSD/ZRS ecosystem. This application aims to be an opensource project that I take and host on the appstore with my LLC. Anyone can contribute and I dont intend to put any ADs or put it in the app store for any money. In other words I want it to be free. I want it to be dank. 🧙‍♂️
 
 ## Features
-- Transfer/Receive Zeph/ZSD/ZRS
+- Transfer/Receive/Swap Zeph/ZSD/ZRS
 - Be up to date on the network statistics and metrics
 - Secure, Private, Non-Custodial Zephyr Wallet
 
