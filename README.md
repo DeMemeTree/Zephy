@@ -14,7 +14,6 @@ Here you can see some of the main screens of the app:
 ![Demo](https://github.com/DeMemeTree/Zephy/demo/demo.gif)
 
 ## To-Do
-- [ ] Debug create wallet functionality (Currently freezes on invocation and I think its due to needed to setup the node first as its freezing on the genesis block fetch)
 - [ ] Modify the helper lib to handle Zephyr/ZSD/ZRS 
 - [ ] Improve Scripts/Automation of build pipeline
 - [ ] Create Testflight and run an MVP of the app with a group of people

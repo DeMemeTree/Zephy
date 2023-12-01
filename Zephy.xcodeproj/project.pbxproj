@@ -10,6 +10,8 @@
 		B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135D2B138633009BAB48 /* SeedPhraseView.swift */; };
 		B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */; };
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
+		B16F53592B1997C400B066D5 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F53582B1997C400B066D5 /* WalletService.swift */; };
+		B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */; };
 		B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; };
 		B188B5A62B18E28400CB37CE /* ZephySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A682B144E7800FA86A2 /* FileService.swift */; };
@@ -75,6 +77,8 @@
 		B11E135D2B138633009BAB48 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseViewModel.swift; sourceTree = "<group>"; };
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
+		B16F53582B1997C400B066D5 /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
+		B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+zephy.swift"; sourceTree = "<group>"; };
 		B188B5A32B18E27100CB37CE /* ZephySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZephySDK.framework; sourceTree = "<group>"; };
 		B188B5A82B18E33C00CB37CE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		B188B5AD2B18E43C00CB37CE /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
@@ -158,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				B1C89A682B144E7800FA86A2 /* FileService.swift */,
+				B16F53582B1997C400B066D5 /* WalletService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 			children = (
 				B1D176582B1143F9008C2F16 /* Color+zephy.swift */,
 				B1D1766C2B11A792008C2F16 /* View+zephy.swift */,
+				B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 			files = (
 				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
 				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
+				B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */,
 				B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */,
 				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,
 				B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */,
@@ -478,6 +485,7 @@
 				B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */,
 				B1D176542B1141D5008C2F16 /* WalletView.swift in Sources */,
 				B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */,
+				B16F53592B1997C400B066D5 /* WalletService.swift in Sources */,
 				B1D176682B11A521008C2F16 /* SendViewModel.swift in Sources */,
 				B1D176642B115CC4008C2F16 /* ReceiveView.swift in Sources */,
 				B1D176592B1143F9008C2F16 /* Color+zephy.swift in Sources */,

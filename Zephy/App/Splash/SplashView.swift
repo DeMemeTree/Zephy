@@ -3,8 +3,8 @@
 //  Zephy
 //
 //
-
 import SwiftUI
+import ZephySDK
 
 struct SplashView: View {
     @EnvironmentObject var router: Router
@@ -19,7 +19,7 @@ struct SplashView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(Color.zephyPurp)
         .onAppear {
-            router.changeRoot(to: .seedPhrase)
+            router.changeRoot(to: WalletService.doesWalletExist() ? .wallet : .seedPhrase)
         }
     }
 }

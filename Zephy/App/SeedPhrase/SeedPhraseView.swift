@@ -35,35 +35,10 @@ struct SeedPhraseView: View {
                     .padding()
             } else if viewModel.seedCreationState != .none {
                 if viewModel.seedCreationState == .create {
-                    Text("Swipe within the green box to generate a new seed phrase.")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                    
-                    Rectangle()
-                        .foregroundColor(.green)
-                        .frame(height: 40)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(10)
-                        .padding()
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged({ _ in
-                                    addEntropy()
-                                })
-                        )
-                    
-                    Spacer()
-                    
                     Text("Write down all 25 words and keep the seed phrase secure.")
                         .font(.footnote)
                         .foregroundColor(.gray)
                         .padding(.bottom, 10)
-                    
-//                    TextEditor(text: $viewModel.seedPhrase)
-//                        .disabled(true)
-//                        .foregroundColor(.black)
-//                        .cornerRadius(10)
-//                        .padding()
                     
                     SeedPhraseGrid(seedPhrase: viewModel.seedPhrase)
 
@@ -175,11 +150,5 @@ struct SeedPhraseView: View {
             Button(viewModel.showPassword ? "HIDE" : "SHOW", action: { viewModel.showPassword.toggle() })
                 .padding(.trailing, 10)
         }
-    }
-    
-    private func addEntropy() {
-        entropyCounter += 1
-        // Add the entropyCounter to the seed generation logic
-        viewModel.addEntropy(entropyValue: entropyCounter)
     }
 }

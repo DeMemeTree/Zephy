@@ -12,7 +12,7 @@ class WalletViewModel: ObservableObject {
         case reserve
     }
     
-    @Published var zephyrBalance: Double = 42
+    @Published var zephyrBalance: UInt64 = WalletService.currentZephBalance()
     @Published var zephyrStableDollarsBalance: Double = 4.20
     @Published var zephyrReserveBalance: Double = 6942
 
