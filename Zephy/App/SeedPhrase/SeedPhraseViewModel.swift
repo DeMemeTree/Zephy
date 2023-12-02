@@ -68,6 +68,10 @@ class SeedPhraseViewModel: ObservableObject {
     }
 
     private func generateSeedPhrase() {
-        seedPhrase = WalletService.seedPhrase()
+        let seed = WalletService.seedPhrase()
+        if KeychainService.store(key: "seed", value: seed) == false {
+            #warning("Do some sort of UI display and let the user attempt to resave it to keychain")
+        }
+        seedPhrase = seed
     }
 }

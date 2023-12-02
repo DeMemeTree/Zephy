@@ -15,6 +15,8 @@ final class Router: ObservableObject {
         case swap
         case send
         case receive
+        
+        case settings
     }
     
     @Published var navigationStack: [Route] = [.splash]

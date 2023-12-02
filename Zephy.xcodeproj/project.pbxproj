@@ -10,6 +10,8 @@
 		B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135D2B138633009BAB48 /* SeedPhraseView.swift */; };
 		B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */; };
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
+		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
+		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
 		B16F53592B1997C400B066D5 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F53582B1997C400B066D5 /* WalletService.swift */; };
 		B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */; };
 		B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; };
@@ -77,6 +79,8 @@
 		B11E135D2B138633009BAB48 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseViewModel.swift; sourceTree = "<group>"; };
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
+		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B16F53582B1997C400B066D5 /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
 		B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+zephy.swift"; sourceTree = "<group>"; };
 		B188B5A32B18E27100CB37CE /* ZephySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZephySDK.framework; sourceTree = "<group>"; };
@@ -149,6 +153,14 @@
 			path = SeedPhrase;
 			sourceTree = "<group>";
 		};
+		B13446102B1BA9C4001A44F3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B13446112B1BAB5B001A44F3 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		B188B5A72B18E33B00CB37CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +175,7 @@
 			children = (
 				B1C89A682B144E7800FA86A2 /* FileService.swift */,
 				B16F53582B1997C400B066D5 /* WalletService.swift */,
+				B13446132B1BAC48001A44F3 /* KeychainService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -263,9 +276,10 @@
 		B1D176522B1141BA008C2F16 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				B1D176602B115A12008C2F16 /* Actions */,
 				B1D176532B1141D5008C2F16 /* WalletView.swift */,
 				B1D176552B11422E008C2F16 /* WalletViewModel.swift */,
+				B1D176602B115A12008C2F16 /* Actions */,
+				B13446102B1BA9C4001A44F3 /* Settings */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -494,9 +508,11 @@
 				B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */,
 				B1D176662B115CCB008C2F16 /* SendView.swift in Sources */,
 				B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */,
+				B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */,
 				B1D176702B11A9B2008C2F16 /* QRCodeReader.swift in Sources */,
 				B1D176742B11B276008C2F16 /* ToastView.swift in Sources */,
 				B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */,
+				B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */,
 				B1D176792B11B869008C2F16 /* Assets.swift in Sources */,
 				B1D1764F2B1140BE008C2F16 /* SplashView.swift in Sources */,
 			);

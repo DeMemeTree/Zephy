@@ -23,6 +23,8 @@ struct RouterView: View {
                 ReceiveView()
             case .send:
                 SendView()
+            case .settings:
+                SettingsView()
             }
         }
     }
