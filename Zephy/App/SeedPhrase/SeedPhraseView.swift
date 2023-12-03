@@ -158,6 +158,12 @@ struct SeedPhraseView: View {
             Alert(title: Text("Alert"),
                   message: Text(error.text),dismissButton: .default(Text("Okay")))
         }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                            to: nil,
+                                            from: nil,
+                                            for: nil)
+        }
     }
 
     private func passwordView() -> some View {

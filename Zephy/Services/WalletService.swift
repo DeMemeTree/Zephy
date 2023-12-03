@@ -53,7 +53,7 @@ struct WalletService {
                 publisher.send(result)
                 publisher.send(completion: .finished)
             } catch {
-                LoggerService.log(error: error)
+                Logger.log(error: error)
                 publisher.send(false)
                 publisher.send(completion: .finished)
             }
@@ -88,7 +88,7 @@ struct WalletService {
                 }
                 publisher.send(completion: .finished)
             } catch {
-                LoggerService.log(error: error)
+                Logger.log(error: error)
                 publisher.send(false)
                 publisher.send(completion: .finished)
             }
@@ -102,5 +102,47 @@ struct WalletService {
     
     static func currentZephBalance() -> UInt64 {
         return get_full_balance(0)
+    }
+    
+    
+    static func requestNode(node: String,
+                            login: String? = nil,
+                            secret: String? = nil) async -> Bool {
+        guard let uri = URL(string: node) else { return false }
+        let useSocksProxy = false
+        let isSSL = uri.scheme == "https"
+        let path = "/json_rpc"
+        let rpcUri = isSSL ? URL(string: "https://\(uri.host!)\(path)")! : URL(string: "http://\(uri.host!)\(path)")!
+        let body: [String: Any] = ["jsonrpc": "2.0", "id": "0", "method": "get_info"]
+
+        if uri.absoluteString.contains(".onion") || useSocksProxy {
+            return false
+        }
+
+        var request = URLRequest(url: rpcUri)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        let login = login ?? ""
+        let password = secret ?? ""
+        let loginString = "\(login):\(password)"
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let base64LoginString = loginData.base64EncodedString()
+        request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+
+        do {
+            let (data, _) = try await NetworkService.requestData(with: request)
+            if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let result = json["result"] as? [String: Any],
+               let offline = result["offline"] as? Bool {
+                return !offline
+            }
+        } catch {
+            Logger.log(error: error)
+            return false
+        }
+
+        return false
     }
 }

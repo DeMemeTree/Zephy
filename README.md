@@ -54,3 +54,9 @@ Just raise a PR if I find it to be useful or dank then I will merge it in.
 
 ## License
 MIT
+
+
+
+## Credits
+
+Twitter user @GrinSpickett for the app icon

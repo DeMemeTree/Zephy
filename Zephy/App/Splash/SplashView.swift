@@ -19,7 +19,7 @@ struct SplashView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(Color.zephyPurp)
         .onAppear {
-            router.changeRoot(to: .seedPhrase)
+            //router.changeRoot(to: .settings)
             //router.changeRoot(to: WalletService.doesWalletExist() ? .wallet : .seedPhrase)
         }
     }

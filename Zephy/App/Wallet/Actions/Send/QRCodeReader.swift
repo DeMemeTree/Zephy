@@ -34,7 +34,7 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             do {
                 videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
             } catch {
-                LoggerService.log(error: error)
+                Logger.log(error: error)
                 completion?(.failure(error))
                 return
             }
