@@ -366,43 +366,18 @@ extern "C" {
         return true;
     }
 
-    bool restore_wallet_from_seed(char *path, char *password, char *seed, int32_t networkType, uint64_t restoreHeight, char *error)
-    {
-        Monero::NetworkType _networkType = static_cast<Monero::NetworkType>(networkType);
+    bool restore_wallet_from_seed(char *path,
+                                  char *password,
+                                  char *seed,
+                                  uint64_t restoreHeight,
+                                  char *error) {
+        Monero::NetworkType _networkType = static_cast<Monero::NetworkType>(0);
         Monero::Wallet *wallet = Monero::WalletManagerFactory::getWalletManager()->recoveryWallet(
             std::string(path),
             std::string(password),
             std::string(seed),
             _networkType,
             (uint64_t)restoreHeight);
-
-        int status;
-        std::string errorString;
-
-        wallet->statusWithErrorString(status, errorString);
-
-        if (status != Monero::Wallet::Status_Ok || !errorString.empty())
-        {
-            error = strdup(errorString.c_str());
-            return false;
-        }
-
-        change_current_wallet(wallet);
-        return true;
-    }
-
-    bool restore_wallet_from_keys(char *path, char *password, char *language, char *address, char *viewKey, char *spendKey, int32_t networkType, uint64_t restoreHeight, char *error)
-    {
-        Monero::NetworkType _networkType = static_cast<Monero::NetworkType>(networkType);
-        Monero::Wallet *wallet = Monero::WalletManagerFactory::getWalletManager()->createWalletFromKeys(
-            std::string(path),
-            std::string(password),
-            std::string(language),
-            _networkType,
-            (uint64_t)restoreHeight,
-            std::string(address),
-            std::string(viewKey),
-            std::string(spendKey));
 
         int status;
         std::string errorString;

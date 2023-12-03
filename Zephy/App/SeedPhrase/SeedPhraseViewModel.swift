@@ -26,6 +26,7 @@ class SeedPhraseViewModel: ObservableObject {
     @Published var seedCreationState: SeedPhraseState = .none
     @Published var confirmationInput = ""
     @Published var indicesToConfirm: [Int] = []
+    @Published var restoreHeight: String = "0"
     
     @Published var error: AlertMessage?
     
@@ -48,12 +49,14 @@ class SeedPhraseViewModel: ObservableObject {
     }
 
     func restoreWallet() {
-        WalletService.restoreWallet(password: walletPassword)
+        WalletService.restoreWallet(seed: seedPhraseRestore,
+                                    password: walletPassword,
+                                    restoreHeight: UInt64(restoreHeight) ?? 0)
             .backgroundToMain()
             .sink { [weak self] success in
                 guard let self = self else { return }
                 if success {
-                    
+                    // TODO: Something here
                 }
             }.store(in: &disposeBag)
     }

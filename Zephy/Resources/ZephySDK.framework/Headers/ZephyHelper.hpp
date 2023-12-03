@@ -16,8 +16,7 @@
 extern "C" {
 #endif
     bool create_wallet(char *path, char *password, char *language, char *error);
-    bool restore_wallet_from_seed(char *path, char *password, char *seed, int32_t networkType, uint64_t restoreHeight, char *error);
-    bool restore_wallet_from_keys(char *path, char *password, char *language, char *address, char *viewKey, char *spendKey, int32_t networkType, uint64_t restoreHeight, char *error);
+    bool restore_wallet_from_seed(char *path, char *password, char *seed, uint64_t restoreHeight, char *error);
     bool load_wallet(char *path, char *password, int32_t nettype);
     bool is_wallet_exist(char *path);
 

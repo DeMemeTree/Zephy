@@ -33,6 +33,28 @@ struct SeedPhraseView: View {
                     .foregroundColor(.black)
                     .cornerRadius(10)
                     .padding()
+                
+                Text("Restore Height")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding()
+                
+                TextField("", text: Binding(
+                            get: { self.viewModel.restoreHeight },
+                            set: { newValue in
+                                if let _ = UInt(newValue) {
+                                    self.viewModel.restoreHeight = newValue
+                                } else if newValue.isEmpty {
+                                    self.viewModel.restoreHeight = ""
+                                } else {
+                                    self.viewModel.restoreHeight = String(self.viewModel.restoreHeight.filter { "0123456789".contains($0) })
+                                }
+                            }
+                        ))
+                        .foregroundColor(.white)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+
             } else if viewModel.seedCreationState != .none {
                 if viewModel.seedCreationState == .create {
                     Text("Write down all 25 words and keep the seed phrase secure.")
@@ -65,6 +87,7 @@ struct SeedPhraseView: View {
                     Text("Confirm Password")
                         .font(.footnote)
                         .foregroundColor(.gray)
+                    
                     passwordView()
                     
                     Button("Confirm", action: {

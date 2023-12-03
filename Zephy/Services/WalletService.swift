@@ -26,11 +26,37 @@ struct WalletService {
         return false
     }
     
-    static func restoreWallet(password: String) -> AnyPublisher<Bool, Never> {
+    static func restoreWallet(seed: String,
+                              password: String,
+                              restoreHeight: UInt64) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
-            publisher.send(true)
-            publisher.send(completion: .finished)
+            do {
+                let path = try FileService.pathForWallet(name: currentWalletName())
+                let pathC = (path.path() as NSString).utf8String
+                let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
+                
+                let cPassword = (password as NSString).utf8String
+                let passwordMP = UnsafeMutablePointer<CChar>(mutating: cPassword)
+                
+                let cSeed = (seed as NSString).utf8String
+                let seedMP = UnsafeMutablePointer<CChar>(mutating: cSeed)
+                
+                let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
+                
+                let result = restore_wallet_from_seed(pathMP,
+                                                      passwordMP,
+                                                      seedMP,
+                                                      restoreHeight,
+                                                      error)
+                
+                publisher.send(result)
+                publisher.send(completion: .finished)
+            } catch {
+                LoggerService.log(error: error)
+                publisher.send(false)
+                publisher.send(completion: .finished)
+            }
         }
         return publisher.eraseToAnyPublisher()
     }
