@@ -131,6 +131,10 @@ struct SeedPhraseView: View {
             }
         }
         .padding(.horizontal)
+        .alert(item: $viewModel.error) { error in
+            Alert(title: Text("Alert"),
+                  message: Text(error.text),dismissButton: .default(Text("Okay")))
+        }
     }
 
     private func passwordView() -> some View {

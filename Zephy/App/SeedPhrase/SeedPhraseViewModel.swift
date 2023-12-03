@@ -4,12 +4,18 @@
 //
 //
 import Combine
+import Foundation
 
 class SeedPhraseViewModel: ObservableObject {
     enum SeedPhraseState {
         case none
         case create
         case confirm
+    }
+    
+    struct AlertMessage: Identifiable {
+        let id = UUID()
+        let text: String
     }
     
     @Published var walletPassword = ""
@@ -21,24 +27,35 @@ class SeedPhraseViewModel: ObservableObject {
     @Published var confirmationInput = ""
     @Published var indicesToConfirm: [Int] = []
     
+    @Published var error: AlertMessage?
+    
     private var disposeBag = Set<AnyCancellable>()
     
     private var secretPassword: String?
 
     func createWallet() {
-        WalletService.createWallet(password: WalletService.password)
+        WalletService.createWallet(password: walletPassword)
             .backgroundToMain()
             .sink { [weak self] success in
                 guard let self = self else { return }
-                if success {
+                if success, KeychainService.save(password: walletPassword) {
                     generateSeedPhrase()
                     seedCreationState = .create
+                } else {
+                    error = AlertMessage(text: "Wallet password is not correct")
                 }
             }.store(in: &disposeBag)
     }
 
     func restoreWallet() {
-        // Implement wallet restoration logic here
+        WalletService.restoreWallet(password: walletPassword)
+            .backgroundToMain()
+            .sink { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    
+                }
+            }.store(in: &disposeBag)
     }
 
     func confirmSeedPhrase() -> Bool {
@@ -69,7 +86,7 @@ class SeedPhraseViewModel: ObservableObject {
 
     private func generateSeedPhrase() {
         let seed = WalletService.seedPhrase()
-        if KeychainService.store(key: "seed", value: seed) == false {
+        if KeychainService.save(seed: seed) == false {
             #warning("Do some sort of UI display and let the user attempt to resave it to keychain")
         }
         seedPhrase = seed

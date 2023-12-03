@@ -12,6 +12,7 @@
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
+		B169D6902B1C3A390092B52A /* LoggerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D68F2B1C3A390092B52A /* LoggerService.swift */; };
 		B16F53592B1997C400B066D5 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F53582B1997C400B066D5 /* WalletService.swift */; };
 		B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */; };
 		B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; };
@@ -81,6 +82,7 @@
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B169D68F2B1C3A390092B52A /* LoggerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerService.swift; sourceTree = "<group>"; };
 		B16F53582B1997C400B066D5 /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
 		B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+zephy.swift"; sourceTree = "<group>"; };
 		B188B5A32B18E27100CB37CE /* ZephySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZephySDK.framework; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				B1C89A682B144E7800FA86A2 /* FileService.swift */,
 				B16F53582B1997C400B066D5 /* WalletService.swift */,
 				B13446132B1BAC48001A44F3 /* KeychainService.swift */,
+				B169D68F2B1C3A390092B52A /* LoggerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */,
 				B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */,
 				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,
+				B169D6902B1C3A390092B52A /* LoggerService.swift in Sources */,
 				B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */,
 				B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */,
 				B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */,

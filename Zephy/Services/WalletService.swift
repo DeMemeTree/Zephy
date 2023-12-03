@@ -7,17 +7,16 @@ import Combine
 import ZephySDK
 
 struct WalletService {
-    static var password = "TestPasswordForEncryption"
-    
     static func currentWalletName() -> String {
         return "Test"
     }
     
-    static func doesWalletExist() -> Bool {
+    static func doesWalletExist(password: String? = nil) -> Bool {
         guard let path = try? FileService.pathForWallet(name: currentWalletName()) else { return false }
         let pathC = (path.path() as NSString).utf8String
         let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
-        if is_wallet_exist(pathMP) {
+        if is_wallet_exist(pathMP),
+           let password = password ?? KeychainService.password() {
             let cPassword = (password as NSString).utf8String
             let passwordMP = UnsafeMutablePointer<CChar>(mutating: cPassword)
             return load_wallet(pathMP,
@@ -27,12 +26,21 @@ struct WalletService {
         return false
     }
     
+    static func restoreWallet(password: String) -> AnyPublisher<Bool, Never> {
+        let publisher = PassthroughSubject<Bool, Never>()
+        DispatchQueue.global(qos: .background).async {
+            publisher.send(true)
+            publisher.send(completion: .finished)
+        }
+        return publisher.eraseToAnyPublisher()
+    }
+    
     static func createWallet(password: String) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
             do {
                 
-                if doesWalletExist() == false {
+                if doesWalletExist(password: password) == false {
                     let language = "English"
                     
                     let path = try FileService.pathForWallet(name: currentWalletName())
@@ -48,11 +56,13 @@ struct WalletService {
                     let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
                     
                     let result = create_wallet(pathMP, passwordMP, languageMP, error)
+                    publisher.send(result)
+                } else {
+                    publisher.send(true)
                 }
-                publisher.send(true)
                 publisher.send(completion: .finished)
             } catch {
-                print(error)
+                LoggerService.log(error: error)
                 publisher.send(false)
                 publisher.send(completion: .finished)
             }
