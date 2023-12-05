@@ -1,11 +1,11 @@
 //
-//  Nodes.swift
+//  NodesView.swift
 //  Zephy
 //
 //
 import SwiftUI
 
-struct Nodes: View {
+struct NodesView: View {
     @StateObject var viewModel = NodesViewModel()
 
     var body: some View {
@@ -32,8 +32,41 @@ struct Nodes: View {
 
             Text(viewModel.isConnected ? "Connected successfully" : "Not connected")
                 .foregroundColor(viewModel.isConnected ? .green : .red)
+            
+            nodeListLogic()
         }
         .listStyle(PlainListStyle())
         .background(Color.zephyPurp)
+    }
+    
+    @ViewBuilder
+    private func nodeListLogic() -> some View {
+        switch viewModel.state {
+        case .needsFetch:
+            Button {
+                viewModel.fetch()
+            } label: {
+                Text("Fetch node list")
+            }
+        case .loading:
+            ProgressView()
+        case .found(let fetchedNodes):
+            ForEach(fetchedNodes, id: \.url) { node in
+                row(node: node)
+            }
+        }
+    }
+    
+    private func row(node: NodeService.Node) -> some View {
+        VStack(alignment: .leading) {
+            Text(node.name)
+                .font(.headline)
+            Text("Height: \(node.height)")
+                .font(.caption)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.node = "\(node.port == 443 ? "https" : "http")://\(node.url):\(node.port)"
+        }
     }
 }

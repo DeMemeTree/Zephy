@@ -26,7 +26,7 @@ struct WalletView: View {
                         HStack {
                             Spacer()
                             Button {
-                                
+                                router.changeRoot(to: .settings)
                             } label: {
                                 Image(systemName: "gearshape")
                             }
@@ -104,13 +104,17 @@ struct WalletView: View {
                 router.changeRoot(to: .send)
                 //viewModel.sendZephyr(amount: 100)
             })
+            
             Spacer()
+            
             actionButton(title: "Receive",
                          action: {
                 router.changeRoot(to: .receive)
                 //viewModel.receiveZephyr(amount: 100)
             })
+            
             Spacer()
+            
             actionButton(title: "Swap",
                          action: {
                 router.changeRoot(to: .swap)

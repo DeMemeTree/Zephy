@@ -20,7 +20,7 @@ struct SplashView: View {
         .background(Color.zephyPurp)
         .onAppear {
             //router.changeRoot(to: .settings)
-            //router.changeRoot(to: WalletService.doesWalletExist() ? .wallet : .seedPhrase)
+            router.changeRoot(to: WalletService.doesWalletExist() ? .wallet : .seedPhrase)
         }
     }
 }

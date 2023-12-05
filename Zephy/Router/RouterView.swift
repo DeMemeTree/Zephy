@@ -26,6 +26,8 @@ struct RouterView: View {
             case .settings:
                 SettingsView()
             }
+            
+            ConnectedView()
         }
     }
 }

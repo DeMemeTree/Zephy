@@ -8,21 +8,12 @@ import Combine
 import CoreImage.CIFilterBuiltins
 
 class ReceiveViewModel: ObservableObject {
-    @Published var selectedAddress: String = ""
-    @Published var addresses: [String] = []
+    @Published var selectedAddress: String = "Example Address 1"
+    @Published var addresses: [String] = ["Example Address 1", "Example Address 2"]
     
     @Published var qrCodeImage: UIImage? = nil
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
-    
-    init() {
-        loadAddresses()
-    }
-    
-    func loadAddresses() {
-        self.addresses = ["Example Address 1", "Example Address 2"]
-        self.selectedAddress = addresses.first ?? ""
-    }
     
     func createNewAddress() {
         let newAddress = "NewlyGeneratedAddress"
