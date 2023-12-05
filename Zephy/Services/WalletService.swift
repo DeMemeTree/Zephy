@@ -64,34 +64,40 @@ struct WalletService {
     static func createWallet(password: String) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
-            do {
-                
-                if doesWalletExist(password: password) == false {
-                    let language = "English"
-                    
-                    let path = try FileService.pathForWallet(name: currentWalletName())
-                    let pathC = (path.path() as NSString).utf8String
-                    let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
-                    
-                    let cPassword = (password as NSString).utf8String
-                    let passwordMP = UnsafeMutablePointer<CChar>(mutating: cPassword)
-                    
-                    let cLanguage = (language as NSString).utf8String
-                    let languageMP = UnsafeMutablePointer<CChar>(mutating: cLanguage)
-                    
-                    let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
-                    
-                    let result = create_wallet(pathMP, passwordMP, languageMP, error)
-                    publisher.send(result)
-                } else {
-                    publisher.send(true)
+            if doesWalletExist(password: password) == false {
+//                    let language = "English"
+//
+//                    let path = try FileService.pathForWallet(name: currentWalletName())
+//                    let pathC = (path.path() as NSString).utf8String
+//                    let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
+//
+//                    let cPassword = (password as NSString).utf8String
+//                    let passwordMP = UnsafeMutablePointer<CChar>(mutating: cPassword)
+//
+//                    let cLanguage = (language as NSString).utf8String
+//                    let languageMP = UnsafeMutablePointer<CChar>(mutating: cLanguage)
+//
+//                    let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
+//
+//                    let result = create_wallet(pathMP, passwordMP, languageMP, error)
+//                    publisher.send(result)
+                Task(priority: .background) {
+                    do {
+                        let path = try FileService.pathForWallet(name: currentWalletName()).path(percentEncoded: true)
+                        let data = ZephySDK.CreateWallet(path: path,
+                                                         password: password,
+                                                         networkType: "mainnet",
+                                                         server: ZephySDK.CreateWallet.ZephyRPCConnection(uri: "http://remote-node.zephyrprotocol.com:17767"))
+                        let result = await ZephySDK.shared.createWallet(walletData: data)
+                        publisher.send(result)
+                    } catch {
+                        Logger.log(error: error)
+                    }
                 }
-                publisher.send(completion: .finished)
-            } catch {
-                Logger.log(error: error)
-                publisher.send(false)
-                publisher.send(completion: .finished)
+            } else {
+                publisher.send(true)
             }
+            publisher.send(completion: .finished)
         }
         return publisher.eraseToAnyPublisher()
     }
