@@ -13,7 +13,7 @@
 		B129D1A42B18422B006CEF85 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B129D19E2B18422B006CEF85 /* libsodium.a */; };
 		B129D1A52B18422B006CEF85 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B129D19F2B18422B006CEF85 /* libcrypto.a */; };
 		B129D1A62B18422B006CEF85 /* libunbound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B129D1A02B18422B006CEF85 /* libunbound.a */; };
-		B188B5B62B19058000CB37CE /* libzephyr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5B52B19058000CB37CE /* libzephyr.a */; };
+		B1753BAC2B2002D80060FA8B /* libzephyr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1753BAB2B2002D80060FA8B /* libzephyr.a */; };
 		B1C89A4A2B13EC9C00FA86A2 /* ZephySDK.h in Headers */ = {isa = PBXBuildFile; fileRef = B1C89A3E2B13EC9C00FA86A2 /* ZephySDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1C89A652B1443AD00FA86A2 /* ZephyHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A632B1443AD00FA86A2 /* ZephyHelper.cpp */; };
 		B1C89A662B1443AD00FA86A2 /* ZephyHelper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B1C89A642B1443AD00FA86A2 /* ZephyHelper.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,7 +26,7 @@
 		B129D19E2B18422B006CEF85 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
 		B129D19F2B18422B006CEF85 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		B129D1A02B18422B006CEF85 /* libunbound.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libunbound.a; sourceTree = "<group>"; };
-		B188B5B52B19058000CB37CE /* libzephyr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzephyr.a; sourceTree = "<group>"; };
+		B1753BAB2B2002D80060FA8B /* libzephyr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzephyr.a; sourceTree = "<group>"; };
 		B1C89A3B2B13EC9C00FA86A2 /* ZephySDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZephySDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1C89A3E2B13EC9C00FA86A2 /* ZephySDK.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = ZephySDK.h; sourceTree = "<group>"; };
 		B1C89A632B1443AD00FA86A2 /* ZephyHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZephyHelper.cpp; sourceTree = "<group>"; };
@@ -41,7 +41,7 @@
 				B129D1A42B18422B006CEF85 /* libsodium.a in Frameworks */,
 				B129D1A62B18422B006CEF85 /* libunbound.a in Frameworks */,
 				B129D1A22B18422B006CEF85 /* libssl.a in Frameworks */,
-				B188B5B62B19058000CB37CE /* libzephyr.a in Frameworks */,
+				B1753BAC2B2002D80060FA8B /* libzephyr.a in Frameworks */,
 				B129D1A52B18422B006CEF85 /* libcrypto.a in Frameworks */,
 				B129D1A32B18422B006CEF85 /* libboost.a in Frameworks */,
 			);
@@ -81,7 +81,7 @@
 		B1C89A532B13ECAB00FA86A2 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				B188B5B52B19058000CB37CE /* libzephyr.a */,
+				B1753BAB2B2002D80060FA8B /* libzephyr.a */,
 				B129D19D2B18422B006CEF85 /* libboost.a */,
 				B129D19F2B18422B006CEF85 /* libcrypto.a */,
 				B129D19E2B18422B006CEF85 /* libsodium.a */,

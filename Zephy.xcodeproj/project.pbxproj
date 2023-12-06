@@ -10,7 +10,6 @@
 		B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135D2B138633009BAB48 /* SeedPhraseView.swift */; };
 		B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */; };
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
-		B121B08D2B1F0BA9001C6D77 /* ZephySDK.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = B121B08C2B1F0BA9001C6D77 /* ZephySDK.bundle.js */; };
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
 		B169D6902B1C3A390092B52A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D68F2B1C3A390092B52A /* Logger.swift */; };
@@ -19,11 +18,11 @@
 		B169D6972B1D02230092B52A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6962B1D02230092B52A /* NetworkService.swift */; };
 		B16F53592B1997C400B066D5 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F53582B1997C400B066D5 /* WalletService.swift */; };
 		B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */; };
+		B1753BAF2B2107650060FA8B /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1753BAE2B2107650060FA8B /* StatsViewModel.swift */; };
 		B188B5A52B18E28400CB37CE /* ZephySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; };
 		B188B5A62B18E28400CB37CE /* ZephySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3A6552B1ED87900FFDAE6 /* ConnectedView.swift */; };
 		B1A3A6582B1EDCC500FFDAE6 /* NodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */; };
-		B1A3A65A2B1EFF4F00FFDAE6 /* ZephySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3A6592B1EFF4F00FFDAE6 /* ZephySDK.swift */; };
 		B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A682B144E7800FA86A2 /* FileService.swift */; };
 		B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761A2B113FD2008C2F16 /* Zephy.swift */; };
 		B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761C2B113FD2008C2F16 /* ContentView.swift */; };
@@ -87,7 +86,6 @@
 		B11E135D2B138633009BAB48 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseViewModel.swift; sourceTree = "<group>"; };
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
-		B121B08C2B1F0BA9001C6D77 /* ZephySDK.bundle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ZephySDK.bundle.js; path = javascript/dist/ZephySDK.bundle.js; sourceTree = "<group>"; };
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B169D68F2B1C3A390092B52A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -96,12 +94,13 @@
 		B169D6962B1D02230092B52A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B16F53582B1997C400B066D5 /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
 		B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+zephy.swift"; sourceTree = "<group>"; };
+		B1753BAD2B20C59A0060FA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B1753BAE2B2107650060FA8B /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		B188B5A32B18E27100CB37CE /* ZephySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZephySDK.framework; sourceTree = "<group>"; };
 		B188B5A82B18E33C00CB37CE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		B188B5AD2B18E43C00CB37CE /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		B1A3A6552B1ED87900FFDAE6 /* ConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedView.swift; sourceTree = "<group>"; };
 		B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeService.swift; sourceTree = "<group>"; };
-		B1A3A6592B1EFF4F00FFDAE6 /* ZephySDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZephySDK.swift; sourceTree = "<group>"; };
 		B1C89A682B144E7800FA86A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		B1D176172B113FD2008C2F16 /* Zephy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D1761A2B113FD2008C2F16 /* Zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephy.swift; sourceTree = "<group>"; };
@@ -206,7 +205,6 @@
 				B169D68F2B1C3A390092B52A /* Logger.swift */,
 				B169D6962B1D02230092B52A /* NetworkService.swift */,
 				B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */,
-				B1A3A6592B1EFF4F00FFDAE6 /* ZephySDK.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -235,6 +233,7 @@
 		B1D176192B113FD2008C2F16 /* Zephy */ = {
 			isa = PBXGroup;
 			children = (
+				B1753BAD2B20C59A0060FA8B /* Info.plist */,
 				B1D1761A2B113FD2008C2F16 /* Zephy.swift */,
 				B1D176472B114022008C2F16 /* App */,
 				B1D176572B1143E7008C2F16 /* Extensions */,
@@ -267,7 +266,6 @@
 		B1D176462B113FF4008C2F16 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B121B08C2B1F0BA9001C6D77 /* ZephySDK.bundle.js */,
 				B188B5A32B18E27100CB37CE /* ZephySDK.framework */,
 				B1D176202B113FD4008C2F16 /* Assets.xcassets */,
 			);
@@ -330,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D1765B2B114468008C2F16 /* StatsView.swift */,
+				B1753BAE2B2107650060FA8B /* StatsViewModel.swift */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -495,7 +494,6 @@
 			files = (
 				B1D176212B113FD4008C2F16 /* Assets.xcassets in Resources */,
 				B1D176512B1140DD008C2F16 /* Splash.storyboard in Resources */,
-				B121B08D2B1F0BA9001C6D77 /* ZephySDK.bundle.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1753BAF2B2107650060FA8B /* StatsViewModel.swift in Sources */,
 				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
 				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
 				B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */,
@@ -544,7 +543,6 @@
 				B1D176562B11422E008C2F16 /* WalletViewModel.swift in Sources */,
 				B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */,
 				B1D176662B115CCB008C2F16 /* SendView.swift in Sources */,
-				B1A3A65A2B1EFF4F00FFDAE6 /* ZephySDK.swift in Sources */,
 				B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */,
 				B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */,
 				B1D176702B11A9B2008C2F16 /* QRCodeReader.swift in Sources */,
@@ -716,7 +714,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -725,6 +723,9 @@
 					"$(PROJECT_DIR)/Zephy/Resources",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Zephy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zephy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -751,7 +752,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -760,6 +761,9 @@
 					"$(PROJECT_DIR)/Zephy/Resources",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Zephy/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zephy;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

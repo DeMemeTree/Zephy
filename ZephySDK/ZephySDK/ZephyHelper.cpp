@@ -276,36 +276,26 @@ extern "C" {
     std::mutex store_lock;
     bool is_storing = false;
 
-    void change_current_wallet(Monero::Wallet *wallet)
-    {
+    void change_current_wallet(Monero::Wallet *wallet) {
         m_wallet = wallet;
         m_listener = nullptr;
 
 
-        if (wallet != nullptr)
-        {
+        if (wallet != nullptr) {
             m_transaction_history = wallet->history();
-        }
-        else
-        {
+        } else {
             m_transaction_history = nullptr;
         }
 
-        if (wallet != nullptr)
-        {
+        if (wallet != nullptr) {
             m_account = wallet->subaddressAccount();
-        }
-        else
-        {
+        } else {
             m_account = nullptr;
         }
 
-        if (wallet != nullptr)
-        {
+        if (wallet != nullptr) {
             m_subaddress = wallet->subaddress();
-        }
-        else
-        {
+        } else {
             m_subaddress = nullptr;
         }
 
@@ -321,26 +311,12 @@ extern "C" {
 //        }
     }
 
-    Monero::Wallet *get_current_wallet()
-    {
+    Monero::Wallet *get_current_wallet() {
         return m_wallet;
     }
 
-    bool create_wallet(char *path, char *password, char *language, char *error)
-    {
+    bool create_wallet(char *path, char *password, char *language, char *error) {
         Monero::WalletManager *walletManager = Monero::WalletManagerFactory::getWalletManager();
-        
-//        if(walletManager->walletExists(path)) {
-//            std::cout << "Wallet exists opening it..." << std::endl;
-//            return load_wallet(path, password, 0);
-//        }
-        
-        std::cout << "About to create wallet" << std::endl;
-        std::cout << path << std::endl;
-        std::cout << password << std::endl;
-        std::cout << language << std::endl;
-        
-        
         Monero::Wallet *wallet = walletManager->createWallet(path,
                                                              password,
                                                              language,
@@ -348,21 +324,14 @@ extern "C" {
 
         int status;
         std::string errorString;
-
-        std::cout << "Status Call" << std::endl;
         wallet->statusWithErrorString(status, errorString);
 
-        if (wallet->status() != Monero::Wallet::Status_Ok)
-        {
+        if (wallet->status() != Monero::Wallet::Status_Ok) {
             std::cout << wallet->errorString() << std::endl;
             error = strdup(wallet->errorString().c_str());
             return false;
         }
-        
-        std::cout << "Created Wallet" << std::endl;
-
         change_current_wallet(wallet);
-
         return true;
     }
 

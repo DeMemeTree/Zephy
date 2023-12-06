@@ -28,65 +28,154 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4F72C88F-55D7-409F-A633-7008D39E8793"
+            uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Zephy/Services/ZephySDK.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "createWallet(walletData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A1105149-3308-4B66-B29F-EA0734EE3FB7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zephy/Services/ZephySDK.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "createWallet(walletData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B6B1DA13-2003-4FDA-93C0-767DBDBEEC3F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zephy/App/SeedPhrase/SeedPhraseViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "createWallet()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C98C9621-3781-4AC2-A692-F2A815F0328F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Zephy/Services/ZephySDK.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "init()"
-            landmarkType = "7">
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 6c06293f1d405969"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 47bd3518f77fa56b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "340">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 6c06293f1d405908"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "340">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 47bd3518f77fa50a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "348">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 6c06293f1d405a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "348">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 47bd3518f77fa68e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "356">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 6c06293f1d405a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "268">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - 47bd3518f77fa68e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "E667C0A0-9928-464A-ADF0-5B86C17B3D86 - bc982176c9f3d73e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Zephy.ZephySDK.createWallet(walletData: Zephy.ZephySDK.CreateWallet) async -&gt; Swift.Bool"
+                  moduleName = "Zephy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dememetree/Desktop/Zephy/Zephy/Services/ZephySDK.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "2616">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

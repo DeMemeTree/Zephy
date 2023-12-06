@@ -9,6 +9,27 @@ import Security
 class KeychainService {
     private static let seedKey = "seedKey"
     private static let passwordKey = "passwordKey"
+    private static let nodeURLKey = "nodeURLKey"
+    
+    static func save(node: String,
+                     login: String?,
+                     password: String?) {
+        UserDefaults.standard.setValue(node, forKey: nodeURLKey)
+        UserDefaults.standard.setValue(login, forKey: nodeURLKey + "login")
+        UserDefaults.standard.setValue(password, forKey: nodeURLKey + "password")
+    }
+    
+    static func fetchNode() -> String? {
+        return UserDefaults.standard.string(forKey: nodeURLKey)
+    }
+    
+    static func fetchNodeLogin() -> String? {
+        return UserDefaults.standard.string(forKey: nodeURLKey + "login")
+    }
+    
+    static func fetchNodePassword() -> String? {
+        return UserDefaults.standard.string(forKey:  nodeURLKey + "password")
+    }
     
     static func save(seed: String) -> Bool {
         return KeychainService.store(key: seedKey, value: seed)

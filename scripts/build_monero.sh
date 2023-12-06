@@ -9,12 +9,12 @@ PREFIX=${EXTERNAL_IOS_DIR}
 DEST_LIB_DIR=${EXTERNAL_IOS_LIB_DIR}/monero
 DEST_INCLUDE_DIR=${EXTERNAL_IOS_INCLUDE_DIR}/monero
 
-echo "Cloning monero from - $MONERO_URL to - $MONERO_DIR_PATH"		
-git clone $MONERO_URL $MONERO_DIR_PATH
+# echo "Cloning monero from - $MONERO_URL to - $MONERO_DIR_PATH"		
+# git clone $MONERO_URL $MONERO_DIR_PATH
 cd $MONERO_DIR_PATH
-git checkout $MONERO_VERSION
-git submodule update --init --force
-mkdir -p build
+# git checkout $MONERO_VERSION
+# git submodule update --init --force
+# mkdir -p build
 cd ..
 
 mkdir -p $DEST_LIB_DIR

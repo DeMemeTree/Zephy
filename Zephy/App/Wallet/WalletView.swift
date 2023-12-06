@@ -24,6 +24,8 @@ struct WalletView: View {
                 VStack(spacing: 8) {
                     ZStack {
                         HStack {
+                            Image(systemName: viewModel.isConnected ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
+                                .foregroundColor(viewModel.isConnected ? .green : .red)
                             Spacer()
                             Button {
                                 router.changeRoot(to: .settings)

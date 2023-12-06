@@ -56,7 +56,7 @@ cmake -D IOS=ON \
 make wallet_api -j4
 find . -path ./lib -prune -o -name '*.a' -exec cp '{}' lib \;
 cp -r ./lib/* $DEST_LIB_DIR
-cp ../../src/wallet/api/wallet2_api.h  $DEST_INCLUDE_DIR
+#cp ../../src/wallet/api/wallet2_api.h  $DEST_INCLUDE_DIR
 popd
 
 done

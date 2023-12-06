@@ -122,7 +122,7 @@ struct SeedPhraseView: View {
             if viewModel.seedCreationState == .none || viewModel.isRestoreViewActive {
                 Button(action: {
                     if viewModel.isRestoreViewActive {
-                        viewModel.restoreWallet()
+                        viewModel.restoreWallet(router: router)
                     } else {
                         viewModel.createWallet()
                     }
@@ -144,7 +144,8 @@ struct SeedPhraseView: View {
                     Button("Create", action: {
                         viewModel.isRestoreViewActive = false
                     })
-                        .padding()
+                    .padding()
+                    
                     Button("Restore", action: {
                         viewModel.isRestoreViewActive = true
                     })

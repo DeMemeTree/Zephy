@@ -5,6 +5,7 @@
 //
 import Foundation
 
+
 class NodesViewModel: ObservableObject {
     enum State {
         case needsFetch
@@ -18,11 +19,25 @@ class NodesViewModel: ObservableObject {
     @Published var isConnected: Bool = false
     
     @Published var state: State = .needsFetch
+    
+    init() {
+        if let node = KeychainService.fetchNode() {
+            isConnected = WalletService.isConnected()
+            self.node = node
+        }
+        if let login = KeychainService.fetchNodeLogin() {
+            self.login = login
+        }
+        if let password = KeychainService.fetchNodePassword() {
+            self.secret = password
+        }
+    }
 
+    @MainActor
     func connectToNode() async {
-        isConnected = await WalletService.requestNode(node: node,
-                                                      login: login,
-                                                      secret: secret)
+        isConnected = await WalletService.connect(node: node,
+                                                  login: login,
+                                                  password: secret)
     }
     
     func fetch() {

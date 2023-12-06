@@ -48,15 +48,14 @@ class SeedPhraseViewModel: ObservableObject {
             }.store(in: &disposeBag)
     }
 
-    func restoreWallet() {
+    func restoreWallet(router: Router) {
         WalletService.restoreWallet(seed: seedPhraseRestore,
                                     password: walletPassword,
                                     restoreHeight: UInt64(restoreHeight) ?? 0)
             .backgroundToMain()
             .sink { [weak self] success in
-                guard let self = self else { return }
                 if success {
-                    // TODO: Something here
+                    router.changeRoot(to: .wallet)
                 }
             }.store(in: &disposeBag)
     }
