@@ -18,40 +18,60 @@ struct ReceiveView: View {
                     .foregroundColor(.white)
                     .padding()
 
-                Picker("Select or Create Address", selection: $viewModel.selectedAddress) {
-                    ForEach(viewModel.addresses, id: \.self) { address in
-                        Text(address).tag(address)
+                if viewModel.addresses.count > 0 {
+                    Picker("Select or Create Address", selection: $viewModel.selectedAddress) {
+                        ForEach(0..<viewModel.addresses.count,
+                                id: \.self) { index in
+                            Text(viewModel.addresses[index].0)
+                                .tag(viewModel.addresses[index].0)
+                        }
+                    }
+                    .tint(Color.white)
+                    .pickerStyle(MenuPickerStyle())
+                    .background(Color.gray.opacity(0.2))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding()
+                }
+                
+                if let addy = viewModel.address(label: viewModel.selectedAddress) {
+                    Text("Scroll horizontally to see more")
+                        .font(.footnote)
+                    
+                    ScrollView(.horizontal,
+                               showsIndicators: false) {
+                        HStack {
+                            Rectangle()
+                                .frame(width: 25, height: 40)
+                                .foregroundColor(.clear)
+                            
+                            Text(addy)
+                                .lineLimit(1)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .foregroundColor(.white)
+                            
+                            Rectangle()
+                                .frame(width: 25, height: 40)
+                                .foregroundColor(.clear)
+                        }
                     }
                 }
-                .tint(Color.white)
-                .pickerStyle(MenuPickerStyle())
-                .background(Color.gray.opacity(0.2))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .padding()
                 
                 VStack(alignment: .center) {
-                    Text("Address (\(viewModel.selectedAddress))")
-                        .foregroundColor(.white)
-                        .lineLimit(8)
-                        .padding()
-                        .background(Color.black.opacity(0.5))
-                        .cornerRadius(8)
-                    
                     if let qrCodeImage = viewModel.qrCodeImage {
                         Image(uiImage: qrCodeImage)
                             .resizable()
                             .interpolation(.none)
                             .scaledToFit()
                             .frame(width: 200, height: 200)
-                            .contextMenu {
-                                Button(action: {
-                                    // Save or share the QR code
-                                }) {
-                                    Text("Save QR Code")
-                                    Image(systemName: "square.and.arrow.down")
-                                }
-                            }
+//                            .contextMenu {
+//                                Button(action: {
+//                                    // Save or share the QR code
+//                                }) {
+//                                    Text("Save QR Code")
+//                                    Image(systemName: "square.and.arrow.down")
+//                                }
+//                            }
                     }
                     
                     Spacer()
@@ -98,6 +118,9 @@ struct ReceiveView: View {
                     .padding(.top, 8)
                 }
                 .padding()
+            }
+            .onAppear {
+                viewModel.load()
             }
             .background(Color.zephyPurp.edgesIgnoringSafeArea(.all))
             .toolbar {

@@ -11,7 +11,11 @@ struct StatsView: View {
     
     var body: some View {
         VStack {
-            if let record = viewModel.pricingRecord {
+            if viewModel.notConnected {
+                Text("Not connected to a node")
+                    .padding()
+                Spacer()
+            } else if let record = viewModel.pricingRecord {
                 pricing(record: record)
             } else {
                 ProgressView()

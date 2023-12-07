@@ -725,30 +725,28 @@ extern "C" {
         get_current_wallet()->setListener(m_listener);
     }
 
-    int64_t *subaddrress_get_all()
-    {
-        std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
-        size_t size = _subaddresses.size();
-        int64_t *subaddresses = (int64_t *)malloc(size * sizeof(int64_t));
+//    int64_t *subaddrress_get_all()
+//    {
+//        std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
+//        size_t size = _subaddresses.size();
+//        int64_t *subaddresses = (int64_t *)malloc(size * sizeof(int64_t));
+//
+//        for (size_t i = 0; i < size; i++)
+//        {
+//            Monero::SubaddressRow *row = _subaddresses[i];
+//            SubaddressRow *_row = new SubaddressRow(row->getRowId(), strdup(row->getAddress().c_str()), strdup(row->getLabel().c_str()));
+//            subaddresses[i] = reinterpret_cast<int64_t>(_row);
+//        }
+//
+//        return subaddresses;
+//    }
 
-        for (int i = 0; i < size; i++)
-        {
-            Monero::SubaddressRow *row = _subaddresses[i];
-            SubaddressRow *_row = new SubaddressRow(row->getRowId(), strdup(row->getAddress().c_str()), strdup(row->getLabel().c_str()));
-            subaddresses[i] = reinterpret_cast<int64_t>(_row);
-        }
-
-        return subaddresses;
-    }
-
-    int32_t subaddrress_size()
-    {
+    size_t subaddrress_size() {
         std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
         return _subaddresses.size();
     }
 
-    void subaddress_add_row(uint32_t accountIndex, char *label)
-    {
+    void subaddress_add_row(uint32_t accountIndex, char *label) {
         m_subaddress->addRow(accountIndex, std::string(label));
     }
 
@@ -762,30 +760,28 @@ extern "C" {
         m_subaddress->refresh(accountIndex);
     }
 
-    int32_t account_size()
-    {
-        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
-        return _accocunts.size();
-    }
+//    size_t account_size() {
+//        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
+//        return _accocunts.size();
+//    }
+//
+//    int64_t *account_get_all()
+//    {
+//        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
+//        size_t size = _accocunts.size();
+//        int64_t *accocunts = (int64_t *)malloc(size * sizeof(int64_t));
+//
+//        for (int i = 0; i < size; i++)
+//        {
+//            Monero::SubaddressAccountRow *row = _accocunts[i];
+//            AccountRow *_row = new AccountRow(row->getRowId(), strdup(row->getLabel().c_str()));
+//            accocunts[i] = reinterpret_cast<int64_t>(_row);
+//        }
+//
+//        return accocunts;
+//    }
 
-    int64_t *account_get_all()
-    {
-        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
-        size_t size = _accocunts.size();
-        int64_t *accocunts = (int64_t *)malloc(size * sizeof(int64_t));
-
-        for (int i = 0; i < size; i++)
-        {
-            Monero::SubaddressAccountRow *row = _accocunts[i];
-            AccountRow *_row = new AccountRow(row->getRowId(), strdup(row->getLabel().c_str()));
-            accocunts[i] = reinterpret_cast<int64_t>(_row);
-        }
-
-        return accocunts;
-    }
-
-    void account_add_row(char *label)
-    {
+    void account_add_row(char *label) {
         m_account->addRow(std::string(label));
     }
 
@@ -861,9 +857,27 @@ extern "C" {
         return strdup(m_wallet->getTxKey(std::string(txId)).c_str());
     }
 
-    char *get_subaddress_label(uint32_t accountIndex, uint32_t addressIndex)
-    {
+    char *get_subaddress_label(uint32_t accountIndex, uint32_t addressIndex) {
         return strdup(get_current_wallet()->getSubaddressLabel(accountIndex, addressIndex).c_str());
+    }
+
+    char *get_subaddress_account(uint32_t accountIndex, uint32_t addressIndex) {
+        std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
+        size_t size = _subaddresses.size();
+        int64_t *subaddresses = (int64_t *)malloc(size * sizeof(int64_t));
+        
+        Monero::SubaddressRow *row = nullptr;
+        
+        for (size_t i = 0; i < size; i++) {
+            if(i == addressIndex) {
+                row = _subaddresses[i];
+                break;
+            }
+        }
+        if(row == nullptr) {
+            return nullptr;
+        }
+        return strdup(row->getAddress().c_str());
     }
 
     void set_trusted_daemon(bool arg)

@@ -22,7 +22,15 @@ extern "C" {
 
     char *get_filename();
     const char *seed();
-    char *get_address(uint32_t account_index, uint32_t address_index);
+
+    size_t subaddrress_size();
+    char *get_subaddress_label(uint32_t accountIndex, uint32_t addressIndex);
+    char *get_subaddress_account(uint32_t accountIndex, uint32_t addressIndex);
+    void subaddress_add_row(uint32_t accountIndex, char *label);
+
+//    void account_add_row(char *label);
+
+    //char *get_address(uint32_t account_index, uint32_t address_index);
     uint64_t get_full_balance(uint32_t account_index);
     uint64_t get_unlocked_balance(uint32_t account_index);
     uint64_t get_current_height();

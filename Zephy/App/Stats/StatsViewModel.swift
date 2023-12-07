@@ -7,20 +7,30 @@ import SwiftUI
 
 final class StatsViewModel: ObservableObject {
     @Published var pricingRecord: WalletService.PricingRecord?
+    @Published var notConnected: Bool = false
+    
     private let pricingRecordKey = "pricingRecord"
     private let lastFetchedHeightKey = "lastFetchedHeight"
 
     init() {
         loadCachedPricingRecord()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            if self.pricingRecord == nil {
+                self.notConnected = true
+            }
+        })
     }
 
     func load() async {
         let height = await WalletService.getCurrentBlockHeight()
-        guard height != cachedHeight() else { return }
+        guard height != cachedHeight() else {
+            return
+        }
         
         let record = await WalletService.getPricingRecordFromBlock(height: height)
         cachePricingRecord(record, height: height)
         DispatchQueue.main.async {
+            self.notConnected = false
             self.pricingRecord = record
         }
     }

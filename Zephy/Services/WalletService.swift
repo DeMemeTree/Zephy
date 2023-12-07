@@ -39,6 +39,26 @@ struct WalletService {
         return false
     }
     
+    static func allAddresses() -> [(String, String)] {
+        var retVal = [(String, String)]()
+        var count = subaddrress_size()
+        if count == 0 {
+            let nameC = ("DMT" as NSString).utf8String
+            let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
+            subaddress_add_row(0, nameMP);
+            count = 1
+        }
+        (0..<count).forEach { index in
+            if let subAddy = get_subaddress_label(0, UInt32(index)) {
+                let found = String(cString: subAddy)
+                if let account = get_subaddress_account(0, UInt32(0)) {
+                    retVal.append((found, String(cString: account)))
+                }
+            }
+        }
+        return retVal
+    }
+    
     static func restoreWallet(seed: String,
                               password: String,
                               restoreHeight: UInt64) -> AnyPublisher<Bool, Never> {

@@ -16,7 +16,11 @@ struct SettingsView: View {
                 NodesView()
                 
                 Button(showSeedPhraseView ? "Hide Seed" : "Show Seed Phrase") {
-                    showingSeedPhraseAlert.toggle()
+                    if showSeedPhraseView {
+                        showSeedPhraseView.toggle()
+                    } else {
+                        showingSeedPhraseAlert.toggle()
+                    }
                 }
                 
                 if showSeedPhraseView,

@@ -8,31 +8,52 @@ import Combine
 import CoreImage.CIFilterBuiltins
 
 class ReceiveViewModel: ObservableObject {
-    @Published var selectedAddress: String = "Example Address 1"
-    @Published var addresses: [String] = ["Example Address 1", "Example Address 2"]
-    
+    @Published var selectedAddress: String = ""
+    @Published var addresses: [(String, String)] = []
     @Published var qrCodeImage: UIImage? = nil
-    let context = CIContext()
-    let filter = CIFilter.qrCodeGenerator()
+    
+    func load() {
+        addresses = WalletService.allAddresses()
+        if let first = addresses.first {
+            selectedAddress = first.0
+        }
+    }
+    
+    func address(label: String) -> String? {
+        var retval: String? = nil
+        for item in addresses {
+            if item.0 == label {
+                retval = item.1
+            }
+        }
+        return retval
+    }
     
     func createNewAddress() {
-        let newAddress = "NewlyGeneratedAddress"
-        self.addresses.append(newAddress)
-        self.selectedAddress = newAddress
+//        let newAddress = "NewlyGeneratedAddress"
+//        //self.addresses.append(newAddress)
+//        self.selectedAddress = newAddress
     }
     
     func generateQRCode() {
-        let data = Data(selectedAddress.utf8)
-        filter.setValue(data, forKey: "inputMessage")
+        guard let foundAccount = address(label: selectedAddress) else { return }
+        let data = Data(foundAccount.utf8)
+        DispatchQueue.global(qos: .background).async {
+            let context = CIContext()
+            let filter = CIFilter.qrCodeGenerator()
+            filter.setValue(data, forKey: "inputMessage")
 
-        if let qrCodeCIImage = filter.outputImage {
-            if let qrCodeCGImage = context.createCGImage(qrCodeCIImage, from: qrCodeCIImage.extent) {
-                self.qrCodeImage = UIImage(cgImage: qrCodeCGImage)
+            if let qrCodeCIImage = filter.outputImage {
+                if let qrCodeCGImage = context.createCGImage(qrCodeCIImage, from: qrCodeCIImage.extent) {
+                    DispatchQueue.main.async {
+                        self.qrCodeImage = UIImage(cgImage: qrCodeCGImage)
+                    }
+                }
             }
         }
     }
     
     func copyAddressToClipboard() {
-        UIPasteboard.general.string = selectedAddress
+        UIPasteboard.general.string = address(label: selectedAddress)
     }
 }
