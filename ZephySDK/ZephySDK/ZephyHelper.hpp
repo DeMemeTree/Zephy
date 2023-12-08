@@ -29,8 +29,8 @@ extern "C" {
     char *get_subaddress_account(uint32_t accountIndex, uint32_t addressIndex);
     void subaddress_add_row(uint32_t accountIndex, char *label);
 
-    uint64_t get_full_balance(uint32_t account_index);
-    uint64_t get_unlocked_balance(uint32_t account_index);
+    uint64_t get_full_balance(char *assetTyp, uint32_t account_index);
+    uint64_t get_unlocked_balance(char *assetTyp, uint32_t account_indexe);
     uint64_t get_current_height();
     uint64_t get_node_height();
 

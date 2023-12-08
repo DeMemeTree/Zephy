@@ -25,6 +25,20 @@ struct WalletService {
         return "Test"
     }
     
+    static func seedPhrase() -> String {
+        return String(cString: seed())
+    }
+    
+    static func currentAssetBalance(asset: Assets, full: Bool) -> UInt64 {
+        let assetTypeC = (asset.rawValue as NSString).utf8String
+        let assetTypeMP = UnsafeMutablePointer<CChar>(mutating: assetTypeC)
+        return full ? get_full_balance(assetTypeMP, 0) : get_unlocked_balance(assetTypeMP, 0)
+    }
+    
+    static func isConnected() -> Bool {
+        return is_connected()
+    }
+    
     static func doesWalletExist(password: String? = nil) -> Bool {
         guard let path = try? FileService.pathForWallet(name: currentWalletName()) else { return false }
         let pathC = (path.path() as NSString).utf8String
@@ -136,8 +150,8 @@ struct WalletService {
     }
     
     static func transactionCreate(assetType: String,
-                         toAddress: String,
-                         amount: String) -> AnyPublisher<Bool, Never> {
+                                  toAddress: String,
+                                  amount: String) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
             let cSource = (assetType as NSString).utf8String
@@ -158,19 +172,6 @@ struct WalletService {
             publisher.send(completion: .finished)
         }
         return publisher.eraseToAnyPublisher()
-    }
-    
-    static func seedPhrase() -> String {
-        return String(cString: seed())
-    }
-    
-    static func currentZephBalance() -> UInt64 {
-        #warning("Need to handle unlocked vs full")
-        return get_full_balance(0)
-    }
-    
-    static func isConnected() -> Bool {
-        return is_connected()
     }
     
     static func connect(node: String,
@@ -204,6 +205,8 @@ struct WalletService {
                 DispatchQueue.global(qos: .background).async {
                     let current = get_current_height()
                     let node = get_node_height()
+//                    print("current: \(current)")
+//                    print("node: \(node)")
                     if node == current {
                         stopCheck()
                     }

@@ -63,7 +63,9 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             previewLayer.videoGravity = .resizeAspectFill
             view.layer.addSublayer(previewLayer)
 
-            captureSession.startRunning()
+            DispatchQueue.global(qos: .background).async {
+                self.captureSession.startRunning()
+            }
         }
 
         func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

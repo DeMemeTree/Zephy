@@ -37,9 +37,23 @@ struct WalletView: View {
                             .font(.headline)
                             .foregroundColor(.white)
                     }
-                    balanceText("Zeph: \(viewModel.zephyrBalance)", type: .zephyr)
-                    balanceText("ZSD: \(viewModel.zephyrStableDollarsBalance)", type: .stableDollars)
-                    balanceText("ZRS: \(viewModel.zephyrReserveBalance)", type: .reserve)
+                    if viewModel.zephyrBalance != viewModel.zephyrBalanceUnlocked {
+                        balanceText("Zeph: \(viewModel.zephyrBalanceUnlocked) - Locked \(viewModel.zephyrBalance)", type: .zephyr)
+                    } else {
+                        balanceText("Zeph: \(viewModel.zephyrBalance)", type: .zephyr)
+                    }
+                    
+                    if viewModel.zephyrStableDollarsBalance != viewModel.zephyrStableDollarsBalanceUnlocked {
+                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalanceUnlocked) - Locked \(viewModel.zephyrStableDollarsBalance)", type: .stableDollars)
+                    } else {
+                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalance)", type: .stableDollars)
+                    }
+                    
+                    if viewModel.zephyrReserveBalance != viewModel.zephyrReserveBalanceUnlocked {
+                        balanceText("ZRS: \(viewModel.zephyrReserveBalanceUnlocked) - Locked \(viewModel.zephyrReserveBalance)", type: .reserve)
+                    } else {
+                        balanceText("ZRS: \(viewModel.zephyrReserveBalance)", type: .reserve)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding()

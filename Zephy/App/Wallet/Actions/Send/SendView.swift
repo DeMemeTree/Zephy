@@ -17,7 +17,7 @@ struct SendView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
                     Text("Asset")
                         .foregroundColor(.gray)
@@ -37,12 +37,13 @@ struct SendView: View {
                 
                 HStack {
                     TextField("", text: $viewModel.recipientAddress)
+                        .frame(height: 45)
                         .placeholder(when: viewModel.recipientAddress.isEmpty) {
-                                Text("Enter recipient address")
+                            Text("Enter recipient address")
                                 .foregroundColor(Color(uiColor: UIColor.lightGray))
                         }
+                        .contentShape(Rectangle())
                         .foregroundColor(.white)
-                    Spacer()
                     
                     Button(action: {
                         self.showingQRCodeScanner = true
@@ -51,14 +52,32 @@ struct SendView: View {
                             .foregroundColor(.white)
                     }
                     .sheet(isPresented: $showingQRCodeScanner) {
-                        QRCodeScannerView { result in
-                            switch result {
-                            case .success(let code):
-                                viewModel.recipientAddress = code
-                            case .failure(let error):
-                                print("Scanning failed: \(error.localizedDescription)")
+                        ZStack {
+                            QRCodeScannerView { result in
+                                switch result {
+                                case .success(let code):
+                                    viewModel.recipientAddress = code
+                                case .failure(let error):
+                                    print("Scanning failed: \(error.localizedDescription)")
+                                }
+                                showingQRCodeScanner = false
                             }
-                            showingQRCodeScanner = false
+                            
+                            VStack {
+                                HStack {
+                                    Button {
+                                        showingQRCodeScanner = false
+                                    } label: {
+                                        Image(systemName: "xmark")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                    }
+                                    .padding()
+
+                                    Spacer()
+                                }
+                                Spacer()
+                            }
                         }
                         .edgesIgnoringSafeArea(.bottom)
                     }
@@ -73,6 +92,7 @@ struct SendView: View {
                     
                     HStack {
                         TextField("", text: $viewModel.amount)
+                            .frame(height: 45)
                             .placeholder(when: viewModel.amount.isEmpty) {
                                     Text("Enter amount")
                                     .foregroundColor(Color(uiColor: UIColor.lightGray))
@@ -101,29 +121,38 @@ struct SendView: View {
                         .foregroundColor(.white)
                 }
                 .padding()
+                .padding(.vertical, 0)
                 
                 VStack(alignment: .leading) {
                     Text("Recipient Address")
-                        
-                    ScrollView(.horizontal,
-                               showsIndicators: false) {
-                        HStack {
-                            Text(viewModel.recipientAddress)
-                                .lineLimit(1)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .foregroundColor(.white)
-                            
-                            Rectangle()
-                                .frame(width: 15, height: 40)
-                                .foregroundColor(.clear)
-                        }
-                    }
                     
-                    Text("Scroll horizontally to see more")
-                        .font(.footnote)
+                    if viewModel.recipientAddress.isEmpty == false {
+                        ScrollView(.horizontal,
+                                   showsIndicators: false) {
+                            HStack {
+                                Text(viewModel.recipientAddress)
+                                    .lineLimit(1)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .foregroundColor(.white)
+                                
+                                Rectangle()
+                                    .frame(width: 15, height: 40)
+                                    .foregroundColor(.clear)
+                            }
+                        }
+                        
+                        Text("Scroll horizontally to see more")
+                            .font(.footnote)
+                    } else {
+                        Rectangle()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.clear)
+                    }
                 }
                 .foregroundColor(.gray)
                 .padding([.leading, .vertical])
+                .padding(.vertical, 0)
                 
                 HStack {
                     Text("Amount")
@@ -133,6 +162,7 @@ struct SendView: View {
                         .foregroundColor(.white)
                 }
                 .padding()
+                .padding(.vertical, 0)
                 
                 HStack {
                     Text("Unlock Time")
@@ -141,10 +171,12 @@ struct SendView: View {
                         .foregroundColor(.white)
                 }
                 .padding()
+                .padding(.vertical, 0)
 
                 
                 Button(action: {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    // TODO: Need some sort of validation that amount and address were entered.
                     withAnimation {
                         showingPreviewAlert = true
                     }
@@ -160,6 +192,12 @@ struct SendView: View {
                 }
                 .padding()
             }
+            .onAppear {
+                viewModel.updateAvailableAmount()
+            }
+            .onChange(of: viewModel.selectedAsset, { _, newValue in
+                viewModel.updateAvailableAmount()
+            })
             .background(Color.zephyPurp)
             .navigationTitle("Transfer Asset")
             .navigationBarTitleDisplayMode(.inline)

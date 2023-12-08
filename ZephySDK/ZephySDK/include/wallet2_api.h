@@ -607,18 +607,18 @@ struct Wallet
     virtual void setTrustedDaemon(bool arg) = 0;
     virtual bool trustedDaemon() const = 0;
     virtual bool setProxy(const std::string &address) = 0;
-    virtual uint64_t balance(uint32_t accountIndex = 0) const = 0;
+    virtual uint64_t balance(const std::string &source_asset, uint32_t accountIndex = 0) const = 0;
     uint64_t balanceAll() const {
         uint64_t result = 0;
         for (uint32_t i = 0; i < numSubaddressAccounts(); ++i)
-            result += balance(i);
+            result += balance("ZEPH", i);
         return result;
     }
-    virtual uint64_t unlockedBalance(uint32_t accountIndex = 0) const = 0;
+    virtual uint64_t unlockedBalance(const std::string &source_asset, uint32_t accountIndex = 0) const = 0;
     uint64_t unlockedBalanceAll() const {
         uint64_t result = 0;
         for (uint32_t i = 0; i < numSubaddressAccounts(); ++i)
-            result += unlockedBalance(i);
+            result += unlockedBalance("ZEPH", i);
         return result;
     }
 

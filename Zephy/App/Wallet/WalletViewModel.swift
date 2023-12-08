@@ -12,9 +12,15 @@ class WalletViewModel: ObservableObject {
         case reserve
     }
     
-    @Published var zephyrBalance: UInt64 = WalletService.currentZephBalance()
-    @Published var zephyrStableDollarsBalance: Double = 4.20
-    @Published var zephyrReserveBalance: Double = 6942
+    @Published var zephyrBalance: UInt64 = WalletService.currentAssetBalance(asset: .zeph, full: true)
+    @Published var zephyrStableDollarsBalance: UInt64 = WalletService.currentAssetBalance(asset: .zsd, full: true)
+    @Published var zephyrReserveBalance: UInt64 = WalletService.currentAssetBalance(asset: .zrs, full: true)
+    
+    @Published var zephyrBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zeph, full: false)
+    @Published var zephyrStableDollarsBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zsd, full: false)
+    @Published var zephyrReserveBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zrs, full: false)
+    
+    
     @Published var isConnected = true
     
     init() {
@@ -25,6 +31,14 @@ class WalletViewModel: ObservableObject {
                 isConnected = await WalletService.connect(node: node,
                                                           login: login,
                                                           password: password)
+                
+                zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
+                zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
+                zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
+                
+                zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
+                zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
+                zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
             } else {
                 isConnected = false
             }
