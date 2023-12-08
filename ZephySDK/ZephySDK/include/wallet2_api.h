@@ -840,7 +840,8 @@ struct Wallet
      *                                  after object returned
      */
 
-    virtual PendingTransaction * createTransactionMultDest(const std::vector<std::string> &dst_addr, const std::string &payment_id,
+    virtual PendingTransaction * createTransactionMultDest(const std::string &source_asset,
+                                                           const std::vector<std::string> &dst_addr, const std::string &payment_id,
                                                    optional<std::vector<uint64_t>> amount, uint32_t mixin_count,
                                                    PendingTransaction::Priority = PendingTransaction::Priority_Low,
                                                    uint32_t subaddr_account = 0,
@@ -859,8 +860,11 @@ struct Wallet
      *                          after object returned
      */
 
-    virtual PendingTransaction * createTransaction(const std::string &dst_addr, const std::string &payment_id,
-                                                   optional<uint64_t> amount, uint32_t mixin_count,
+    virtual PendingTransaction * createTransaction(const std::string &source_asset,
+                                                   const std::string &dst_addr,
+                                                   const std::string &payment_id,
+                                                   optional<uint64_t> amount,
+                                                   uint32_t mixin_count,
                                                    PendingTransaction::Priority = PendingTransaction::Priority_Low,
                                                    uint32_t subaddr_account = 0,
                                                    std::set<uint32_t> subaddr_indices = {}) = 0;

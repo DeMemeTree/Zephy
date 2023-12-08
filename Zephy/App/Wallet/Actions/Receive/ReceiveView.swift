@@ -9,7 +9,7 @@ struct ReceiveView: View {
     @EnvironmentObject var router: Router
     @StateObject var viewModel = ReceiveViewModel()
     @State private var showToastMessage: String? = nil
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -118,9 +118,6 @@ struct ReceiveView: View {
                     .padding(.top, 8)
                 }
                 .padding()
-            }
-            .onAppear {
-                viewModel.load()
             }
             .background(Color.zephyPurp.edgesIgnoringSafeArea(.all))
             .toolbar {

@@ -190,26 +190,6 @@ extern "C" {
         }
     };
 
-//    struct PendingTransactionRaw
-//    {
-//        uint64_t amount;
-//        uint64_t fee;
-//        char *hash;
-//        char *hex;
-//        char *txKey;
-//        Monero::PendingTransaction *transaction;
-//
-//        PendingTransactionRaw(Monero::PendingTransaction *_transaction)
-//        {
-//            transaction = _transaction;
-//            amount = _transaction->amount();
-//            fee = _transaction->fee();
-//            hash = strdup(_transaction->txid()[0].c_str());
-//            hex = strdup(_transaction->hex()[0].c_str());
-//            txKey = strdup(_transaction->txKey()[0].c_str());
-//        }
-//    };
-
 //    struct CoinsInfoRow
 //    {
 //        uint64_t blockHeight;
@@ -538,119 +518,46 @@ extern "C" {
         return is_changed;
     }
 
-//    bool transaction_create(char *address, char *payment_id, char *amount,
-//                            uint8_t priority_raw, uint32_t subaddr_account,
-//                            char **preferred_inputs, uint32_t preferred_inputs_size,
-//                            Utf8Box &error, PendingTransactionRaw &pendingTransaction)
-//    {
-//        nice(19);
-//
-//        std::set<std::string> _preferred_inputs;
-//
-//        for (int i = 0; i < preferred_inputs_size; i++) {
-//            _preferred_inputs.insert(std::string(*preferred_inputs));
-//            preferred_inputs++;
-//        }
-//      
-//        auto priority = static_cast<Monero::PendingTransaction::Priority>(priority_raw);
-//        std::string _payment_id;
-//        Monero::PendingTransaction *transaction;
-//
-//        if (payment_id != nullptr)
-//        {
-//            _payment_id = std::string(payment_id);
-//        }
-//
-//        if (amount != nullptr)
-//        {
-//            uint64_t _amount = Monero::Wallet::amountFromString(std::string(amount));
-//            transaction = m_wallet->createTransaction(std::string(address), _payment_id, _amount, m_wallet->defaultMixin(), priority, subaddr_account, {}, _preferred_inputs);
-//        }
-//        else
-//        {
-//            transaction = m_wallet->createTransaction(std::string(address), _payment_id, Monero::optional<uint64_t>(), m_wallet->defaultMixin(), priority, subaddr_account, {}, _preferred_inputs);
-//        }
-//
-//        int status = transaction->status();
-//
-//        if (status == Monero::PendingTransaction::Status::Status_Error || status == Monero::PendingTransaction::Status::Status_Critical)
-//        {
-//            error = Utf8Box(strdup(transaction->errorString().c_str()));
-//            return false;
-//        }
-//
-//        if (m_listener != nullptr) {
-//            m_listener->m_new_transaction = true;
-//        }
-//
-//        pendingTransaction = PendingTransactionRaw(transaction);
-//        return true;
-//    }
-//
-//    bool transaction_create_mult_dest(char **addresses, char *payment_id, char **amounts, uint32_t size,
-//                                      uint8_t priority_raw, uint32_t subaddr_account,
-//                                      char **preferred_inputs, uint32_t preferred_inputs_size,
-//                                      Utf8Box &error, PendingTransactionRaw &pendingTransaction)
-//    {
-//        nice(19);
-//
-//        std::vector<std::string> _addresses;
-//        std::vector<uint64_t> _amounts;
-//
-//        for (int i = 0; i < size; i++) {
-//            _addresses.push_back(std::string(*addresses));
-//            _amounts.push_back(Monero::Wallet::amountFromString(std::string(*amounts)));
-//            addresses++;
-//            amounts++;
-//        }
-//
-//        std::set<std::string> _preferred_inputs;
-//
-//        for (int i = 0; i < preferred_inputs_size; i++) {
-//            _preferred_inputs.insert(std::string(*preferred_inputs));
-//            preferred_inputs++;
-//        }
-//
-//        auto priority = static_cast<Monero::PendingTransaction::Priority>(priority_raw);
-//        std::string _payment_id;
-//        Monero::PendingTransaction *transaction;
-//
-//        if (payment_id != nullptr)
-//        {
-//            _payment_id = std::string(payment_id);
-//        }
-//
-//        transaction = m_wallet->createTransactionMultDest(_addresses, _payment_id, _amounts, m_wallet->defaultMixin(), priority, subaddr_account);
-//
-//        int status = transaction->status();
-//
-//        if (status == Monero::PendingTransaction::Status::Status_Error || status == Monero::PendingTransaction::Status::Status_Critical)
-//        {
-//            error = Utf8Box(strdup(transaction->errorString().c_str()));
-//            return false;
-//        }
-//
-//        if (m_listener != nullptr) {
-//            m_listener->m_new_transaction = true;
-//        }
-//
-//        pendingTransaction = PendingTransactionRaw(transaction);
-//        return true;
-//    }
-//
-//    bool transaction_commit(PendingTransactionRaw *transaction, Utf8Box &error)
-//    {
-//        bool committed = transaction->transaction->commit();
-//
-//        if (!committed)
-//        {
-//            error = Utf8Box(strdup(transaction->transaction->errorString().c_str()));
-//        } else if (m_listener != nullptr) {
-//            m_listener->m_new_transaction = true;
-//        }
-//
-//        return committed;
-//    }
+    bool transaction_create(char *source_asset,
+                            char *address,
+                            char *amount,
+                            char *error) {
+        nice(19);
+
+        // could expose this but there is no need to go higher than low really...
+        auto priority = static_cast<Monero::PendingTransaction::Priority>(1);
+        std::string _payment_id;
+        Monero::PendingTransaction *transaction;
+
+        if (amount != nullptr) {
+            uint64_t _amount = Monero::Wallet::amountFromString(std::string(amount));
+            transaction = m_wallet->createTransaction(std::string(source_asset),
+                                                      std::string(address),
+                                                      _payment_id,
+                                                      _amount,
+                                                      m_wallet->defaultMixin());
+        } else {
+            transaction = m_wallet->createTransaction(std::string(source_asset),
+                                                      std::string(address),
+                                                      _payment_id,
+                                                      Monero::optional<uint64_t>(),
+                                                      m_wallet->defaultMixin());
+        }
+
+        int status = transaction->status();
+
+        if (status == Monero::PendingTransaction::Status::Status_Error || status == Monero::PendingTransaction::Status::Status_Critical)
+        {
+            error = strdup(transaction->errorString().c_str());
+            return false;
+        }
+
+        if (m_listener != nullptr) {
+            m_listener->m_new_transaction = true;
+        }
+        
+        return transaction->commit();
+    }
 
     uint64_t get_node_height_or_update(uint64_t base_eight)
     {
@@ -760,11 +667,6 @@ extern "C" {
         m_subaddress->refresh(accountIndex);
     }
 
-//    size_t account_size() {
-//        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
-//        return _accocunts.size();
-//    }
-//
 //    int64_t *account_get_all()
 //    {
 //        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
@@ -781,9 +683,6 @@ extern "C" {
 //        return accocunts;
 //    }
 
-    void account_add_row(char *label) {
-        m_account->addRow(std::string(label));
-    }
 
     void account_set_label_row(uint32_t account_index, char *label)
     {

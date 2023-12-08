@@ -6,16 +6,36 @@
 import SwiftUI
 import Combine
 import CoreImage.CIFilterBuiltins
+import ZephySDK
 
 class ReceiveViewModel: ObservableObject {
     @Published var selectedAddress: String = ""
     @Published var addresses: [(String, String)] = []
     @Published var qrCodeImage: UIImage? = nil
     
+    let walletCountKey = "walletCountKey"
+    
+    init() {
+        DispatchQueue.global(qos: .background).async {
+            self.load()
+        }
+    }
+    
     func load() {
-        addresses = WalletService.allAddresses()
-        if let first = addresses.first {
-            selectedAddress = first.0
+        DispatchQueue.main.async {
+            self.addresses = WalletService.allAddresses()
+            
+            let found = UserDefaults.standard.integer(forKey: self.walletCountKey)
+            if self.addresses.count < found {
+                let amount = found - self.addresses.count
+                (0..<amount).forEach { _ in
+                    self.createNewAddress(save: false)
+                }
+            }
+
+            if let last = self.addresses.last {
+                self.selectedAddress = last.0
+            }
         }
     }
     
@@ -29,10 +49,16 @@ class ReceiveViewModel: ObservableObject {
         return retval
     }
     
-    func createNewAddress() {
-//        let newAddress = "NewlyGeneratedAddress"
-//        //self.addresses.append(newAddress)
-//        self.selectedAddress = newAddress
+    func createNewAddress(save: Bool = true) {
+        WalletService.createSubaddress()
+        if save {
+            UserDefaults.standard.setValue(subaddrress_size(),
+                                           forKey: walletCountKey)
+        }
+        load()
+        if let last = self.addresses.last {
+            self.selectedAddress = last.0
+        }
     }
     
     func generateQRCode() {

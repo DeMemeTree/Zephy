@@ -19,7 +19,8 @@ struct WalletService {
     }
     
     private static let DEATOMIZE: Double = pow(10, -12)
-
+    private static var refreshTimer: Timer?
+    
     static func currentWalletName() -> String {
         return "Test"
     }
@@ -46,17 +47,25 @@ struct WalletService {
             let nameC = ("DMT" as NSString).utf8String
             let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
             subaddress_add_row(0, nameMP);
-            count = 1
+            count = subaddrress_size()
         }
+        
         (0..<count).forEach { index in
             if let subAddy = get_subaddress_label(0, UInt32(index)) {
                 let found = String(cString: subAddy)
-                if let account = get_subaddress_account(0, UInt32(0)) {
+                if let account = get_subaddress_account(0, UInt32(index)) {
                     retVal.append((found, String(cString: account)))
                 }
             }
         }
         return retVal
+    }
+    
+    static func createSubaddress() {
+        let count = subaddrress_size()
+        let nameC = ("Subaddress #\(count + 1)" as NSString).utf8String
+        let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
+        subaddress_add_row(0, nameMP)
     }
     
     static func restoreWallet(seed: String,
@@ -126,11 +135,37 @@ struct WalletService {
         return publisher.eraseToAnyPublisher()
     }
     
+    static func transactionCreate(assetType: String,
+                         toAddress: String,
+                         amount: String) -> AnyPublisher<Bool, Never> {
+        let publisher = PassthroughSubject<Bool, Never>()
+        DispatchQueue.global(qos: .background).async {
+            let cSource = (assetType as NSString).utf8String
+            let sourceMP = UnsafeMutablePointer<CChar>(mutating: cSource)
+            
+            let cToAddy = (toAddress as NSString).utf8String
+            let addyMP = UnsafeMutablePointer<CChar>(mutating: cToAddy)
+            
+            let cAmount = (toAddress as NSString).utf8String
+            let amountMP = UnsafeMutablePointer<CChar>(mutating: cAmount)
+            let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
+            
+            let result = transaction_create(sourceMP,
+                                            addyMP,
+                                            amountMP,
+                                            error)
+            publisher.send(result)
+            publisher.send(completion: .finished)
+        }
+        return publisher.eraseToAnyPublisher()
+    }
+    
     static func seedPhrase() -> String {
         return String(cString: seed())
     }
     
     static func currentZephBalance() -> UInt64 {
+        #warning("Need to handle unlocked vs full")
         return get_full_balance(0)
     }
     
@@ -149,11 +184,37 @@ struct WalletService {
             KeychainService.save(node: node,
                                  login: login,
                                  password: password)
-            return WalletService.connectToNode(address: node,
+            let retval = WalletService.connectToNode(address: node,
                                                login: login,
                                                password: password)
+            
+            if retval {
+                start_refresh()
+                startBlockCheck()
+            }
+            return retval
         }
         return false
+    }
+    
+    static func startBlockCheck() {
+        refreshTimer?.invalidate()
+        DispatchQueue.main.async {
+            refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+                DispatchQueue.global(qos: .background).async {
+                    let current = get_current_height()
+                    let node = get_node_height()
+                    if node == current {
+                        stopCheck()
+                    }
+                }
+            }
+        }
+    }
+    
+    static func stopCheck() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
     }
     
     private static func connectToNode(address: String,
@@ -175,11 +236,11 @@ struct WalletService {
         let errorMP = UnsafeMutablePointer<CChar>(mutating: cError)
         
         let _ = setup_node(addyMP,
-                                    loginMP,
-                                    passwordMP,
-                                    useSSL,
-                                    isLight,
-                                    errorMP)
+                           loginMP,
+                           passwordMP,
+                           useSSL,
+                           isLight,
+                           errorMP)
         
         return connect_to_node(errorMP)
     }

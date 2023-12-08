@@ -15,6 +15,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
     bool create_wallet(char *path, char *password, char *language, char *error);
     bool restore_wallet_from_seed(char *path, char *password, char *seed, uint64_t restoreHeight, char *error);
     bool load_wallet(char *path, char *password, int32_t nettype);
@@ -28,13 +29,15 @@ extern "C" {
     char *get_subaddress_account(uint32_t accountIndex, uint32_t addressIndex);
     void subaddress_add_row(uint32_t accountIndex, char *label);
 
-//    void account_add_row(char *label);
-
-    //char *get_address(uint32_t account_index, uint32_t address_index);
     uint64_t get_full_balance(uint32_t account_index);
     uint64_t get_unlocked_balance(uint32_t account_index);
     uint64_t get_current_height();
     uint64_t get_node_height();
+
+    bool transaction_create(char *source_asset,
+                            char *address,
+                            char *amount,
+                            char *error);
 
     bool is_connected();
 
