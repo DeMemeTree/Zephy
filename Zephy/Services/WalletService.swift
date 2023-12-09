@@ -29,6 +29,10 @@ struct WalletService {
         return String(cString: seed())
     }
     
+    static func restore(height: UInt64) {
+        set_refresh_from_block_height(height)
+    }
+    
     static func currentAssetBalance(asset: Assets, full: Bool) -> UInt64 {
         let assetTypeC = (asset.rawValue as NSString).utf8String
         let assetTypeMP = UnsafeMutablePointer<CChar>(mutating: assetTypeC)
@@ -37,6 +41,13 @@ struct WalletService {
     
     static func isConnected() -> Bool {
         return is_connected()
+    }
+    
+    static func storeWallet() {
+        guard let path = try? FileService.pathForWallet(name: currentWalletName()) else { return }
+        let pathC = (path.path() as NSString).utf8String
+        let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
+        store(pathMP)
     }
     
     static func doesWalletExist(password: String? = nil) -> Bool {
@@ -58,16 +69,20 @@ struct WalletService {
         var retVal = [(String, String)]()
         var count = subaddrress_size()
         if count == 0 {
-            let nameC = ("DMT" as NSString).utf8String
+            let nameC = ("Address #1" as NSString).utf8String
             let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
             subaddress_add_row(0, nameMP);
+            //storeWallet()
             count = subaddrress_size()
+            print(count)
         }
         
         (0..<count).forEach { index in
             if let subAddy = get_subaddress_label(0, UInt32(index)) {
                 let found = String(cString: subAddy)
+                print(found)
                 if let account = get_subaddress_account(0, UInt32(index)) {
+                    print(String(cString: account))
                     retVal.append((found, String(cString: account)))
                 }
             }
@@ -77,9 +92,10 @@ struct WalletService {
     
     static func createSubaddress() {
         let count = subaddrress_size()
-        let nameC = ("Subaddress #\(count + 1)" as NSString).utf8String
+        let nameC = ("Subaddress #\(count)" as NSString).utf8String
         let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
         subaddress_add_row(0, nameMP)
+        storeWallet()
     }
     
     static func restoreWallet(seed: String,
@@ -192,23 +208,40 @@ struct WalletService {
             if retval {
                 start_refresh()
                 startBlockCheck()
+                
             }
             return retval
         }
         return false
     }
     
+    static func rescanBlockchain() {
+        DispatchQueue.global(qos: .background).async {
+            print("Rescaning")
+            rescan_blockchain()
+        }
+    }
+    
     static func startBlockCheck() {
+        var current = get_current_height()
+        var node = get_node_height()
+        guard synchronized() == false, current != node else {
+            print("already synchronized")
+            return }
+        print("looking through those blocks")
         refreshTimer?.invalidate()
         DispatchQueue.main.async {
             refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
                 DispatchQueue.global(qos: .background).async {
-                    let current = get_current_height()
-                    let node = get_node_height()
-//                    print("current: \(current)")
-//                    print("node: \(node)")
-                    if node == current {
+                    current = get_current_height()
+                    node = get_node_height()
+                    #warning("Show the user the difference between these two so they can see it actively syncing... similar to how cake shows it")
+                    print("current: \(current)")
+                    print("node: \(node)")
+                    print(synchronized())
+                    if synchronized(), current == node {
                         stopCheck()
+                        WalletService.storeWallet()
                     }
                 }
             }

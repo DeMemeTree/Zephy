@@ -24,8 +24,13 @@ struct WalletView: View {
                 VStack(spacing: 8) {
                     ZStack {
                         HStack {
-                            Image(systemName: viewModel.isConnected ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
-                                .foregroundColor(viewModel.isConnected ? .green : .red)
+                            Button {
+                                WalletService.rescanBlockchain()
+                            } label: {
+                                Image(systemName: viewModel.isConnected ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
+                                    .foregroundColor(viewModel.isConnected ? .green : .red)
+                            }
+
                             Spacer()
                             Button {
                                 router.changeRoot(to: .settings)
@@ -38,21 +43,21 @@ struct WalletView: View {
                             .foregroundColor(.white)
                     }
                     if viewModel.zephyrBalance != viewModel.zephyrBalanceUnlocked {
-                        balanceText("Zeph: \(viewModel.zephyrBalanceUnlocked) - Locked \(viewModel.zephyrBalance)", type: .zephyr)
+                        balanceText("Zeph: \(viewModel.zephyrBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrBalance.formatHuman())", type: .zephyr)
                     } else {
-                        balanceText("Zeph: \(viewModel.zephyrBalance)", type: .zephyr)
+                        balanceText("Zeph: \(viewModel.zephyrBalance.formatHuman())", type: .zephyr)
                     }
                     
                     if viewModel.zephyrStableDollarsBalance != viewModel.zephyrStableDollarsBalanceUnlocked {
-                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalanceUnlocked) - Locked \(viewModel.zephyrStableDollarsBalance)", type: .stableDollars)
+                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrStableDollarsBalance.formatHuman())", type: .stableDollars)
                     } else {
-                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalance)", type: .stableDollars)
+                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalance.formatHuman())", type: .stableDollars)
                     }
                     
                     if viewModel.zephyrReserveBalance != viewModel.zephyrReserveBalanceUnlocked {
-                        balanceText("ZRS: \(viewModel.zephyrReserveBalanceUnlocked) - Locked \(viewModel.zephyrReserveBalance)", type: .reserve)
+                        balanceText("ZRS: \(viewModel.zephyrReserveBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrReserveBalance.formatHuman())", type: .reserve)
                     } else {
-                        balanceText("ZRS: \(viewModel.zephyrReserveBalance)", type: .reserve)
+                        balanceText("ZRS: \(viewModel.zephyrReserveBalance.formatHuman())", type: .reserve)
                     }
                 }
                 .frame(maxWidth: .infinity)

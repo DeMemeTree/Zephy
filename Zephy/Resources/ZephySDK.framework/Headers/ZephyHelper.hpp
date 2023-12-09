@@ -40,9 +40,11 @@ extern "C" {
                             char *error);
 
     bool is_connected();
+    bool synchronized();
 
     bool setup_node(char *address, char *login, char *password, bool use_ssl, bool is_light_wallet, char *error);
     bool connect_to_node(char *error);
+    void rescan_blockchain();
     void start_refresh();
     void set_refresh_from_block_height(uint64_t height);
     void set_recovering_from_seed(bool is_recovery);

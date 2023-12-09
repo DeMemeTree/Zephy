@@ -3,7 +3,7 @@
 //  Zephy
 //
 //
-import Foundation
+import SwiftUI
 
 class WalletViewModel: ObservableObject {
     enum CurrencyType {
@@ -32,13 +32,16 @@ class WalletViewModel: ObservableObject {
                                                           login: login,
                                                           password: password)
                 
-                zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
-                zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
-                zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
-                
-                zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
-                zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
-                zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
+                withAnimation {
+                    zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
+                    zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
+                    zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
+                    
+                    //print(WalletService.currentAssetBalance(asset: .zeph, full: false))
+                    zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
+                    zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
+                    zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
+                }
             } else {
                 isConnected = false
             }

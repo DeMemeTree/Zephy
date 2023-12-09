@@ -25,13 +25,13 @@ class ReceiveViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.addresses = WalletService.allAddresses()
             
-            let found = UserDefaults.standard.integer(forKey: self.walletCountKey)
-            if self.addresses.count < found {
-                let amount = found - self.addresses.count
-                (0..<amount).forEach { _ in
-                    self.createNewAddress(save: false)
-                }
-            }
+//            let found = UserDefaults.standard.integer(forKey: self.walletCountKey)
+//            if self.addresses.count < found {
+//                let amount = found - self.addresses.count
+//                (0..<amount).forEach { _ in
+//                    self.createNewAddress(save: false)
+//                }
+//            }
 
             if let last = self.addresses.last {
                 self.selectedAddress = last.0

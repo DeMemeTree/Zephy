@@ -23,21 +23,21 @@ class SendViewModel: ObservableObject {
     
     func updateAvailableAmount() {
         if selectedAsset == Assets.zeph.uiDisplay {
-            availableAmount = String(zephyrBalanceUnlocked)
+            availableAmount = String(zephyrBalanceUnlocked.formatHuman())
         } else if selectedAsset == Assets.zsd.uiDisplay {
-            availableAmount = String(zephyrStableDollarsBalanceUnlocked)
+            availableAmount = String(zephyrStableDollarsBalanceUnlocked.formatHuman())
         } else if selectedAsset == Assets.zrs.uiDisplay {
-            availableAmount = String(zephyrReserveBalanceUnlocked)
+            availableAmount = String(zephyrReserveBalanceUnlocked.formatHuman())
         }
     }
 
     func useMaxAmount() {
         if selectedAsset == Assets.zeph.uiDisplay {
-            amount = String(zephyrBalanceUnlocked)
+            amount = String(zephyrBalanceUnlocked.formatHuman())
         } else if selectedAsset == Assets.zsd.uiDisplay {
-            amount = String(zephyrStableDollarsBalanceUnlocked)
+            amount = String(zephyrStableDollarsBalanceUnlocked.formatHuman())
         } else if selectedAsset == Assets.zrs.uiDisplay {
-            amount = String(zephyrReserveBalanceUnlocked)
+            amount = String(zephyrReserveBalanceUnlocked.formatHuman())
         }
     }
     

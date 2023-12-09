@@ -343,8 +343,11 @@ extern "C" {
         return true;
     }
 
-    bool load_wallet(char *path, char *password, int32_t nettype)
-    {
+    void subaddress_refresh(uint32_t accountIndex) {
+        m_subaddress->refresh(accountIndex);
+    }
+
+    bool load_wallet(char *path, char *password, int32_t nettype) {
         nice(19);
         Monero::NetworkType networkType = static_cast<Monero::NetworkType>(nettype);
         Monero::WalletManager *walletManager = Monero::WalletManagerFactory::getWalletManager();
@@ -354,7 +357,8 @@ extern "C" {
 
         wallet->statusWithErrorString(status, errorString);
         change_current_wallet(wallet);
-
+        subaddress_refresh(0);
+        
         return !(status != Monero::Wallet::Status_Ok || !errorString.empty());
     }
 
@@ -474,9 +478,12 @@ extern "C" {
         return inited;
     }
 
-    bool is_connected()
-    {
+    bool is_connected() {
         return get_current_wallet()->connected();
+    }
+
+    bool synchronized() {
+        return get_current_wallet()->synchronized();
     }
 
     void start_refresh()
@@ -499,6 +506,7 @@ extern "C" {
     {
         store_lock.lock();
         if (is_storing) {
+            store_lock.unlock();
             return;
         }
 
@@ -662,11 +670,6 @@ extern "C" {
         m_subaddress->setLabel(accountIndex, addressIndex, std::string(label));
     }
 
-    void subaddress_refresh(uint32_t accountIndex)
-    {
-        m_subaddress->refresh(accountIndex);
-    }
-
 //    int64_t *account_get_all()
 //    {
 //        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
@@ -746,8 +749,7 @@ extern "C" {
         Monero::WalletManagerFactory::setLogLevel(0);
     }
 
-    void rescan_blockchain()
-    {
+    void rescan_blockchain() {
         m_wallet->rescanBlockchainAsync();
     }
 
@@ -763,7 +765,6 @@ extern "C" {
     char *get_subaddress_account(uint32_t accountIndex, uint32_t addressIndex) {
         std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
         size_t size = _subaddresses.size();
-        int64_t *subaddresses = (int64_t *)malloc(size * sizeof(int64_t));
         
         Monero::SubaddressRow *row = nullptr;
         

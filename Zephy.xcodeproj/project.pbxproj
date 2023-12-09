@@ -12,6 +12,7 @@
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
+		B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F52B2439010028F741 /* UInt+zephy.swift */; };
 		B169D6902B1C3A390092B52A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D68F2B1C3A390092B52A /* Logger.swift */; };
 		B169D6932B1CFFA90092B52A /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6922B1CFFA90092B52A /* NodesView.swift */; };
 		B169D6952B1CFFC90092B52A /* NodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6942B1CFFC90092B52A /* NodesViewModel.swift */; };
@@ -88,6 +89,7 @@
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B15713F52B2439010028F741 /* UInt+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+zephy.swift"; sourceTree = "<group>"; };
 		B169D68F2B1C3A390092B52A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B169D6922B1CFFA90092B52A /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
 		B169D6942B1CFFC90092B52A /* NodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesViewModel.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				B1D176582B1143F9008C2F16 /* Color+zephy.swift */,
 				B1D1766C2B11A792008C2F16 /* View+zephy.swift */,
 				B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */,
+				B15713F52B2439010028F741 /* UInt+zephy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */,
 				B1D176662B115CCB008C2F16 /* SendView.swift in Sources */,
 				B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */,
+				B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */,
 				B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */,
 				B1D176702B11A9B2008C2F16 /* QRCodeReader.swift in Sources */,
 				B1D176742B11B276008C2F16 /* ToastView.swift in Sources */,
