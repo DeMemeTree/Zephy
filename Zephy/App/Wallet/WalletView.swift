@@ -9,6 +9,7 @@ import SwiftUI
 struct WalletView: View {
     @EnvironmentObject var router: Router
     @StateObject var viewModel = WalletViewModel()
+    let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,30 +23,8 @@ struct WalletView: View {
             
             VStack(spacing: 20) {
                 VStack(spacing: 8) {
-                    ZStack {
-                        HStack {
-                            Spacer()
-                        }
-                        
-                        SyncHeader()
-                    }
-                    if viewModel.zephyrBalance != viewModel.zephyrBalanceUnlocked {
-                        balanceText("Zeph: \(viewModel.zephyrBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrBalance.formatHuman())", type: .zephyr)
-                    } else {
-                        balanceText("Zeph: \(viewModel.zephyrBalance.formatHuman())", type: .zephyr)
-                    }
-                    
-                    if viewModel.zephyrStableDollarsBalance != viewModel.zephyrStableDollarsBalanceUnlocked {
-                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrStableDollarsBalance.formatHuman())", type: .stableDollars)
-                    } else {
-                        balanceText("ZSD: \(viewModel.zephyrStableDollarsBalance.formatHuman())", type: .stableDollars)
-                    }
-                    
-                    if viewModel.zephyrReserveBalance != viewModel.zephyrReserveBalanceUnlocked {
-                        balanceText("ZRS: \(viewModel.zephyrReserveBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrReserveBalance.formatHuman())", type: .reserve)
-                    } else {
-                        balanceText("ZRS: \(viewModel.zephyrReserveBalance.formatHuman())", type: .reserve)
-                    }
+                    SyncHeader()
+                    balances()
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -62,6 +41,54 @@ struct WalletView: View {
                 .background(Color.white)
             
             StatsView()
+        }
+        .onReceive(timer) { _ in
+            guard SyncHeader.isConnected else { return }
+            WalletService.startBlockCheck()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            guard SyncHeader.isConnected else { return }
+            WalletService.startBlockCheck()
+        }
+        .onAppear {
+            guard SyncHeader.isConnected else { return }
+            WalletService.startBlockCheck()
+        }
+        .onReceive(SyncHeader.syncRx) { newData in
+            viewModel.loadB()
+        }
+    }
+    
+    @ViewBuilder
+    private func balances() -> some View {
+        if viewModel.zephyrBalance != viewModel.zephyrBalanceUnlocked {
+            balance(viewModel.zephyrBalanceUnlocked,
+                    type: .zephyr,
+                    lockedBalance: viewModel.zephyrBalance)
+        } else {
+            balance(viewModel.zephyrBalanceUnlocked,
+                    type: .zephyr,
+                    lockedBalance: 0)
+        }
+        
+        if viewModel.zephyrStableDollarsBalance != viewModel.zephyrStableDollarsBalanceUnlocked {
+            balance(viewModel.zephyrStableDollarsBalanceUnlocked,
+                    type: .stableDollars,
+                    lockedBalance: viewModel.zephyrStableDollarsBalance)
+        } else {
+            balance(viewModel.zephyrStableDollarsBalanceUnlocked,
+                    type: .stableDollars,
+                    lockedBalance: 0)
+        }
+        
+        if viewModel.zephyrReserveBalance != viewModel.zephyrReserveBalanceUnlocked {
+            balance(viewModel.zephyrReserveBalanceUnlocked,
+                    type: .reserve,
+                    lockedBalance: viewModel.zephyrReserveBalance)
+        } else {
+            balance(viewModel.zephyrReserveBalanceUnlocked,
+                    type: .reserve,
+                    lockedBalance: 0)
         }
     }
     
@@ -80,7 +107,9 @@ struct WalletView: View {
         }
     }
     
-    private func balanceText(_ text: String, type: WalletViewModel.CurrencyType) -> some View {
+    private func balance(_ balance: UInt64,
+                         type: WalletViewModel.CurrencyType,
+                         lockedBalance: UInt64) -> some View {
         HStack {
             switch type {
             case .reserve:
@@ -97,9 +126,16 @@ struct WalletView: View {
                     .frame(width: 40, height: 40)
             }
             
-            Text(text)
-                .font(.body)
-                .foregroundColor(.white)
+            VStack(alignment: .leading, spacing: 0) {
+                if lockedBalance > 0, lockedBalance >= balance {
+                    Text("LOCKED: \((lockedBalance - balance).formatHuman())")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+                Text(balance.formatHuman())
+                    .font(.body)
+                    .foregroundColor(.white)
+            }
             Spacer()
         }
         .padding(.vertical, 4)

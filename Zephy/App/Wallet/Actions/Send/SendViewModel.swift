@@ -44,6 +44,8 @@ class SendViewModel: ObservableObject {
     }
     
     func makeTransaction(router: Router) {
+        guard recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else { return }
+        
         var assetType: String = ""
         if selectedAsset == Assets.zeph.uiDisplay {
             assetType = Assets.zeph.rawValue

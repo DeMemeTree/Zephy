@@ -11,6 +11,8 @@ struct RouterView: View {
     var body: some View {
         ZStack {
             switch router.topView {
+            case .onboarding:
+                OnboardingView()
             case .splash:
                 SplashView()
             case .wallet:

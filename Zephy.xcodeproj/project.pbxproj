@@ -15,6 +15,9 @@
 		B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F52B2439010028F741 /* UInt+zephy.swift */; };
 		B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F82B255A9A0028F741 /* SyncHeader.swift */; };
 		B15713FB2B2562D90028F741 /* string+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713FA2B2562D90028F741 /* string+zephy.swift */; };
+		B15713FE2B260A000028F741 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713FD2B260A000028F741 /* OnboardingView.swift */; };
+		B15714002B260A200028F741 /* OnboardingLanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713FF2B260A200028F741 /* OnboardingLanding.swift */; };
+		B15714022B260A3A0028F741 /* OnboardingInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15714012B260A3A0028F741 /* OnboardingInstructions.swift */; };
 		B169D6902B1C3A390092B52A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D68F2B1C3A390092B52A /* Logger.swift */; };
 		B169D6932B1CFFA90092B52A /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6922B1CFFA90092B52A /* NodesView.swift */; };
 		B169D6952B1CFFC90092B52A /* NodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6942B1CFFC90092B52A /* NodesViewModel.swift */; };
@@ -94,6 +97,9 @@
 		B15713F52B2439010028F741 /* UInt+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+zephy.swift"; sourceTree = "<group>"; };
 		B15713F82B255A9A0028F741 /* SyncHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncHeader.swift; sourceTree = "<group>"; };
 		B15713FA2B2562D90028F741 /* string+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "string+zephy.swift"; sourceTree = "<group>"; };
+		B15713FD2B260A000028F741 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B15713FF2B260A200028F741 /* OnboardingLanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLanding.swift; sourceTree = "<group>"; };
+		B15714012B260A3A0028F741 /* OnboardingInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInstructions.swift; sourceTree = "<group>"; };
 		B169D68F2B1C3A390092B52A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B169D6922B1CFFA90092B52A /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
 		B169D6942B1CFFC90092B52A /* NodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesViewModel.swift; sourceTree = "<group>"; };
@@ -189,6 +195,16 @@
 				B15713F82B255A9A0028F741 /* SyncHeader.swift */,
 			);
 			path = Sync;
+			sourceTree = "<group>";
+		};
+		B15713FC2B2609C10028F741 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B15713FD2B260A000028F741 /* OnboardingView.swift */,
+				B15713FF2B260A200028F741 /* OnboardingLanding.swift */,
+				B15714012B260A3A0028F741 /* OnboardingInstructions.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		B169D6912B1CFF960092B52A /* Node */ = {
@@ -290,9 +306,9 @@
 			isa = PBXGroup;
 			children = (
 				B11E135C2B138610009BAB48 /* SeedPhrase */,
-				B1D1765A2B114460008C2F16 /* Stats */,
 				B1D1764D2B1140B4008C2F16 /* Splash */,
 				B1D176772B11B84F008C2F16 /* Models */,
+				B15713FC2B2609C10028F741 /* Onboarding */,
 				B1D176692B11A762008C2F16 /* ViewUtils */,
 				B1D176522B1141BA008C2F16 /* Wallet */,
 			);
@@ -324,6 +340,7 @@
 				B1D176552B11422E008C2F16 /* WalletViewModel.swift */,
 				B1D176602B115A12008C2F16 /* Actions */,
 				B13446102B1BA9C4001A44F3 /* Settings */,
+				B1D1765A2B114460008C2F16 /* Stats */,
 				B15713F72B255A870028F741 /* Sync */,
 			);
 			path = Wallet;
@@ -559,7 +576,10 @@
 				B1D176642B115CC4008C2F16 /* ReceiveView.swift in Sources */,
 				B1D176592B1143F9008C2F16 /* Color+zephy.swift in Sources */,
 				B1D1765C2B114468008C2F16 /* StatsView.swift in Sources */,
+				B15714022B260A3A0028F741 /* OnboardingInstructions.swift in Sources */,
+				B15713FE2B260A000028F741 /* OnboardingView.swift in Sources */,
 				B1D176562B11422E008C2F16 /* WalletViewModel.swift in Sources */,
+				B15714002B260A200028F741 /* OnboardingLanding.swift in Sources */,
 				B1D1764C2B114049008C2F16 /* RouterView.swift in Sources */,
 				B1D176662B115CCB008C2F16 /* SendView.swift in Sources */,
 				B1D176722B11B08D008C2F16 /* ReceiveViewModel.swift in Sources */,

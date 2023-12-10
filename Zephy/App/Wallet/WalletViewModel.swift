@@ -30,28 +30,22 @@ class WalletViewModel: ObservableObject {
                                                           login: login,
                                                           password: password)
                 
-                withAnimation {
-                    zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
-                    zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
-                    zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
-                    zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
-                    zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
-                    zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
-                }
+                loadB()
             }
         }
     }
-
-    func sendZephyr(amount: Double) {
-        // Implementation for sending Zephyr
-    }
-
-    func receiveZephyr(amount: Double) {
-        // Implementation for receiving Zephyr
-    }
-
-    func swapZephyr(amount: Double,
-                    currencyType: CurrencyType) {
-        // Implementation for swapping Zephyr with other currencies
+    
+    func loadB() {
+        DispatchQueue.main.async {
+            withAnimation {
+                self.zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
+                self.zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
+                self.zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
+                
+                self.zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
+                self.zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
+                self.zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
+            }
+        }
     }
 }

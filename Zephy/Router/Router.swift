@@ -8,6 +8,7 @@ import SwiftUI
 
 final class Router: ObservableObject {
     indirect enum Route: Equatable {
+        case onboarding
         case splash
         case wallet
         case seedPhrase
