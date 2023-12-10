@@ -183,6 +183,9 @@ struct WalletService {
                                             addyMP,
                                             amountMP,
                                             error)
+            if result {
+                storeWallet()
+            }
             publisher.send(result)
             publisher.send(completion: .finished)
         }
