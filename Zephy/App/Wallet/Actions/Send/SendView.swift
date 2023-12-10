@@ -37,7 +37,7 @@ struct SendView: View {
                 
                 HStack {
                     TextField("", text: $viewModel.recipientAddress)
-                        .frame(height: 45)
+                        .frame(height: 50)
                         .placeholder(when: viewModel.recipientAddress.isEmpty) {
                             Text("Enter recipient address")
                                 .foregroundColor(Color(uiColor: UIColor.lightGray))
@@ -92,7 +92,7 @@ struct SendView: View {
                     
                     HStack {
                         TextField("", text: $viewModel.amount)
-                            .frame(height: 45)
+                            .frame(height: 50)
                             .placeholder(when: viewModel.amount.isEmpty) {
                                     Text("Enter amount")
                                     .foregroundColor(Color(uiColor: UIColor.lightGray))
@@ -191,6 +191,9 @@ struct SendView: View {
                         )
                 }
                 .padding()
+            }
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
             .onAppear {
                 viewModel.updateAvailableAmount()

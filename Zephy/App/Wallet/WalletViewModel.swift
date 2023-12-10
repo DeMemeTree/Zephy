@@ -21,14 +21,12 @@ class WalletViewModel: ObservableObject {
     @Published var zephyrReserveBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zrs, full: false)
     
     
-    @Published var isConnected = true
-    
     init() {
         Task { @MainActor in
             if let node = KeychainService.fetchNode() {
                 let login = KeychainService.fetchNodeLogin()
                 let password = KeychainService.fetchNodePassword()
-                isConnected = await WalletService.connect(node: node,
+                SyncHeader.isConnected = await WalletService.connect(node: node,
                                                           login: login,
                                                           password: password)
                 
@@ -36,14 +34,10 @@ class WalletViewModel: ObservableObject {
                     zephyrBalance = WalletService.currentAssetBalance(asset: .zeph, full: true)
                     zephyrStableDollarsBalance = WalletService.currentAssetBalance(asset: .zsd, full: true)
                     zephyrReserveBalance = WalletService.currentAssetBalance(asset: .zrs, full: true)
-                    
-                    //print(WalletService.currentAssetBalance(asset: .zeph, full: false))
                     zephyrBalanceUnlocked = WalletService.currentAssetBalance(asset: .zeph, full: false)
                     zephyrStableDollarsBalanceUnlocked = WalletService.currentAssetBalance(asset: .zsd, full: false)
                     zephyrReserveBalanceUnlocked = WalletService.currentAssetBalance(asset: .zrs, full: false)
                 }
-            } else {
-                isConnected = false
             }
         }
     }

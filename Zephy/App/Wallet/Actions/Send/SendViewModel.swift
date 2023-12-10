@@ -21,6 +21,8 @@ class SendViewModel: ObservableObject {
                             Assets.zsd.uiDisplay,
                             Assets.zrs.uiDisplay]
     
+    private var disposeBag = Set<AnyCancellable>()
+    
     func updateAvailableAmount() {
         if selectedAsset == Assets.zeph.uiDisplay {
             availableAmount = String(zephyrBalanceUnlocked.formatHuman())
@@ -42,9 +44,28 @@ class SendViewModel: ObservableObject {
     }
     
     func makeTransaction(router: Router) {
-        // Implement the preview logic here
-        print("Previewing transfer of \(amount) \(selectedAsset) to \(recipientAddress)")
+        var assetType: String = ""
+        if selectedAsset == Assets.zeph.uiDisplay {
+            assetType = Assets.zeph.rawValue
+        } else if selectedAsset == Assets.zsd.uiDisplay {
+            assetType = Assets.zsd.rawValue
+        } else if selectedAsset == Assets.zrs.uiDisplay {
+            assetType = Assets.zrs.rawValue
+        }
         
-        router.changeRoot(to: .wallet)
+        
+        WalletService.transactionCreate(assetType: assetType,
+                                        toAddress: recipientAddress,
+                                        amount: amount)
+            .backgroundToMain()
+            .sink { result in
+                if result {
+                    router.changeRoot(to: .wallet)
+                } else {
+                    // TODO: Need to pop an error alert
+                    print("Failed to send tx")
+                }
+            }
+            .store(in: &disposeBag)
     }
 }

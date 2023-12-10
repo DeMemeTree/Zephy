@@ -24,23 +24,10 @@ struct WalletView: View {
                 VStack(spacing: 8) {
                     ZStack {
                         HStack {
-                            Button {
-                                WalletService.rescanBlockchain()
-                            } label: {
-                                Image(systemName: viewModel.isConnected ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
-                                    .foregroundColor(viewModel.isConnected ? .green : .red)
-                            }
-
                             Spacer()
-                            Button {
-                                router.changeRoot(to: .settings)
-                            } label: {
-                                Image(systemName: "gearshape")
-                            }
                         }
-                        Text("Wallet Balances")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                        
+                        SyncHeader()
                     }
                     if viewModel.zephyrBalance != viewModel.zephyrBalanceUnlocked {
                         balanceText("Zeph: \(viewModel.zephyrBalanceUnlocked.formatHuman()) - Locked \(viewModel.zephyrBalance.formatHuman())", type: .zephyr)

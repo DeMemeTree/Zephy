@@ -13,6 +13,8 @@
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
 		B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F52B2439010028F741 /* UInt+zephy.swift */; };
+		B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F82B255A9A0028F741 /* SyncHeader.swift */; };
+		B15713FB2B2562D90028F741 /* string+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713FA2B2562D90028F741 /* string+zephy.swift */; };
 		B169D6902B1C3A390092B52A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D68F2B1C3A390092B52A /* Logger.swift */; };
 		B169D6932B1CFFA90092B52A /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6922B1CFFA90092B52A /* NodesView.swift */; };
 		B169D6952B1CFFC90092B52A /* NodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169D6942B1CFFC90092B52A /* NodesViewModel.swift */; };
@@ -90,6 +92,8 @@
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B15713F52B2439010028F741 /* UInt+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+zephy.swift"; sourceTree = "<group>"; };
+		B15713F82B255A9A0028F741 /* SyncHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncHeader.swift; sourceTree = "<group>"; };
+		B15713FA2B2562D90028F741 /* string+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "string+zephy.swift"; sourceTree = "<group>"; };
 		B169D68F2B1C3A390092B52A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B169D6922B1CFFA90092B52A /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
 		B169D6942B1CFFC90092B52A /* NodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesViewModel.swift; sourceTree = "<group>"; };
@@ -177,6 +181,14 @@
 				B169D6912B1CFF960092B52A /* Node */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		B15713F72B255A870028F741 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				B15713F82B255A9A0028F741 /* SyncHeader.swift */,
+			);
+			path = Sync;
 			sourceTree = "<group>";
 		};
 		B169D6912B1CFF960092B52A /* Node */ = {
@@ -312,6 +324,7 @@
 				B1D176552B11422E008C2F16 /* WalletViewModel.swift */,
 				B1D176602B115A12008C2F16 /* Actions */,
 				B13446102B1BA9C4001A44F3 /* Settings */,
+				B15713F72B255A870028F741 /* Sync */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -323,6 +336,7 @@
 				B1D1766C2B11A792008C2F16 /* View+zephy.swift */,
 				B16F535A2B1999B800B066D5 /* AnyPublisher+zephy.swift */,
 				B15713F52B2439010028F741 /* UInt+zephy.swift */,
+				B15713FA2B2562D90028F741 /* string+zephy.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -528,11 +542,13 @@
 				B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */,
 				B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */,
 				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,
+				B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */,
 				B169D6902B1C3A390092B52A /* Logger.swift in Sources */,
 				B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */,
 				B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */,
 				B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */,
 				B1D1766D2B11A792008C2F16 /* View+zephy.swift in Sources */,
+				B15713FB2B2562D90028F741 /* string+zephy.swift in Sources */,
 				B169D6972B1D02230092B52A /* NetworkService.swift in Sources */,
 				B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */,
 				B1D176542B1141D5008C2F16 /* WalletView.swift in Sources */,
@@ -728,7 +744,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Zephy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Zephy;
+				INFOPLIST_KEY_CFBundleDisplayName = Zephii;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -766,7 +782,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Zephy/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Zephy;
+				INFOPLIST_KEY_CFBundleDisplayName = Zephii;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to scan the QR codes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

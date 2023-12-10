@@ -72,9 +72,8 @@ struct WalletService {
             let nameC = ("Address #1" as NSString).utf8String
             let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
             subaddress_add_row(0, nameMP);
-            //storeWallet()
+            storeWallet()
             count = subaddrress_size()
-            print(count)
         }
         
         (0..<count).forEach { index in
@@ -92,7 +91,7 @@ struct WalletService {
     
     static func createSubaddress() {
         let count = subaddrress_size()
-        let nameC = ("Subaddress #\(count)" as NSString).utf8String
+        let nameC = ("Address #\(count)" as NSString).utf8String
         let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
         subaddress_add_row(0, nameMP)
         storeWallet()
@@ -176,7 +175,7 @@ struct WalletService {
             let cToAddy = (toAddress as NSString).utf8String
             let addyMP = UnsafeMutablePointer<CChar>(mutating: cToAddy)
             
-            let cAmount = (toAddress as NSString).utf8String
+            let cAmount = (amount as NSString).utf8String
             let amountMP = UnsafeMutablePointer<CChar>(mutating: cAmount)
             let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
             
@@ -225,20 +224,29 @@ struct WalletService {
     static func startBlockCheck() {
         var current = get_current_height()
         var node = get_node_height()
-        guard synchronized() == false, current != node else {
-            print("already synchronized")
+        var syncVal = synchronized()
+        guard syncVal == false, current != node else {
+            DispatchQueue.main.async {
+                SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
+                                                            targetBlock: node,
+                                                            synchronized: true))
+            }
             return }
-        print("looking through those blocks")
         refreshTimer?.invalidate()
         DispatchQueue.main.async {
+            SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
+                                                        targetBlock: node,
+                                                        synchronized: syncVal))
             refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
                 DispatchQueue.global(qos: .background).async {
                     current = get_current_height()
                     node = get_node_height()
-                    #warning("Show the user the difference between these two so they can see it actively syncing... similar to how cake shows it")
-                    print("current: \(current)")
-                    print("node: \(node)")
-                    print(synchronized())
+                    syncVal = synchronized()
+                    DispatchQueue.main.async {
+                        SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
+                                                                    targetBlock: node,
+                                                                    synchronized: syncVal))
+                    }
                     if synchronized(), current == node {
                         stopCheck()
                         WalletService.storeWallet()
