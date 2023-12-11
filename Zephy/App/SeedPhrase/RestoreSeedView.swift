@@ -19,10 +19,23 @@ struct RestoreSeedView: View {
     
     var body: some View {
         VStack {
-            Text("Enter your 25 word seed phrase...")
-                .font(.footnote)
-                .foregroundColor(.gray)
-                .padding(.top)
+            ZStack {
+                HStack {
+                    Button {
+                        router.changeRoot(to: .splash)
+                    } label: {
+                        Text("Back")
+                    }
+                    Spacer()
+                }
+                .padding()
+                
+                Text("Enter your 25 word seed phrase...")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.top)
+                    .offset(y: -8)
+            }
             
             if viewModel.error.isEmpty == false {
                 Text(viewModel.error)
@@ -66,6 +79,7 @@ struct RestoreSeedView: View {
                 .padding()
 
                 Divider()
+                    .padding()
 
                 HStack {
                     VStack(spacing: 0) {
@@ -111,8 +125,14 @@ struct RestoreSeedView: View {
             }
             
             if hideElements == false {
-                restoreHeight()
+                HStack {
+                    restoreHeight()
+                }
+                .padding()
+                
                 passwordView()
+                
+                Spacer()
                 
                 restoreButton()
             }

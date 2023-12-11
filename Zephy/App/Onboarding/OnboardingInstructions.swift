@@ -24,7 +24,7 @@ struct OnbaordingInstructions: View {
                 Spacer()
                 bodyView(proxy)
             }
-            .padding([.leading, .trailing], 10)
+            .padding([.leading, .trailing], 20)
         }
         .contentShape(Rectangle())
         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -67,6 +67,7 @@ struct OnbaordingInstructions: View {
                     .opacity(0.35)
             }
         }
+        .padding(.top, 60)
         .padding(.trailing, 15)
         .font(.system(size: 13, weight: .bold))
     }
@@ -162,6 +163,7 @@ struct OnbaordingInstructions: View {
             }
         }
         .padding(.top, 50)
+        .padding(.bottom, 40)
     }
     
     private func navigateToNext() {

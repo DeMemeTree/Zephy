@@ -13,8 +13,6 @@ class ReceiveViewModel: ObservableObject {
     @Published var addresses: [(String, String)] = []
     @Published var qrCodeImage: UIImage? = nil
     
-    let walletCountKey = "walletCountKey"
-    
     init() {
         DispatchQueue.global(qos: .background).async {
             self.load()
@@ -25,14 +23,6 @@ class ReceiveViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.addresses = WalletService.allAddresses()
             
-//            let found = UserDefaults.standard.integer(forKey: self.walletCountKey)
-//            if self.addresses.count < found {
-//                let amount = found - self.addresses.count
-//                (0..<amount).forEach { _ in
-//                    self.createNewAddress(save: false)
-//                }
-//            }
-
             if let last = self.addresses.last {
                 self.selectedAddress = last.0
             }
@@ -49,12 +39,8 @@ class ReceiveViewModel: ObservableObject {
         return retval
     }
     
-    func createNewAddress(save: Bool = true) {
+    func createNewAddress() {
         WalletService.createSubaddress()
-        if save {
-            UserDefaults.standard.setValue(subaddrress_size(),
-                                           forKey: walletCountKey)
-        }
         load()
         if let last = self.addresses.last {
             self.selectedAddress = last.0

@@ -89,7 +89,7 @@ struct WalletService {
     
     static func createSubaddress() {
         let count = subaddrress_size()
-        let nameC = ("Address #\(count)" as NSString).utf8String
+        let nameC = ("Address #\(count + 1)" as NSString).utf8String
         let nameMP = UnsafeMutablePointer<CChar>(mutating: nameC)
         subaddress_add_row(0, nameMP)
         storeWallet()
@@ -118,6 +118,10 @@ struct WalletService {
                                                       seedMP,
                                                       restoreHeight,
                                                       error)
+                
+                if result {
+                    storeWallet()
+                }
                 
                 publisher.send(result)
                 publisher.send(completion: .finished)
@@ -150,6 +154,11 @@ struct WalletService {
                     let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
 
                     let result = create_wallet(pathMP, passwordMP, languageMP, error)
+                    
+                    if result {
+                        storeWallet()
+                    }
+                    
                     publisher.send(result)
                 } catch {
                     Logger.log(error: error)

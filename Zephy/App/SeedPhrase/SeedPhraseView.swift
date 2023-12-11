@@ -25,7 +25,7 @@ struct SeedPhraseView: View {
             
             if viewModel.seedCreationState != .none {
                 if viewModel.seedCreationState == .create {
-                    Text("Write down all 25 words and keep the seed phrase secure.")
+                    Text("Write down all 25 words and keep the seed phrase secure. You are the only one with access to this.")
                         .font(.footnote)
                         .foregroundColor(.gray)
                         .padding(.bottom, 10)

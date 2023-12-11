@@ -17,6 +17,7 @@ struct SettingsView: View {
                 HStack {
                     restoreHeightView()
                 }
+                .padding(.horizontal)
                 
                 Text("Only do this if balances are incorrect or updated restore height has changed")
                     .font(.footnote)
@@ -29,6 +30,7 @@ struct SettingsView: View {
                     UserDefaults.standard.setValue(restoreHeight, forKey: "restoreHeight")
                     WalletService.restore(height: restoreHeight)
                     WalletService.rescanBlockchain()
+                    router.changeRoot(to: .wallet)
                 } label: {
                     Text("Rescan Blockchain")
                         .foregroundColor(.white)
@@ -76,6 +78,16 @@ struct SettingsView: View {
                     }),
                     secondaryButton: .cancel()
                 )
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button("Done") {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

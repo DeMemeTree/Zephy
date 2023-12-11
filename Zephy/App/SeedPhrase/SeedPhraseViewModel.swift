@@ -46,9 +46,10 @@ class SeedPhraseViewModel: ObservableObject {
     }
 
     func confirmSeedPhrase() -> Bool {
-        let words = confirmationInput.split(separator: " ").map(String.init)
+        let words = confirmationInput.split(separator: " ").map(String.init).map { $0.lowercased() }
         for (index, word) in words.enumerated() {
-            let seedIndex = indicesToConfirm[index]
+            let seedIndex = indicesToConfirm[index] - 1
+            guard seedIndex >= 0 else { return false }
             let seedWord = seedPhrase.split(separator: " ")[seedIndex]
             if word != seedWord {
                 return false
@@ -61,7 +62,7 @@ class SeedPhraseViewModel: ObservableObject {
         var indicesSet = Set<Int>()
         while indicesSet.count < 3 {
             let randomNumber = Int.random(in: 1...25)
-            indicesSet.insert(randomNumber - 1)
+            indicesSet.insert(randomNumber)
         }
         indicesToConfirm = Array(indicesSet).sorted()
         

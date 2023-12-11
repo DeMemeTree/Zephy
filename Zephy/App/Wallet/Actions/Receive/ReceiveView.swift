@@ -32,6 +32,9 @@ struct ReceiveView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .padding()
+                    .onChange(of: viewModel.selectedAddress) { _, _ in
+                        viewModel.qrCodeImage = nil
+                    }
                 }
                 
                 if let addy = viewModel.address(label: viewModel.selectedAddress) {
@@ -64,14 +67,6 @@ struct ReceiveView: View {
                             .interpolation(.none)
                             .scaledToFit()
                             .frame(width: 200, height: 200)
-//                            .contextMenu {
-//                                Button(action: {
-//                                    // Save or share the QR code
-//                                }) {
-//                                    Text("Save QR Code")
-//                                    Image(systemName: "square.and.arrow.down")
-//                                }
-//                            }
                     }
                     
                     Spacer()

@@ -20,7 +20,7 @@ struct OnboardingLanding: View {
         VStack {
             logoSection()
             
-            Text("The untraceable over-collateralized stablecoin protocol")
+            Text("The untraceable over-collateralized stablecoin protocol mobile wallet")
             
             signIn()
             newUser()
@@ -31,7 +31,7 @@ struct OnboardingLanding: View {
     
     func logoSection() -> some View {
         VStack {
-            Text("Welcome To Zephy")
+            Text("Welcome To Zephii")
                 .font(.system(size: 19, weight: .bold))
         }
         .padding([.leading, .bottom], 5)
