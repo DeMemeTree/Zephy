@@ -34,12 +34,16 @@ struct SyncHeader: View {
             Image(systemName: blockData.synchronized ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
                 .foregroundColor(blockData.synchronized == false ? .yellow : (SyncHeader.isConnected ? .green : .red))
             
-            if progress < 1 {
-                ProgressView(value: progress)
-                    .progressViewStyle(LinearProgressViewStyle())
+            if blockData.currentBlock != 0 {
+                if progress < 1 {
+                    ProgressView(value: progress)
+                        .progressViewStyle(LinearProgressViewStyle())
+                } else {
+                    Text("Block: \(blockData.currentBlock)")
+                        .frame(maxWidth: .infinity)
+                }
             } else {
-                Text("Block: \(blockData.currentBlock)")
-                    .frame(maxWidth: .infinity)
+                Spacer()
             }
             
             Button {

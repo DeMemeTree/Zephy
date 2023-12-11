@@ -13,11 +13,6 @@ struct SeedPhraseView: View {
 
     var body: some View {
         VStack {
-//            Text(viewModel.isRestoreViewActive ? "Restore Wallet" : "Create a Wallet")
-//                .font(.title)
-//                .fontWeight(.bold)
-//                .padding()
-            
             Text("Create a Wallet")
                 .font(.title)
                 .fontWeight(.bold)

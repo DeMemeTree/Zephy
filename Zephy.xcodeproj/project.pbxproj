@@ -13,6 +13,7 @@
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
+		B150E06C2B26E44A003BD784 /* RestoreSeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150E06B2B26E44A003BD784 /* RestoreSeedViewModel.swift */; };
 		B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F52B2439010028F741 /* UInt+zephy.swift */; };
 		B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F82B255A9A0028F741 /* SyncHeader.swift */; };
 		B15713FB2B2562D90028F741 /* string+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713FA2B2562D90028F741 /* string+zephy.swift */; };
@@ -30,6 +31,7 @@
 		B188B5A62B18E28400CB37CE /* ZephySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B188B5A32B18E27100CB37CE /* ZephySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3A6552B1ED87900FFDAE6 /* ConnectedView.swift */; };
 		B1A3A6582B1EDCC500FFDAE6 /* NodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */; };
+		B1AA191B2B26D7D100BACE4B /* SeedPhraseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA191A2B26D7D100BACE4B /* SeedPhraseService.swift */; };
 		B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A682B144E7800FA86A2 /* FileService.swift */; };
 		B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761A2B113FD2008C2F16 /* Zephy.swift */; };
 		B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761C2B113FD2008C2F16 /* ContentView.swift */; };
@@ -96,6 +98,7 @@
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B150E06B2B26E44A003BD784 /* RestoreSeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreSeedViewModel.swift; sourceTree = "<group>"; };
 		B15713F52B2439010028F741 /* UInt+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+zephy.swift"; sourceTree = "<group>"; };
 		B15713F82B255A9A0028F741 /* SyncHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncHeader.swift; sourceTree = "<group>"; };
 		B15713FA2B2562D90028F741 /* string+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "string+zephy.swift"; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		B188B5AD2B18E43C00CB37CE /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		B1A3A6552B1ED87900FFDAE6 /* ConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedView.swift; sourceTree = "<group>"; };
 		B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeService.swift; sourceTree = "<group>"; };
+		B1AA191A2B26D7D100BACE4B /* SeedPhraseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseService.swift; sourceTree = "<group>"; };
 		B1C89A682B144E7800FA86A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		B1D176172B113FD2008C2F16 /* Zephy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D1761A2B113FD2008C2F16 /* Zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephy.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */,
 				B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */,
 				B1189C692B26BB8000BC4950 /* RestoreSeedView.swift */,
+				B150E06B2B26E44A003BD784 /* RestoreSeedViewModel.swift */,
 			);
 			path = SeedPhrase;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				B169D68F2B1C3A390092B52A /* Logger.swift */,
 				B169D6962B1D02230092B52A /* NetworkService.swift */,
 				B1A3A6572B1EDCC500FFDAE6 /* NodeService.swift */,
+				B1AA191A2B26D7D100BACE4B /* SeedPhraseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -557,6 +563,7 @@
 			files = (
 				B1753BAF2B2107650060FA8B /* StatsViewModel.swift in Sources */,
 				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
+				B150E06C2B26E44A003BD784 /* RestoreSeedViewModel.swift in Sources */,
 				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
 				B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */,
 				B1189C6A2B26BB8000BC4950 /* RestoreSeedView.swift in Sources */,
@@ -594,6 +601,7 @@
 				B169D6932B1CFFA90092B52A /* NodesView.swift in Sources */,
 				B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */,
 				B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */,
+				B1AA191B2B26D7D100BACE4B /* SeedPhraseService.swift in Sources */,
 				B1D176792B11B869008C2F16 /* Assets.swift in Sources */,
 				B169D6952B1CFFC90092B52A /* NodesViewModel.swift in Sources */,
 				B1D1764F2B1140BE008C2F16 /* SplashView.swift in Sources */,
