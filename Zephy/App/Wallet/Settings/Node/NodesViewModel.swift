@@ -22,7 +22,7 @@ class NodesViewModel: ObservableObject {
     @Published var node: String = ""
     @Published var login: String = ""
     @Published var secret: String = ""
-    @Published var connectedState: ConnectionState = .loading
+    @Published var connectedState: ConnectionState = .notConnected
     
     @Published var state: State = .needsFetch
     

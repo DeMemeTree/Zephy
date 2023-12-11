@@ -28,98 +28,102 @@ struct SwapView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    Picker("From Asset", selection: $viewModel.fromAsset) {
+            VStack {
+                HStack {
+                    Text("From Asset")
+                        .foregroundColor(.gray)
+                    Spacer()
+                    Picker("Asset", selection: $viewModel.fromAsset) {
                         ForEach(viewModel.assets, id: \.self) { asset in
                             Text(asset).tag(asset)
                         }
                     }
+                    .tint(.white)
                     .pickerStyle(MenuPickerStyle())
-
-                    VStack(alignment: .leading) {
-                        Text("Available \(viewModel.availableAmount)")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                        
-                        HStack {
-                            TextField("Enter amount", text: $viewModel.fromAmount)
-                                .keyboardType(.decimalPad)
-                            
-                            Button("MAX") {
-                                viewModel.useMaxAmount()
-                            }
-                        }
-                    }
+                    .background(Color.gray.opacity(0.2))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .listRowBackground(Color.clear)
+                .padding()
                 
-                Section {
-                    Picker("To Asset", selection: $viewModel.toAsset) {
-                        ForEach(viewModel.assets, id: \.self) { asset in
-                            Text(asset).tag(asset)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-
-                    TextField("Enter amount", text: $viewModel.toAmount)
-                        .keyboardType(.decimalPad)
-                }
-                .listRowBackground(Color.clear)
-                
-//                Section {
-//                    Picker("To Address", selection: $viewModel.recipientAddress) {
-//                        ForEach(viewModel.addresses, id: \.self) { address in
-//                            Text(address)
-//                        }
-//                    }
-//                    .pickerStyle(MenuPickerStyle())
-//                }
-//                .listRowBackground(Color.clear)
-                
-//                Section {
-//                    TextField("Swap to another address", text: $viewModel.recipientAddress)
-//                }
-//                .listRowBackground(Color.clear)
-                
-                Section {
+                VStack(alignment: .leading) {
+                    Text("Available \(viewModel.availableAmount)")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    
                     HStack {
-                        Text("Conversion Rate (Moving Average)")
+                        TextField("Enter amount", text: $viewModel.fromAmount)
+                            .keyboardType(.decimalPad)
+                        
+                        Button("MAX") {
+                            viewModel.useMaxAmount()
+                        }
+                    }
+                }
+                .padding()
+                
+                HStack {
+                    Text("To Asset")
+                        .foregroundColor(.gray)
+                    Spacer()
+                    Picker("Asset", selection: $viewModel.toAsset) {
+                        ForEach(viewModel.assets, id: \.self) { asset in
+                            Text(asset).tag(asset)
+                        }
+                    }
+                    .tint(.white)
+                    .pickerStyle(MenuPickerStyle())
+                    .background(Color.gray.opacity(0.2))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .padding()
+                
+                Spacer()
+
+                VStack {
+//                    HStack {
+//                        Text("Conversion Rate (Moving Average)")
+//                        Spacer()
+//                        Text(viewModel.conversionRate)
+//                    }
+                    
+                    HStack {
+                        Text("Amount")
                         Spacer()
-                        Text(viewModel.conversionRate)
+                        Text(viewModel.fromAmount)
                     }
                     
                     HStack {
                         Text("Converting From")
                         Spacer()
+                        AssetLogo(assetLogo: viewModel.fromAsset)
                         Text(viewModel.fromAsset)
                     }
+                    .padding(.vertical, 10)
                     
                     HStack {
                         Text("Converting To")
                         Spacer()
+                        AssetLogo(assetLogo: viewModel.toAsset)
                         Text(viewModel.toAsset)
                     }
-                    
-                    HStack {
-                        Text("Conversion Fee")
-                        Spacer()
-                        Text("ZSD") // Replace with actual fee logic
-                    }
+                    .padding(.vertical, 10)
                     
                     HStack {
                         Text("Unlock Time")
                         Spacer()
-                        Text(viewModel.unlockTime)
+                        Text("~20m")
                     }
+                    .padding(.vertical, 10)
                 }
-                .listRowBackground(Color.clear)
-
+                .padding()
+                
                 Button(action: {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//                    withAnimation {
-//                        showingPreviewAlert = true
-//                    }
+                    withAnimation {
+                        showingPreviewAlert = true
+                    }
                 }) {
                     Text("Confirm")
                         .foregroundColor(.white)
@@ -133,14 +137,29 @@ struct SwapView: View {
                 .padding()
                 .listRowBackground(Color.clear)
             }
+            .onChange(of: viewModel.toAsset, { _, _ in
+                viewModel.recalcSwapAssets()
+            })
+            .onChange(of: viewModel.fromAsset, { _, _ in
+                viewModel.recalcSwapAssets()
+            })
             .tint(.white)
-            .listStyle(PlainListStyle())
             .background(Color.zephyPurp)
             .navigationTitle("Swap Asset")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: Button("Cancel", action: {
                 router.changeRoot(to: .wallet)
             }))
+            .alert(isPresented: $showingPreviewAlert) {
+                Alert(
+                    title: Text("Confirm"),
+                    message: Text("Are you sure you swap from \(viewModel.fromAmount) \(viewModel.fromAsset) to \(viewModel.toAsset)? This process is irreversible."),
+                    primaryButton: .destructive(Text("Yes"), action: {
+                        //viewModel.makeTransaction(router: router)
+                    }),
+                    secondaryButton: .cancel()
+                )
+            }
         }
     }
 }

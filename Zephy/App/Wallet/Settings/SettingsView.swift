@@ -13,7 +13,7 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            ScrollView {
                 HStack {
                     restoreHeightView()
                 }
@@ -44,6 +44,7 @@ struct SettingsView: View {
                 .padding()
                 
                 NodesView()
+                    .frame(height: 400)
                 
                 Button {
                     if showSeedPhraseView {
@@ -62,6 +63,7 @@ struct SettingsView: View {
                         )
                         .padding(.bottom)
                 }
+                .padding(.horizontal)
                 
                 if showSeedPhraseView,
                    let seed = KeychainService.fetchSeed() {

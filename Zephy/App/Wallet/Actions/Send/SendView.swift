@@ -117,21 +117,7 @@ struct SendView: View {
                     Text("Transfer Asset")
                         .foregroundColor(.gray)
                     Spacer()
-                    switch viewModel.selectedAsset {
-                    case Assets.zrs.uiDisplay:
-                        Image("zrs")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    case Assets.zsd.uiDisplay:
-                        Image("zsd")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    case Assets.zeph.uiDisplay:
-                        Image("zeph")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    default: EmptyView()
-                    }
+                    AssetLogo(assetLogo: viewModel.selectedAsset)
                     Text(viewModel.selectedAsset)
                         .foregroundColor(.white)
                 }

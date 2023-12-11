@@ -78,7 +78,10 @@ struct WalletService {
         
         (0..<count).forEach { index in
             if let subAddy = get_subaddress_label(0, UInt32(index)) {
-                let found = String(cString: subAddy)
+                var found = String(cString: subAddy)
+                if found.isEmpty {
+                    found = "Address #\(index)"
+                }
                 if let account = get_subaddress_account(0, UInt32(index)) {
                     retVal.append((found, String(cString: account)))
                 }
