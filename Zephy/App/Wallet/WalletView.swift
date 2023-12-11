@@ -146,7 +146,6 @@ struct WalletView: View {
             actionButton(title: "Send",
                          action: {
                 router.changeRoot(to: .send)
-                //viewModel.sendZephyr(amount: 100)
             })
             
             Spacer()
@@ -154,7 +153,6 @@ struct WalletView: View {
             actionButton(title: "Receive",
                          action: {
                 router.changeRoot(to: .receive)
-                //viewModel.receiveZephyr(amount: 100)
             })
             
             Spacer()
@@ -162,7 +160,6 @@ struct WalletView: View {
             actionButton(title: "Swap",
                          action: {
                 router.changeRoot(to: .swap)
-               // viewModel.swapZephyr(amount: 100, currencyType: .reserve)
             })
         }
         .padding(.horizontal)

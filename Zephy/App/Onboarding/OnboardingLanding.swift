@@ -6,62 +6,57 @@
 import SwiftUI
 
 struct OnboardingLanding: View {
+    @EnvironmentObject var router: Router
     @Binding var state: OnboardingView.ViewState
     
     var body: some View {
-        GeometryReader { proxy in
-            VStack {
-                Spacer()
-                bodyView(proxy)
-            }
+        VStack {
+            Spacer()
+            bodyView()
         }
     }
     
-    func bodyView(_ proxy: GeometryProxy) -> some View {
+    func bodyView() -> some View {
         VStack {
             logoSection()
             
-            Text("The TSwizzle superfan app is here to help you determine your fan ranking and have fun!")
+            Text("The untraceable over-collateralized stablecoin protocol")
             
-            signIn(proxy)
-            newUser(proxy)
+            signIn()
+            newUser()
         }
         .padding(.horizontal, 15)
+        .padding(.bottom, 40)
     }
     
     func logoSection() -> some View {
         VStack {
-            Image("logo")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40)
-            
-            Text("Welcome To TSwizzle")
+            Text("Welcome To Zephy")
                 .font(.system(size: 19, weight: .bold))
         }
         .padding([.leading, .bottom], 5)
     }
     
-    func signIn(_ proxy: GeometryProxy) -> some View {
+    func signIn() -> some View {
         Button {
-            //state = .signIn
+            router.changeRoot(to: .restoreSeed)
         } label: {
-            Text("EXISTING")
+            Text("RESTORE WALLET")
             .font(.system(size: 19, weight: .bold))
-                .frame(width: proxy.size.width - 20, height: 45)
+            .frame(width: UIScreen.main.bounds.width - 20, height: 45)
                 .background(RoundedRectangle(cornerRadius: 40)
                     .stroke(.white, lineWidth: 1))
         }
         .padding(.top, 20)
     }
     
-    func newUser(_ proxy: GeometryProxy) -> some View {
+    func newUser() -> some View {
         Button {
             state = .instructions
         } label: {
-            Text("NEW USER")
+            Text("CREATE NEW WALLET")
             .font(.system(size: 19, weight: .bold))
-                .frame(width: proxy.size.width - 20, height: 45)
+                .frame(width: UIScreen.main.bounds.width - 20, height: 45)
                 .background(RoundedRectangle(cornerRadius: 40)
                     .stroke(.white, lineWidth: 1))
         }

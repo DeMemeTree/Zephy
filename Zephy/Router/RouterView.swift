@@ -19,6 +19,8 @@ struct RouterView: View {
                 WalletView()
             case .seedPhrase:
                 SeedPhraseView()
+            case .restoreSeed:
+                RestoreSeedView()
             case .swap:
                 SwapView()
             case .receive:

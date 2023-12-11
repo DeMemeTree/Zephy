@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1189C6A2B26BB8000BC4950 /* RestoreSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1189C692B26BB8000BC4950 /* RestoreSeedView.swift */; };
 		B11E135E2B138633009BAB48 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135D2B138633009BAB48 /* SeedPhraseView.swift */; };
 		B11E13602B13863C009BAB48 /* SeedPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */; };
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B1189C692B26BB8000BC4950 /* RestoreSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreSeedView.swift; sourceTree = "<group>"; };
 		B11E135D2B138633009BAB48 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseViewModel.swift; sourceTree = "<group>"; };
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				B11E135D2B138633009BAB48 /* SeedPhraseView.swift */,
 				B11E135F2B13863C009BAB48 /* SeedPhraseViewModel.swift */,
 				B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */,
+				B1189C692B26BB8000BC4950 /* RestoreSeedView.swift */,
 			);
 			path = SeedPhrase;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
 				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
 				B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */,
+				B1189C6A2B26BB8000BC4950 /* RestoreSeedView.swift in Sources */,
 				B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */,
 				B1D176762B11B834008C2F16 /* SwapViewModel.swift in Sources */,
 				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,

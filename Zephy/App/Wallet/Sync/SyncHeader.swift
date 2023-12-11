@@ -24,9 +24,9 @@ struct SyncHeader: View {
         self.blockData = SyncHeader.syncRx.value
     }
 
-    private var progress: UInt64 {
-        guard blockData.targetBlock != 0 else { return 0 }
-        return blockData.currentBlock / blockData.targetBlock
+    private var progress: Double {
+        guard blockData.targetBlock != 0 else { return 0.3 }
+        return Double(blockData.currentBlock / blockData.targetBlock)
     }
 
     var body: some View {
@@ -35,7 +35,7 @@ struct SyncHeader: View {
                 .foregroundColor(blockData.synchronized == false ? .yellow : (SyncHeader.isConnected ? .green : .red))
             
             if progress < 1 {
-                ProgressView(value: Double(progress))
+                ProgressView(value: progress)
                     .progressViewStyle(LinearProgressViewStyle())
             } else {
                 Text("Block: \(blockData.currentBlock)")

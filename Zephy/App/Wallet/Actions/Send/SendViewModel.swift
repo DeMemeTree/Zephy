@@ -55,8 +55,9 @@ class SendViewModel: ObservableObject {
             assetType = Assets.zrs.rawValue
         }
         
-        
+        // since we are just doing a send and not a swap assetType == destAssetType
         WalletService.transactionCreate(assetType: assetType,
+                                        destAssetType: assetType,
                                         toAddress: recipientAddress,
                                         amount: amount)
             .backgroundToMain()

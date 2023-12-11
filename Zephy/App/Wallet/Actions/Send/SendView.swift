@@ -10,6 +10,7 @@ struct SendView: View {
     @StateObject var viewModel = SendViewModel()
     @State private var showingQRCodeScanner = false
     @State private var showingPreviewAlert = false
+    
 
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -42,7 +43,6 @@ struct SendView: View {
                             Text("Enter recipient address")
                                 .foregroundColor(Color(uiColor: UIColor.lightGray))
                         }
-                        .contentShape(Rectangle())
                         .foregroundColor(.white)
                     
                     Button(action: {
@@ -117,6 +117,21 @@ struct SendView: View {
                     Text("Transfer Asset")
                         .foregroundColor(.gray)
                     Spacer()
+                    switch viewModel.selectedAsset {
+                    case Assets.zrs.uiDisplay:
+                        Image("zrs")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    case Assets.zsd.uiDisplay:
+                        Image("zsd")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    case Assets.zeph.uiDisplay:
+                        Image("zeph")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    default: EmptyView()
+                    }
                     Text(viewModel.selectedAsset)
                         .foregroundColor(.white)
                 }
@@ -175,7 +190,7 @@ struct SendView: View {
 
                 
                 Button(action: {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    closeKeyboard()
                     // TODO: Need some sort of validation that amount and address were entered.
                     withAnimation {
                         showingPreviewAlert = true
@@ -191,6 +206,16 @@ struct SendView: View {
                         )
                 }
                 .padding()
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button("Done") {
+                            closeKeyboard()
+                        }
+                    }
+                }
             }
             .onTapGesture {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -219,5 +244,9 @@ struct SendView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    private func closeKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

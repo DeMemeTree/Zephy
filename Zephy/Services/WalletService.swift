@@ -165,12 +165,16 @@ struct WalletService {
     }
     
     static func transactionCreate(assetType: String,
+                                  destAssetType: String,
                                   toAddress: String,
                                   amount: String) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
             let cSource = (assetType as NSString).utf8String
             let sourceMP = UnsafeMutablePointer<CChar>(mutating: cSource)
+            
+            let cDest = (destAssetType as NSString).utf8String
+            let destMP = UnsafeMutablePointer<CChar>(mutating: cDest)
             
             let cToAddy = (toAddress as NSString).utf8String
             let addyMP = UnsafeMutablePointer<CChar>(mutating: cToAddy)
@@ -180,6 +184,7 @@ struct WalletService {
             let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
             
             let result = transaction_create(sourceMP,
+                                            destMP,
                                             addyMP,
                                             amountMP,
                                             error)
@@ -235,7 +240,10 @@ struct WalletService {
                                                             synchronized: true))
             }
             return }
+        
         refreshTimer?.invalidate()
+        guard refreshTimer == nil  else { return }
+        refreshTimer = nil
         DispatchQueue.main.async {
             SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                         targetBlock: node,

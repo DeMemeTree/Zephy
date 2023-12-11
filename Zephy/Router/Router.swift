@@ -12,6 +12,7 @@ final class Router: ObservableObject {
         case splash
         case wallet
         case seedPhrase
+        case restoreSeed
         
         case swap
         case send
@@ -21,7 +22,7 @@ final class Router: ObservableObject {
     }
     
     @Published var navigationStack: [Route] = [.splash]
-    private let routerTime = 0.2
+    private let routerTime = 0.3
     
     var topView: Route {
         return navigationStack.last ?? .splash

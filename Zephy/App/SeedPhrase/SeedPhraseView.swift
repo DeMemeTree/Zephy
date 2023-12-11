@@ -13,7 +13,12 @@ struct SeedPhraseView: View {
 
     var body: some View {
         VStack {
-            Text(viewModel.isRestoreViewActive ? "Restore Wallet" : "Create a Wallet")
+//            Text(viewModel.isRestoreViewActive ? "Restore Wallet" : "Create a Wallet")
+//                .font(.title)
+//                .fontWeight(.bold)
+//                .padding()
+            
+            Text("Create a Wallet")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
@@ -23,39 +28,7 @@ struct SeedPhraseView: View {
                 .padding(.bottom, 10)
 
             
-            if viewModel.isRestoreViewActive {
-                Text("Enter your 25 word seed phrase...")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .padding()
-                
-                TextEditor(text: $viewModel.seedPhraseRestore)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                    .padding()
-                
-                Text("Restore Height")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .padding()
-                
-                TextField("", text: Binding(
-                            get: { self.viewModel.restoreHeight },
-                            set: { newValue in
-                                if let _ = UInt(newValue) {
-                                    self.viewModel.restoreHeight = newValue
-                                } else if newValue.isEmpty {
-                                    self.viewModel.restoreHeight = ""
-                                } else {
-                                    self.viewModel.restoreHeight = String(self.viewModel.restoreHeight.filter { "0123456789".contains($0) })
-                                }
-                            }
-                        ))
-                        .foregroundColor(.white)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-
-            } else if viewModel.seedCreationState != .none {
+            if viewModel.seedCreationState != .none {
                 if viewModel.seedCreationState == .create {
                     Text("Write down all 25 words and keep the seed phrase secure.")
                         .font(.footnote)
@@ -108,8 +81,7 @@ struct SeedPhraseView: View {
                 passwordView()
             }
 
-            if viewModel.isRestoreViewActive == false,
-               viewModel.seedCreationState == .none {
+            if viewModel.seedCreationState == .none {
                 Text("Enter a strong password to create a wallet. You will be asked to confirm this password on the final step. This process will generate an encrypted wallet file that enables you to store, send and convert assets in complete privacy.")
                     .font(.footnote)
                     .foregroundColor(.gray)
@@ -119,15 +91,11 @@ struct SeedPhraseView: View {
             Spacer()
             
             
-            if viewModel.seedCreationState == .none || viewModel.isRestoreViewActive {
+            if viewModel.seedCreationState == .none {
                 Button(action: {
-                    if viewModel.isRestoreViewActive {
-                        viewModel.restoreWallet(router: router)
-                    } else {
-                        viewModel.createWallet()
-                    }
+                    viewModel.createWallet()
                 }) {
-                    Text(viewModel.isRestoreViewActive ? "Restore" : "Create")
+                    Text("Create")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -137,21 +105,6 @@ struct SeedPhraseView: View {
                         )
                 }
                 .padding()
-            }
-
-            if viewModel.seedCreationState == .none {
-                HStack {
-                    Button("Create", action: {
-                        viewModel.isRestoreViewActive = false
-                    })
-                    .padding()
-                    
-                    Button("Restore", action: {
-                        viewModel.isRestoreViewActive = true
-                    })
-                    .padding()
-                }
-                .padding(.bottom, 20)
             }
         }
         .padding(.horizontal)

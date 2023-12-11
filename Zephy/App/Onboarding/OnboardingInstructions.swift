@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct OnbaordingInstructions: View {
+    @EnvironmentObject var router: Router
+    
     enum ViewState {
         case one
         case two
@@ -84,11 +86,11 @@ struct OnbaordingInstructions: View {
     
     func firstView(_ proxy: GeometryProxy) -> some View {
         VStack(alignment: .leading) {
-            Text("Within this app you have an allocated amount of energy that you can use per day. - use it wisely")
+            Text("Bridging the gap between privacy and stability")
                 .font(.system(size: 26, weight: .bold))
                 .padding(.bottom, 10)
             
-            Text("You will be able to choose from quizes that have a dynamic amount of reward but also energy useage")
+            Text("Zephyr leverages the proven mechanics of the Djed Protocol while encapsulating the robust privacy features inherent to Monero.")
             
             rectangleView(proxy)
         }
@@ -96,26 +98,26 @@ struct OnbaordingInstructions: View {
     
     func secondView(_ proxy: GeometryProxy) -> some View {
         VStack(alignment: .leading) {
-            Text("We are going to help determine who is the #1 superfan through our leaderboard ranking system")
+            Text("A major leap in the evolution of digital currencies")
                 .font(.system(size: 26, weight: .bold))
                 .padding(.bottom, 10)
             
-            Text("Plus we hope to make it a lot of FUN!")
+            Text("This unique combination gives rise to the world's first overcollateralized stablecoin that guarantees privacy.")
             
             rectangleView(proxy)
         }
     }
     
     func letsGoView(_ proxy: GeometryProxy) -> some View {
-        VStack(alignment: .leading) {
-            Text("Sign up now!")
+        VStack(alignment: .center) {
+            Text("Create your wallet now!")
                 .font(.system(size: 26, weight: .bold))
                 .padding(.bottom, 10)
             
             Button {
                 navigateToNext()
             } label: {
-                Text("Let's go")
+                Text("CREATE")
                     .font(.system(size: 19, weight: .bold))
                     .frame(width: proxy.size.width - 20, height: 45)
                     .background(RoundedRectangle(cornerRadius: 40)
@@ -163,6 +165,6 @@ struct OnbaordingInstructions: View {
     }
     
     private func navigateToNext() {
-        overallState = .loadSeed
+        router.changeRoot(to: .seedPhrase)
     }
 }

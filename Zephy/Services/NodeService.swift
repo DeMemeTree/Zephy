@@ -14,6 +14,10 @@ struct NodeService {
         let connectionsIn: Int
         let connectionsOut: Int
         let status: String
+        
+        var urlPort: String {
+            return "\(url):\(port)"
+        }
     }
     
     private static var nodesCache = NSCache<NSString, NSArray>()

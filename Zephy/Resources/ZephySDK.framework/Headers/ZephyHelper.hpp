@@ -35,6 +35,7 @@ extern "C" {
     uint64_t get_node_height();
 
     bool transaction_create(char *source_asset,
+                            char *dest_asset,
                             char *address,
                             char *amount,
                             char *error);

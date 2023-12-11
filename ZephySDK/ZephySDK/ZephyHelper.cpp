@@ -527,6 +527,7 @@ extern "C" {
     }
 
     bool transaction_create(char *source_asset,
+                            char *dest_asset,
                             char *address,
                             char *amount,
                             char *error) {
@@ -540,12 +541,14 @@ extern "C" {
         if (amount != nullptr) {
             uint64_t _amount = Monero::Wallet::amountFromString(std::string(amount));
             transaction = m_wallet->createTransaction(std::string(source_asset),
+                                                      std::string(dest_asset),
                                                       std::string(address),
                                                       _payment_id,
                                                       _amount,
                                                       m_wallet->defaultMixin());
         } else {
             transaction = m_wallet->createTransaction(std::string(source_asset),
+                                                      std::string(dest_asset),
                                                       std::string(address),
                                                       _payment_id,
                                                       Monero::optional<uint64_t>(),

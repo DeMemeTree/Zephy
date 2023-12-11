@@ -841,6 +841,7 @@ struct Wallet
      */
 
     virtual PendingTransaction * createTransactionMultDest(const std::string &source_asset,
+                                                           const std::string &dest_asset,
                                                            const std::vector<std::string> &dst_addr, const std::string &payment_id,
                                                    optional<std::vector<uint64_t>> amount, uint32_t mixin_count,
                                                    PendingTransaction::Priority = PendingTransaction::Priority_Low,
@@ -861,6 +862,7 @@ struct Wallet
      */
 
     virtual PendingTransaction * createTransaction(const std::string &source_asset,
+                                                   const std::string &dest_asset,
                                                    const std::string &dst_addr,
                                                    const std::string &payment_id,
                                                    optional<uint64_t> amount,

@@ -13,16 +13,22 @@ class NodesViewModel: ObservableObject {
         case found([NodeService.Node])
     }
     
+    enum ConnectionState {
+        case connected
+        case loading
+        case notConnected
+    }
+    
     @Published var node: String = ""
     @Published var login: String = ""
     @Published var secret: String = ""
-    @Published var isConnected: Bool = false
+    @Published var connectedState: ConnectionState = .loading
     
     @Published var state: State = .needsFetch
     
     init() {
         if let node = KeychainService.fetchNode() {
-            isConnected = WalletService.isConnected()
+            connectedState = WalletService.isConnected() ? .connected : .notConnected
             self.node = node
         }
         if let login = KeychainService.fetchNodeLogin() {
@@ -35,9 +41,11 @@ class NodesViewModel: ObservableObject {
 
     @MainActor
     func connectToNode() async {
-        isConnected = await WalletService.connect(node: node,
-                                                  login: login,
-                                                  password: secret)
+        connectedState = .loading
+        let res = await WalletService.connect(node: node,
+                                              login: login,
+                                              password: secret)
+        connectedState = res ? .connected : .notConnected
     }
     
     func fetch() {

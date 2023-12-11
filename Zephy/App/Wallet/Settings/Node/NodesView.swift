@@ -12,7 +12,7 @@ struct NodesView: View {
         List {
             Section(header: Text("Node Settings")) {
                 VStack(alignment: .leading) {
-                    Text("Please include the port in the node URL (127.0.0.1:17767)")
+                    Text("Please include the port (http://127.0.0.1:17767)")
                         .font(.footnote)
                         .foregroundColor(.gray)
                     TextField("Node", text: $viewModel.node)
@@ -30,8 +30,11 @@ struct NodesView: View {
             }
             .disabled(viewModel.node.isEmpty)
 
-            Text(viewModel.isConnected ? "Connected successfully" : "Not connected")
-                .foregroundColor(viewModel.isConnected ? .green : .red)
+            Text(viewModel.connectedState == .connected
+                 ? "Connected successfully" :
+                    (viewModel.connectedState == .loading ? "Loading..." : "Not connected"))
+            .foregroundColor(viewModel.connectedState == .connected ? .green
+                             : (viewModel.connectedState == .loading ? .yellow : .red))
             
             nodeListLogic()
         }
@@ -51,22 +54,23 @@ struct NodesView: View {
         case .loading:
             ProgressView()
         case .found(let fetchedNodes):
-            ForEach(fetchedNodes, id: \.url) { node in
+            ForEach(fetchedNodes, id: \.urlPort) { node in
                 row(node: node)
             }
         }
     }
     
     private func row(node: NodeService.Node) -> some View {
-        VStack(alignment: .leading) {
-            Text(node.name)
-                .font(.headline)
-            Text("Height: \(node.height)")
-                .font(.caption)
+        Button {
+            viewModel.node = "\(node.port == 443 ? "https" : "http")://\(node.url):\(node.port)"
+        } label: {
+            VStack(alignment: .leading) {
+                Text(node.name)
+                    .font(.headline)
+                Text("Height: \(node.height)")
+                    .font(.caption)
+            }
         }
         .contentShape(Rectangle())
-        .onTapGesture {
-            viewModel.node = "\(node.port == 443 ? "https" : "http")://\(node.url):\(node.port)"
-        }
     }
 }

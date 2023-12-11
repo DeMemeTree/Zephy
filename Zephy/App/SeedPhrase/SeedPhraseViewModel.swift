@@ -20,13 +20,10 @@ class SeedPhraseViewModel: ObservableObject {
     
     @Published var walletPassword = ""
     @Published var seedPhrase = ""
-    @Published var seedPhraseRestore = ""
     @Published var showPassword = true
-    @Published var isRestoreViewActive = false
     @Published var seedCreationState: SeedPhraseState = .none
     @Published var confirmationInput = ""
     @Published var indicesToConfirm: [Int] = []
-    @Published var restoreHeight: String = "0"
     
     @Published var error: AlertMessage?
     
@@ -44,18 +41,6 @@ class SeedPhraseViewModel: ObservableObject {
                     seedCreationState = .create
                 } else {
                     error = AlertMessage(text: "Wallet password is not correct")
-                }
-            }.store(in: &disposeBag)
-    }
-
-    func restoreWallet(router: Router) {
-        WalletService.restoreWallet(seed: seedPhraseRestore,
-                                    password: walletPassword,
-                                    restoreHeight: UInt64(restoreHeight) ?? 0)
-            .backgroundToMain()
-            .sink { [weak self] success in
-                if success {
-                    router.changeRoot(to: .wallet)
                 }
             }.store(in: &disposeBag)
     }
