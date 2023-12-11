@@ -56,6 +56,7 @@ final class RestoreSeedViewModel: ObservableObject {
     }
 
     func restoreWallet(router: Router) {
+        UserDefaults.standard.setValue(UInt64(restoreHeight) ?? 0, forKey: "restoreHeight")
         WalletService.restoreWallet(seed: selectedWords.joined(separator: " "),
                                     password: walletPassword,
                                     restoreHeight: UInt64(restoreHeight) ?? 0)

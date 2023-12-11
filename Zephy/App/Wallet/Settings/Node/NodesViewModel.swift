@@ -46,6 +46,7 @@ class NodesViewModel: ObservableObject {
                                               login: login,
                                               password: secret)
         connectedState = res ? .connected : .notConnected
+        WalletService.startBlockCheck()
     }
     
     func fetch() {

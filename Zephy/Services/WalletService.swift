@@ -79,9 +79,7 @@ struct WalletService {
         (0..<count).forEach { index in
             if let subAddy = get_subaddress_label(0, UInt32(index)) {
                 let found = String(cString: subAddy)
-                print(found)
                 if let account = get_subaddress_account(0, UInt32(index)) {
-                    print(String(cString: account))
                     retVal.append((found, String(cString: account)))
                 }
             }
@@ -230,10 +228,15 @@ struct WalletService {
     }
     
     static func startBlockCheck() {
+        guard refreshTimer == nil else { return }
+        
         var current = get_current_height()
         var node = get_node_height()
         var syncVal = synchronized()
-        guard syncVal == false, current != node else {
+        print("Current: \(current)")
+        print("Node: \(node)")
+        print("Synchronized: \(syncVal)")
+        guard current != node else {
             DispatchQueue.main.async {
                 SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                             targetBlock: node,
@@ -241,9 +244,7 @@ struct WalletService {
             }
             return }
         
-        refreshTimer?.invalidate()
-        guard refreshTimer == nil  else { return }
-        refreshTimer = nil
+        stopCheck()
         DispatchQueue.main.async {
             SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                         targetBlock: node,
@@ -253,12 +254,15 @@ struct WalletService {
                     current = get_current_height()
                     node = get_node_height()
                     syncVal = synchronized()
+                    print("Current: \(current)")
+                    print("Node: \(node)")
+                    print("Synchronized: \(syncVal)")
                     DispatchQueue.main.async {
                         SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                                     targetBlock: node,
                                                                     synchronized: syncVal))
                     }
-                    if synchronized(), current == node {
+                    if syncVal, current == node {
                         stopCheck()
                         WalletService.storeWallet()
                     }

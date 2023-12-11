@@ -10,7 +10,7 @@ struct SyncHeader: View {
     struct BlockData {
         let currentBlock: UInt64
         let targetBlock: UInt64
-        let synchronized: Bool
+        var synchronized: Bool
     }
     
     @EnvironmentObject var router: Router
@@ -26,7 +26,7 @@ struct SyncHeader: View {
 
     private var progress: Double {
         guard blockData.targetBlock != 0 else { return 0.3 }
-        return Double(blockData.currentBlock / blockData.targetBlock)
+        return Double(blockData.currentBlock) / Double(blockData.targetBlock)
     }
 
     var body: some View {
@@ -38,6 +38,7 @@ struct SyncHeader: View {
                 if progress < 1 {
                     ProgressView(value: progress)
                         .progressViewStyle(LinearProgressViewStyle())
+                        .id(blockData.currentBlock)
                 } else {
                     Text("Block: \(blockData.currentBlock)")
                         .frame(maxWidth: .infinity)
@@ -53,7 +54,13 @@ struct SyncHeader: View {
             }
         }
         .onReceive(SyncHeader.syncRx) { newData in
+            var newData = newData
             withAnimation {
+                if newData.currentBlock != newData.targetBlock {
+                    newData.synchronized = false
+                } else {
+                    newData.synchronized = true
+                }
                 self.blockData = newData
             }
         }
