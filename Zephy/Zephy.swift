@@ -28,6 +28,8 @@ struct ZephyApp: App {
             RouterView()
                 .foregroundColor(.white)
                 .background(Color.zephyPurp)
+                .preferredColorScheme(.dark)
+                .environment(\.colorScheme, .dark)
         }
         .environmentObject(router)
         .modelContainer(sharedModelContainer)
