@@ -29,6 +29,13 @@ struct SwapView: View {
     var body: some View {
         NavigationView {
             VStack {
+                if viewModel.error.isEmpty == false {
+                    Text(viewModel.error)
+                        .font(.footnote)
+                        .foregroundColor(.red)
+                        .padding()
+                }
+                
                 HStack {
                     Text("From Asset")
                         .foregroundColor(.gray)
@@ -155,10 +162,20 @@ struct SwapView: View {
                     title: Text("Confirm"),
                     message: Text("Are you sure you swap from \(viewModel.fromAmount) \(viewModel.fromAsset) to \(viewModel.toAsset)? This process is irreversible."),
                     primaryButton: .destructive(Text("Yes"), action: {
-                        //viewModel.makeTransaction(router: router)
+                        viewModel.makeSwap(router: router)
                     }),
                     secondaryButton: .cancel()
                 )
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button("Done") {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                    }
+                }
             }
         }
     }

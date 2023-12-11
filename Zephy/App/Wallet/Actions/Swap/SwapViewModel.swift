@@ -12,6 +12,7 @@ class SwapViewModel: ObservableObject {
     
     @Published var availableAmount: String = "0"
     @Published var fromAmount: String = ""
+    @Published var error = ""
     
     @Published var zephyrBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zeph, full: false)
     @Published var zephyrStableDollarsBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zsd, full: false)
@@ -74,7 +75,9 @@ class SwapViewModel: ObservableObject {
     
     func makeSwap(router: Router) {
         guard let recipientAddress = WalletService.allAddresses().first?.1,
-               recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else { return }
+               recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else { 
+            error = "Must have an address to swap to"
+            return }
         
         var fromAssetType: String = ""
         var toAssetType: String = ""
@@ -95,20 +98,25 @@ class SwapViewModel: ObservableObject {
         }
         
         guard fromAssetType != toAssetType else { 
-            // TODO: Need to pop an error alert
+            error = "Assets types cant be equal"
             return }
+        
+        error = ""
         
         WalletService.transactionCreate(assetType: fromAssetType,
                                         destAssetType: toAssetType,
                                         toAddress: recipientAddress,
                                         amount: fromAmount)
             .backgroundToMain()
-            .sink { result in
+            .sink { [weak self] result in
                 if result {
                     router.changeRoot(to: .wallet)
                 } else {
-                    // TODO: Need to pop an error alert
-                    print("Failed to send tx")
+                    if toAssetType == Assets.zrs.rawValue {
+                        self?.error = "Hm double check the ratios allow swapping."
+                    } else {
+                        self?.error = "Failed to swap. Try again with a lesser amount. Im still working on coding the math to take out the fee"
+                    }
                 }
             }
             .store(in: &disposeBag)
