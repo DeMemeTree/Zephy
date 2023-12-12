@@ -66,10 +66,18 @@ struct StatsView: View {
                     Text("Spot")
                         .font(.caption)
                         .foregroundColor(.gray)
-                    Text(dollars ? "$\(spot)" : spot)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                    HStack {
+                        Text(dollars ? "$\(spot)" : spot)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                        
+                        if dollars == false {
+                            Text("ZEPH")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
                 Spacer()
                 
@@ -77,10 +85,18 @@ struct StatsView: View {
                     Text("Moving Average")
                         .font(.caption)
                         .foregroundColor(.gray)
-                    Text(dollars ? "$\(ma)" : ma)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                    HStack {
+                        Text(dollars ? "$\(ma)" : ma)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                        
+                        if dollars == false {
+                            Text("ZEPH")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 20)

@@ -59,7 +59,8 @@ class SendViewModel: ObservableObject {
         WalletService.transactionCreate(assetType: assetType,
                                         destAssetType: assetType,
                                         toAddress: recipientAddress,
-                                        amount: amount)
+                                        amount: amount,
+                                        sendAll: availableAmount == amount)
             .backgroundToMain()
             .sink { result in
                 if result {

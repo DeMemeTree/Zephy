@@ -25,10 +25,14 @@ final class StatsViewModel: ObservableObject {
     func load() async {
         let height = await WalletService.getCurrentBlockHeight()
         guard height != cachedHeight() else {
+            loadCachedPricingRecord()
             return
         }
         
         let record = await WalletService.getPricingRecordFromBlock(height: height)
+        if let record = record {
+            WalletView.pricingBlock.send(record)
+        }
         cachePricingRecord(record, height: height)
         
         notConnected = false
@@ -39,6 +43,7 @@ final class StatsViewModel: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: pricingRecordKey),
            let savedRecord = try? JSONDecoder().decode(WalletService.PricingRecord.self, from: data) {
             pricingRecord = savedRecord
+            WalletView.pricingBlock.send(savedRecord)
         }
     }
 

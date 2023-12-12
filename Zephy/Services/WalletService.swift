@@ -177,7 +177,8 @@ struct WalletService {
     static func transactionCreate(assetType: String,
                                   destAssetType: String,
                                   toAddress: String,
-                                  amount: String) -> AnyPublisher<Bool, Never> {
+                                  amount: String,
+                                  sendAll: Bool) -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
             let cSource = (assetType as NSString).utf8String
@@ -191,12 +192,13 @@ struct WalletService {
             
             let cAmount = (amount as NSString).utf8String
             let amountMP = UnsafeMutablePointer<CChar>(mutating: cAmount)
+            
             let error = UnsafeMutablePointer<CChar>(mutating: ("" as NSString).utf8String)
             
             let result = transaction_create(sourceMP,
                                             destMP,
                                             addyMP,
-                                            amountMP,
+                                            sendAll ? nil : amountMP,
                                             error)
             if result {
                 storeWallet()

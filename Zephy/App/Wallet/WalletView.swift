@@ -3,25 +3,36 @@
 //  Zephy
 //
 //
-
+import Combine
 import SwiftUI
 
 struct WalletView: View {
     @EnvironmentObject var router: Router
     @StateObject var viewModel = WalletViewModel()
+    @State var spotBalance: String? = nil
     let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+    
+    static let pricingBlock = PassthroughSubject<WalletService.PricingRecord, Never>()
     
     var body: some View {
         VStack(spacing: 0) {
             Text("Zephyr Protocol Wallet")
-                .font(.title)
+                .font(.headline)
                 .fontWeight(.bold)
                 .padding(.top, 20)
             
             Text("The private untraceable stablecoin")
-                .font(.headline)
+                .font(.subheadline)
             
-            VStack(spacing: 20) {
+            VStack(spacing: 0) {
+                if let spotBalance = spotBalance {
+                    Text("$\(spotBalance)")
+                        .bold()
+                        .font(.title)
+                        .padding(0)
+                        .padding(.bottom, 10)
+                }
+                
                 VStack(spacing: 8) {
                     SyncHeader()
                     balances()
@@ -30,10 +41,10 @@ struct WalletView: View {
                 .padding()
                 .background(Color.black.opacity(0.3))
                 .cornerRadius(10)
-                .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                .padding()
+                .shadow(color: .gray.opacity(0.8), radius: 5, x: 0, y: 2)
                 
                 walletActions()
+                    .padding(.top, 20)
             }
             .padding()
             
@@ -42,6 +53,17 @@ struct WalletView: View {
             
             StatsView()
         }
+        .onReceive(WalletView.pricingBlock, perform: { record in
+            var totalBalance: Double = 0
+            totalBalance += (Double(viewModel.zephyrBalance.formatHuman()) ?? 0)
+            totalBalance += (Double(viewModel.zephyrStableDollarsBalance.formatHuman()) ?? 0) * record.stable
+            totalBalance += (Double(viewModel.zephyrReserveBalance.formatHuman()) ?? 0) * record.reserve
+            let truncatedValue = (totalBalance * record.spot * 100) / 100
+            withAnimation {
+                spotBalance = String(format: "%.2f", truncatedValue)
+            }
+            
+        })
         .onReceive(timer) { _ in
             guard SyncHeader.isConnected else { return }
             WalletService.startBlockCheck()

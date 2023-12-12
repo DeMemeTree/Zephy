@@ -106,7 +106,8 @@ class SwapViewModel: ObservableObject {
         WalletService.transactionCreate(assetType: fromAssetType,
                                         destAssetType: toAssetType,
                                         toAddress: recipientAddress,
-                                        amount: fromAmount)
+                                        amount: fromAmount,
+                                        sendAll: availableAmount == fromAmount)
             .backgroundToMain()
             .sink { [weak self] result in
                 if result {
