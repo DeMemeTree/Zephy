@@ -25,13 +25,7 @@ struct WalletView: View {
                 .font(.subheadline)
             
             VStack(spacing: 0) {
-                if let spotBalance = spotBalance {
-                    Text("$\(spotBalance)")
-                        .bold()
-                        .font(.title)
-                        .padding(0)
-                        .padding(.bottom, 10)
-                }
+                balanceView()
                 
                 VStack(spacing: 8) {
                     SyncHeader()
@@ -78,6 +72,22 @@ struct WalletView: View {
         }
         .onReceive(SyncHeader.syncRx) { newData in
             viewModel.loadB()
+        }
+    }
+    
+    private func balanceView() -> some View {
+        if let spotBalance = spotBalance {
+            Text("$\(spotBalance)")
+                .bold()
+                .font(.title)
+                .padding(0)
+                .padding(.bottom, 10)
+        } else {
+            Text("$0.00")
+                .bold()
+                .font(.title)
+                .padding(0)
+                .padding(.bottom, 10)
         }
     }
     
@@ -158,6 +168,22 @@ struct WalletView: View {
                     .font(.body)
                     .foregroundColor(.white)
             }
+            
+            switch type {
+            case .reserve:
+               Text("ZRS")
+                    .foregroundColor(.gray)
+                    .font(.footnote)
+            case .stableDollars:
+                Text("ZSD")
+                     .foregroundColor(.gray)
+                     .font(.footnote)
+            case .zephyr:
+                Text("ZEPH")
+                     .foregroundColor(.gray)
+                     .font(.footnote)
+            }
+            
             Spacer()
         }
         .padding(.vertical, 4)

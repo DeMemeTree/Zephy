@@ -36,6 +36,29 @@ struct SendView: View {
                 }
                 .padding()
                 
+                VStack(alignment: .leading) {
+                    Text("Available \(viewModel.availableAmount)")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    
+                    HStack {
+                        TextField("", text: $viewModel.amount)
+                            .frame(height: 50)
+                            .placeholder(when: viewModel.amount.isEmpty) {
+                                    Text("Enter amount")
+                                    .foregroundColor(Color(uiColor: UIColor.lightGray))
+                            }
+                            .keyboardType(.decimalPad)
+                            .foregroundColor(.white)
+                        
+                        Button("MAX") {
+                            viewModel.useMaxAmount()
+                        }
+                        .foregroundColor(.white)
+                    }
+                }
+                .padding()
+                
                 HStack {
                     TextField("", text: $viewModel.recipientAddress)
                         .frame(height: 50)
@@ -82,29 +105,6 @@ struct SendView: View {
                         .edgesIgnoringSafeArea(.bottom)
                     }
 
-                }
-                .padding()
-                
-                VStack(alignment: .leading) {
-                    Text("Available \(viewModel.availableAmount)")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                    
-                    HStack {
-                        TextField("", text: $viewModel.amount)
-                            .frame(height: 50)
-                            .placeholder(when: viewModel.amount.isEmpty) {
-                                    Text("Enter amount")
-                                    .foregroundColor(Color(uiColor: UIColor.lightGray))
-                            }
-                            .keyboardType(.decimalPad)
-                            .foregroundColor(.white)
-                        
-                        Button("MAX") {
-                            viewModel.useMaxAmount()
-                        }
-                        .foregroundColor(.white)
-                    }
                 }
                 .padding()
                 
@@ -181,6 +181,7 @@ struct SendView: View {
                 
                 HStack {
                     Text("Unlock Time")
+                        .foregroundColor(.gray)
                     Spacer()
                     Text("~20m")
                         .foregroundColor(.white)

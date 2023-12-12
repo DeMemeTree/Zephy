@@ -97,12 +97,14 @@ struct SwapView: View {
                     
                     HStack {
                         Text("Amount")
+                            .foregroundColor(.gray)
                         Spacer()
                         Text(viewModel.fromAmount)
                     }
                     
                     HStack {
                         Text("Converting From")
+                            .foregroundColor(.gray)
                         Spacer()
                         AssetLogo(assetLogo: viewModel.fromAsset)
                         Text(viewModel.fromAsset)
@@ -111,6 +113,7 @@ struct SwapView: View {
                     
                     HStack {
                         Text("Converting To")
+                            .foregroundColor(.gray)
                         Spacer()
                         AssetLogo(assetLogo: viewModel.toAsset)
                         Text(viewModel.toAsset)
@@ -123,16 +126,14 @@ struct SwapView: View {
                                 .foregroundColor(.gray)
                             Spacer()
                             Text(fee.formatHuman())
-                                .foregroundColor(.white)
                             Text(viewModel.fromAsset)
-                                .foregroundColor(.white)
                         }
-                        .padding()
                         .padding(.vertical, 0)
                     }
                     
                     HStack {
                         Text("Unlock Time")
+                            .foregroundColor(.gray)
                         Spacer()
                         Text("~20m")
                     }
