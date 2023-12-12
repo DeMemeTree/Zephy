@@ -178,8 +178,8 @@ struct WalletService {
                                   destAssetType: String,
                                   toAddress: String,
                                   amount: String,
-                                  sendAll: Bool) -> AnyPublisher<Bool, Never> {
-        let publisher = PassthroughSubject<Bool, Never>()
+                                  sendAll: Bool) -> AnyPublisher<UInt64, Never> {
+        let publisher = PassthroughSubject<UInt64, Never>()
         DispatchQueue.global(qos: .background).async {
             let cSource = (assetType as NSString).utf8String
             let sourceMP = UnsafeMutablePointer<CChar>(mutating: cSource)
@@ -200,6 +200,19 @@ struct WalletService {
                                             addyMP,
                                             sendAll ? nil : amountMP,
                                             error)
+//            if result {
+//                storeWallet()
+//            }
+            publisher.send(result)
+            publisher.send(completion: .finished)
+        }
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    static func commitTransaction() -> AnyPublisher<Bool, Never> {
+        let publisher = PassthroughSubject<Bool, Never>()
+        DispatchQueue.global(qos: .background).async {
+            let result = transaction_commit()
             if result {
                 storeWallet()
             }

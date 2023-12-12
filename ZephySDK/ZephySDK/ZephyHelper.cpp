@@ -17,28 +17,6 @@
 #include <list>
 #include "thread"
 
-struct CWMoneroWalletListener;
-
-typedef int8_t (*on_new_block_callback)(uint64_t height);
-typedef int8_t (*on_need_to_refresh_callback)();
-
-typedef struct CWMoneroWalletListener
-{
-    // on_money_spent_callback *on_money_spent;
-    // on_money_received_callback *on_money_received;
-    // on_unconfirmed_money_received_callback *on_unconfirmed_money_received;
-    // on_new_block_callback *on_new_block;
-    // on_updated_callback *on_updated;
-    // on_refreshed_callback *on_refreshed;
-
-    on_new_block_callback on_new_block;
-} CWMoneroWalletListener;
-
-struct TestListener {
-    // int8_t x;
-    on_new_block_callback on_new_block;
-};
-
 // Fix for randomx on ios
 void __clear_cache(void* start, void* end) { }
 #include "wallet2_api.h"
@@ -87,75 +65,6 @@ extern "C" {
         }
     };
 
-    struct MoneroWalletListener : Monero::WalletListener
-    {
-        uint64_t m_height;
-        bool m_need_to_refresh;
-        bool m_new_transaction;
-
-        MoneroWalletListener()
-        {
-            m_height = 0;
-            m_need_to_refresh = false;
-            m_new_transaction = false;
-        }
-
-        void moneySpent(const std::string &txId, uint64_t amount)
-        {
-            m_new_transaction = true;
-        }
-
-        void moneyReceived(const std::string &txId, uint64_t amount)
-        {
-            m_new_transaction = true;
-        }
-
-        void unconfirmedMoneyReceived(const std::string &txId, uint64_t amount)
-        {
-            m_new_transaction = true;
-        }
-
-        void newBlock(uint64_t height)
-        {
-            m_height = height;
-        }
-
-        void updated()
-        {
-            m_new_transaction = true;
-        }
-
-        void refreshed()
-        {
-            m_need_to_refresh = true;
-        }
-
-        void resetNeedToRefresh()
-        {
-            m_need_to_refresh = false;
-        }
-
-        bool isNeedToRefresh()
-        {
-            return m_need_to_refresh;
-        }
-
-        bool isNewTransactionExist()
-        {
-            return m_new_transaction;
-        }
-
-        void resetIsNewTransactionExist()
-        {
-            m_new_transaction = false;
-        }
-
-        uint64_t height()
-        {
-            return m_height;
-        }
-    };
-
     struct TransactionInfoRow
     {
         uint64_t amount;
@@ -178,8 +87,6 @@ extern "C" {
             fee = transaction->fee();
             blockHeight = transaction->blockHeight();
             subaddrAccount = transaction->subaddrAccount();
-            std::set<uint32_t>::iterator it = transaction->subaddrIndex().begin();
-            subaddrIndex = *it;
             confirmations = transaction->confirmations();
             datetime = static_cast<int64_t>(transaction->timestamp());
             direction = transaction->direction();
@@ -190,77 +97,19 @@ extern "C" {
         }
     };
 
-//    struct CoinsInfoRow
-//    {
-//        uint64_t blockHeight;
-//        char *hash;
-//        uint64_t internalOutputIndex;
-//        uint64_t globalOutputIndex;
-//        bool spent;
-//        bool frozen;
-//        uint64_t spentHeight;
-//        uint64_t amount;
-//        bool rct;
-//        bool keyImageKnown;
-//        uint64_t pkIndex;
-//        uint32_t subaddrIndex;
-//        uint32_t subaddrAccount;
-//        char *address;
-//        char *addressLabel;
-//        char *keyImage;
-//        uint64_t unlockTime;
-//        bool unlocked;
-//        char *pubKey;
-//        bool coinbase;
-//        char *description;
-//
-//        CoinsInfoRow(Monero::CoinsInfo *coinsInfo)
-//        {
-//            blockHeight = coinsInfo->blockHeight();
-//             std::string *hash_str = new std::string(coinsInfo->hash());
-//            hash = strdup(hash_str->c_str());
-//            internalOutputIndex = coinsInfo->internalOutputIndex();
-//            globalOutputIndex = coinsInfo->globalOutputIndex();
-//            spent = coinsInfo->spent();
-//            frozen = coinsInfo->frozen();
-//            spentHeight = coinsInfo->spentHeight();
-//            amount = coinsInfo->amount();
-//            rct = coinsInfo->rct();
-//            keyImageKnown = coinsInfo->keyImageKnown();
-//            pkIndex = coinsInfo->pkIndex();
-//            subaddrIndex = coinsInfo->subaddrIndex();
-//            subaddrAccount = coinsInfo->subaddrAccount();
-//            address =  strdup(coinsInfo->address().c_str()) ;
-//            addressLabel = strdup(coinsInfo->addressLabel().c_str());
-//            keyImage = strdup(coinsInfo->keyImage().c_str());
-//            unlockTime = coinsInfo->unlockTime();
-//            unlocked = coinsInfo->unlocked();
-//            pubKey = strdup(coinsInfo->pubKey().c_str());
-//            coinbase = coinsInfo->coinbase();
-//            description = strdup(coinsInfo->description().c_str());
-//        }
-//
-//        void setUnlocked(bool unlocked);
-//    };
-
-    //Monero::Coins *m_coins;
-
     Monero::Wallet *m_wallet;
     Monero::TransactionHistory *m_transaction_history;
-    MoneroWalletListener *m_listener;
     Monero::Subaddress *m_subaddress;
     Monero::SubaddressAccount *m_account;
-    uint64_t m_last_known_wallet_height;
-    uint64_t m_cached_syncing_blockchain_height = 0;
-//    std::list<Monero::CoinsInfo*> m_coins_info;
+
+    Monero::PendingTransaction *m_currentPendingTx = nullptr;
+
     std::mutex store_lock;
     bool is_storing = false;
     bool m_wallet_init = false;
 
     void change_current_wallet(Monero::Wallet *wallet) {
         m_wallet = wallet;
-        m_listener = nullptr;
-
 
         if (wallet != nullptr) {
             m_transaction_history = wallet->history();
@@ -279,17 +128,6 @@ extern "C" {
         } else {
             m_subaddress = nullptr;
         }
-
-//        m_coins_info = std::list<Monero::CoinsInfo*>();
-//
-//        if (wallet != nullptr)
-//        {
-//            m_coins = wallet->coins();
-//        }
-//        else
-//        {
-//            m_coins = nullptr;
-//        }
     }
 
     Monero::Wallet *get_current_wallet() {
@@ -522,21 +360,21 @@ extern "C" {
         store_lock.unlock();
     }
 
-    bool set_password(char *password, Utf8Box &error) {
+    bool set_password(char *password) {
         bool is_changed = get_current_wallet()->setPassword(std::string(password));
 
         if (!is_changed) {
-            error = Utf8Box(strdup(get_current_wallet()->errorString().c_str()));
+           // error = Utf8Box(strdup(get_current_wallet()->errorString().c_str()));
         }
 
         return is_changed;
     }
 
-    bool transaction_create(char *source_asset,
-                            char *dest_asset,
-                            char *address,
-                            char *amount,
-                            char *error) {
+    uint64_t transaction_create(char *source_asset,
+                                char *dest_asset,
+                                char *address,
+                                char *amount,
+                                char *error) {
         nice(19);
 
         std::string _payment_id;
@@ -564,104 +402,27 @@ extern "C" {
         if (status == Monero::PendingTransaction::Status::Status_Error || status == Monero::PendingTransaction::Status::Status_Critical)
         {
             error = strdup(transaction->errorString().c_str());
-            return false;
-        }
-
-        if (m_listener != nullptr) {
-            m_listener->m_new_transaction = true;
+            return 0;
         }
         
-        return transaction->commit();
+        m_currentPendingTx = transaction;
+
+        return transaction->fee();
     }
 
-    uint64_t get_node_height_or_update(uint64_t base_eight)
-    {
-        if (m_cached_syncing_blockchain_height < base_eight) {
-            m_cached_syncing_blockchain_height = base_eight;
-        }
-
-        return m_cached_syncing_blockchain_height;
-    }
-
-    uint64_t get_syncing_height()
-    {
-        if (m_listener == nullptr) {
-            return 0;
-        }
-
-        uint64_t height = m_listener->height();
-
-        if (height <= 1) {
-            return 0;
-        }
-
-        if (height != m_last_known_wallet_height)
-        {
-            m_last_known_wallet_height = height;
-        }
-
-        return height;
-    }
-
-    uint64_t is_needed_to_refresh()
-    {
-        if (m_listener == nullptr) {
+    bool transaction_commit() {
+        if(m_currentPendingTx == nullptr) {
             return false;
         }
+        
+        bool committed = m_currentPendingTx->commit();
 
-        bool should_refresh = m_listener->isNeedToRefresh();
-
-        if (should_refresh) {
-            m_listener->resetNeedToRefresh();
+        if (committed) {
+            m_currentPendingTx = nullptr;
         }
 
-        return should_refresh;
+        return committed;
     }
-
-    uint8_t is_new_transaction_exist()
-    {
-        if (m_listener == nullptr) {
-            return false;
-        }
-
-        bool is_new_transaction_exist = m_listener->isNewTransactionExist();
-
-        if (is_new_transaction_exist)
-        {
-            m_listener->resetIsNewTransactionExist();
-        }
-
-        return is_new_transaction_exist;
-    }
-
-    void set_listener()
-    {
-        m_last_known_wallet_height = 0;
-
-        if (m_listener != nullptr)
-        {
-             free(m_listener);
-        }
-
-        m_listener = new MoneroWalletListener();
-        get_current_wallet()->setListener(m_listener);
-    }
-
-//    int64_t *subaddrress_get_all()
-//    {
-//        std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
-//        size_t size = _subaddresses.size();
-//        int64_t *subaddresses = (int64_t *)malloc(size * sizeof(int64_t));
-//
-//        for (size_t i = 0; i < size; i++)
-//        {
-//            Monero::SubaddressRow *row = _subaddresses[i];
-//            SubaddressRow *_row = new SubaddressRow(row->getRowId(), strdup(row->getAddress().c_str()), strdup(row->getLabel().c_str()));
-//            subaddresses[i] = reinterpret_cast<int64_t>(_row);
-//        }
-//
-//        return subaddresses;
-//    }
 
     size_t subaddrress_size() {
         std::vector<Monero::SubaddressRow *> _subaddresses = m_subaddress->getAll();
@@ -676,23 +437,6 @@ extern "C" {
     {
         m_subaddress->setLabel(accountIndex, addressIndex, std::string(label));
     }
-
-//    int64_t *account_get_all()
-//    {
-//        std::vector<Monero::SubaddressAccountRow *> _accocunts = m_account->getAll();
-//        size_t size = _accocunts.size();
-//        int64_t *accocunts = (int64_t *)malloc(size * sizeof(int64_t));
-//
-//        for (int i = 0; i < size; i++)
-//        {
-//            Monero::SubaddressAccountRow *row = _accocunts[i];
-//            AccountRow *_row = new AccountRow(row->getRowId(), strdup(row->getLabel().c_str()));
-//            accocunts[i] = reinterpret_cast<int64_t>(_row);
-//        }
-//
-//        return accocunts;
-//    }
-
 
     void account_set_label_row(uint32_t account_index, char *label)
     {
@@ -796,100 +540,6 @@ extern "C" {
     {
         return m_wallet->trustedDaemon();
     }
-
-//    CoinsInfoRow* coin(int index)
-//    {
-//        if (index >= 0 && index < m_coins_info.size()) {
-//            std::list<Monero::CoinsInfo*>::iterator it = m_coins_info.begin();
-//            std::advance(it, index);
-//            Monero::CoinsInfo* element = *it;
-//            std::cout << "Element at index " << index << ": " << element << std::endl;
-//            return new CoinsInfoRow(element);
-//        } else {
-//            std::cout << "Invalid index." << std::endl;
-//            return nullptr; // Return a default value (nullptr) for invalid index
-//        }
-//    }
-
-//    void refresh_coins(uint32_t accountIndex)
-//    {
-//        m_coins_info.clear();
-//
-//        m_coins->refresh();
-//        for (const auto i : m_coins->getAll()) {
-//            if (i->subaddrAccount() == accountIndex && !(i->spent())) {
-//                m_coins_info.push_back(i);
-//            }
-//        }
-//    }
-
-//    uint64_t coins_count()
-//    {
-//        return m_coins_info.size();
-//    }
-
-//    CoinsInfoRow** coins_from_account(uint32_t accountIndex)
-//    {
-//        std::vector<CoinsInfoRow*> matchingCoins;
-//
-//        for (int i = 0; i < coins_count(); i++) {
-//            CoinsInfoRow* coinInfo = coin(i);
-//            if (coinInfo->subaddrAccount == accountIndex) {
-//                matchingCoins.push_back(coinInfo);
-//            }
-//        }
-//
-//        CoinsInfoRow** result = new CoinsInfoRow*[matchingCoins.size()];
-//        std::copy(matchingCoins.begin(), matchingCoins.end(), result);
-//        return result;
-//    }
-//
-//    CoinsInfoRow** coins_from_txid(const char* txid, size_t* count)
-//    {
-//        std::vector<CoinsInfoRow*> matchingCoins;
-//
-//        for (int i = 0; i < coins_count(); i++) {
-//            CoinsInfoRow* coinInfo = coin(i);
-//            if (std::string(coinInfo->hash) == txid) {
-//                matchingCoins.push_back(coinInfo);
-//            }
-//        }
-//
-//        *count = matchingCoins.size();
-//        CoinsInfoRow** result = new CoinsInfoRow*[*count];
-//        std::copy(matchingCoins.begin(), matchingCoins.end(), result);
-//        return result;
-//    }
-//
-//    CoinsInfoRow** coins_from_key_image(const char** keyimages, size_t keyimageCount, size_t* count)
-//    {
-//        std::vector<CoinsInfoRow*> matchingCoins;
-//
-//        for (int i = 0; i < coins_count(); i++) {
-//            CoinsInfoRow* coinsInfoRow = coin(i);
-//            for (size_t j = 0; j < keyimageCount; j++) {
-//                if (coinsInfoRow->keyImageKnown && std::string(coinsInfoRow->keyImage) == keyimages[j]) {
-//                    matchingCoins.push_back(coinsInfoRow);
-//                    break;
-//                }
-//            }
-//        }
-//
-//        *count = matchingCoins.size();
-//        CoinsInfoRow** result = new CoinsInfoRow*[*count];
-//        std::copy(matchingCoins.begin(), matchingCoins.end(), result);
-//        return result;
-//    }
-//
-//    void freeze_coin(int index)
-//    {
-//        m_coins->setFrozen(index);
-//    }
-//
-//    void thaw_coin(int index)
-//    {
-//        m_coins->thaw(index);
-//    }
 #ifdef __cplusplus
 }
 #endif

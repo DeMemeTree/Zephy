@@ -34,11 +34,12 @@ extern "C" {
     uint64_t get_current_height();
     uint64_t get_node_height();
 
-    bool transaction_create(char *source_asset,
-                            char *dest_asset,
-                            char *address,
-                            char *amount,
-                            char *error);
+    uint64_t transaction_create(char *source_asset,
+                                char *dest_asset,
+                                char *address,
+                                char *amount,
+                                char *error);
+    bool transaction_commit();
 
     bool is_connected();
     bool synchronized();

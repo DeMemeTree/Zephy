@@ -18,20 +18,20 @@ class SwapViewModel: ObservableObject {
     @Published var zephyrStableDollarsBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zsd, full: false)
     @Published var zephyrReserveBalanceUnlocked: UInt64 = WalletService.currentAssetBalance(asset: .zrs, full: false)
     
+    @Published var currentFeeEstimate: UInt64? = nil
+    
     var assets: [String] = [Assets.zeph.uiDisplay,
                              Assets.zsd.uiDisplay,
                              Assets.zrs.uiDisplay]
     
     private var disposeBag = Set<AnyCancellable>()
+    private var fromAssetType: String = ""
+    private var toAssetType: String = ""
     
     init() {
         updateAvailableAmount()
     }
-    
-    func calculateSwap() {
-        // TODO:
-    }
-    
+
     func recalcSwapAssets() {
         if fromAsset == toAsset {
             if fromAsset == Assets.zeph.uiDisplay {
@@ -67,20 +67,20 @@ class SwapViewModel: ObservableObject {
             availableAmount = String(amount)
         }
         fromAmount = ""
+        currentFeeEstimate = nil
     }
 
     func useMaxAmount() {
         fromAmount = availableAmount
     }
     
-    func makeSwap(router: Router) {
+    func makeSwap() {
+        error = ""
         guard let recipientAddress = WalletService.allAddresses().first?.1,
                recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else { 
             error = "Must have an address to swap to"
             return }
         
-        var fromAssetType: String = ""
-        var toAssetType: String = ""
         if fromAsset == Assets.zeph.uiDisplay {
             fromAssetType = Assets.zeph.rawValue
         } else if fromAsset == Assets.zsd.uiDisplay {
@@ -103,17 +103,30 @@ class SwapViewModel: ObservableObject {
         
         error = ""
         
+        guard (Double(fromAmount) ?? 0) > 0 else {
+            error = "Amount of swap must be more than 0"
+            return }
+        
         WalletService.transactionCreate(assetType: fromAssetType,
                                         destAssetType: toAssetType,
                                         toAddress: recipientAddress,
                                         amount: fromAmount,
-                                        sendAll: availableAmount == fromAmount)
+                                        sendAll: false)//availableAmount == fromAmount) // for now until I figure it out
+            .backgroundToMain()
+            .sink { [weak self] result in
+                self?.currentFeeEstimate = result > 0 ? result : nil
+            }
+            .store(in: &disposeBag)
+    }
+    
+    func commitSwap(router: Router) {
+        WalletService.commitTransaction()
             .backgroundToMain()
             .sink { [weak self] result in
                 if result {
                     router.changeRoot(to: .wallet)
                 } else {
-                    if toAssetType == Assets.zrs.rawValue {
+                    if self?.toAssetType == Assets.zrs.rawValue {
                         self?.error = "Hm double check the ratios allow swapping."
                     } else {
                         self?.error = "Failed to swap. Try again with a lesser amount. Im still working on coding the math to take out the fee"

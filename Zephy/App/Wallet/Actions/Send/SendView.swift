@@ -165,6 +165,20 @@ struct SendView: View {
                 .padding()
                 .padding(.vertical, 0)
                 
+                if let fee = viewModel.currentFeeEstimate {
+                    HStack {
+                        Text("Fee Estimate")
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Text(fee.formatHuman())
+                            .foregroundColor(.white)
+                        Text(viewModel.selectedAsset)
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .padding(.vertical, 0)
+                }
+                
                 HStack {
                     Text("Unlock Time")
                     Spacer()
@@ -177,12 +191,15 @@ struct SendView: View {
                 
                 Button(action: {
                     closeKeyboard()
-                    // TODO: Need some sort of validation that amount and address were entered.
-                    withAnimation {
-                        showingPreviewAlert = true
+                    if viewModel.currentFeeEstimate == nil {
+                        viewModel.makeTransaction()
+                    } else {
+                        withAnimation {
+                            showingPreviewAlert = true
+                        }
                     }
                 }) {
-                    Text("Confirm")
+                    Text(viewModel.currentFeeEstimate == nil ? "Estimate Fee" : "Confirm")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -223,7 +240,7 @@ struct SendView: View {
                     title: Text("Confirm"),
                     message: Text("Are you sure you transfer \(viewModel.amount) \(viewModel.selectedAsset) to \(viewModel.recipientAddress)? This process is irreversible."),
                     primaryButton: .destructive(Text("Yes"), action: {
-                        viewModel.makeTransaction(router: router)
+                        viewModel.commitTransaction(router: router)
                     }),
                     secondaryButton: .cancel()
                 )

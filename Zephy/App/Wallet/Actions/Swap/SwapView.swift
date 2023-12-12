@@ -117,6 +117,20 @@ struct SwapView: View {
                     }
                     .padding(.vertical, 10)
                     
+                    if let fee = viewModel.currentFeeEstimate {
+                        HStack {
+                            Text("Fee Estimate")
+                                .foregroundColor(.gray)
+                            Spacer()
+                            Text(fee.formatHuman())
+                                .foregroundColor(.white)
+                            Text(viewModel.fromAsset)
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        .padding(.vertical, 0)
+                    }
+                    
                     HStack {
                         Text("Unlock Time")
                         Spacer()
@@ -128,11 +142,15 @@ struct SwapView: View {
                 
                 Button(action: {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    withAnimation {
-                        showingPreviewAlert = true
+                    if viewModel.currentFeeEstimate == nil {
+                        viewModel.makeSwap()
+                    } else {
+                        withAnimation {
+                            showingPreviewAlert = true
+                        }
                     }
                 }) {
-                    Text("Confirm")
+                    Text(viewModel.currentFeeEstimate == nil ? "Estimate Fee" : "Confirm")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -162,7 +180,7 @@ struct SwapView: View {
                     title: Text("Confirm"),
                     message: Text("Are you sure you swap from \(viewModel.fromAmount) \(viewModel.fromAsset) to \(viewModel.toAsset)? This process is irreversible."),
                     primaryButton: .destructive(Text("Yes"), action: {
-                        viewModel.makeSwap(router: router)
+                        viewModel.commitSwap(router: router)
                     }),
                     secondaryButton: .cancel()
                 )
