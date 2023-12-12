@@ -51,7 +51,7 @@ struct RestoreSeedView: View {
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocorrectionDisabled(true)
-                    .onChange(of: searchText) { _, newValue in
+                    .onChange(of: searchText) { newValue in
                         viewModel.searchDebounce.send(newValue)
                     }
 
@@ -108,12 +108,12 @@ struct RestoreSeedView: View {
                             }
                         }
                     }
-                    .onChange(of: viewModel.selectedWords.count) { _, newCount in
+                    .onChange(of: viewModel.selectedWords.count) { newCount in
                         if newCount > 0 {
                             scrollToIndex = newCount - 1
                         }
                     }
-                    .onChange(of: scrollToIndex) { _, newIndex in
+                    .onChange(of: scrollToIndex) { newIndex in
                         if let index = newIndex {
                             withAnimation {
                                 scrollViewProxy.scrollTo(index, anchor: .trailing)
@@ -147,7 +147,7 @@ struct RestoreSeedView: View {
                 }
             }
         }
-        .onChange(of: isTextFieldFocused) { _, focused in
+        .onChange(of: isTextFieldFocused) { focused in
             hideElements = focused
         }
     }

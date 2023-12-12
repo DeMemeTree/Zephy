@@ -209,9 +209,9 @@ struct SendView: View {
             .onAppear {
                 viewModel.updateAvailableAmount()
             }
-            .onChange(of: viewModel.selectedAsset, { _, newValue in
+            .onChange(of: viewModel.selectedAsset) { newValue in
                 viewModel.updateAvailableAmount()
-            })
+            }
             .background(Color.zephyPurp)
             .navigationTitle("Transfer Asset")
             .navigationBarTitleDisplayMode(.inline)

@@ -32,7 +32,7 @@ struct ReceiveView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .padding()
-                    .onChange(of: viewModel.selectedAddress) { _, _ in
+                    .onChange(of: viewModel.selectedAddress) { _ in
                         viewModel.qrCodeImage = nil
                     }
                 }

@@ -255,6 +255,7 @@ extern "C" {
 //    std::list<Monero::CoinsInfo*> m_coins_info;
     std::mutex store_lock;
     bool is_storing = false;
+    bool m_wallet_init = false;
 
     void change_current_wallet(Monero::Wallet *wallet) {
         m_wallet = wallet;
@@ -443,6 +444,8 @@ extern "C" {
         {
             error = strdup(get_current_wallet()->errorString().c_str());
         }
+        
+        m_wallet_init = is_connected;
 
         return is_connected;
     }
@@ -479,7 +482,10 @@ extern "C" {
     }
 
     bool is_connected() {
-        return get_current_wallet()->connected();
+        if(m_wallet_init) {
+            return get_current_wallet()->connected();
+        }
+        return false;
     }
 
     bool synchronized() {
@@ -533,8 +539,6 @@ extern "C" {
                             char *error) {
         nice(19);
 
-        // could expose this but there is no need to go higher than low really...
-        auto priority = static_cast<Monero::PendingTransaction::Priority>(1);
         std::string _payment_id;
         Monero::PendingTransaction *transaction;
 

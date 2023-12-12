@@ -62,9 +62,9 @@ struct SwapView: View {
                         TextField("Enter amount", text: $viewModel.fromAmount)
                             .keyboardType(.decimalPad)
                         
-                        Button("MAX") {
-                            viewModel.useMaxAmount()
-                        }
+//                        Button("MAX") {
+//                            viewModel.useMaxAmount()
+//                        }
                     }
                 }
                 .padding()
@@ -144,12 +144,12 @@ struct SwapView: View {
                 .padding()
                 .listRowBackground(Color.clear)
             }
-            .onChange(of: viewModel.toAsset, { _, _ in
+            .onChange(of: viewModel.toAsset) { _ in
                 viewModel.recalcSwapAssets()
-            })
-            .onChange(of: viewModel.fromAsset, { _, _ in
+            }
+            .onChange(of: viewModel.fromAsset) { _ in
                 viewModel.recalcSwapAssets()
-            })
+            }
             .tint(.white)
             .background(Color.zephyPurp)
             .navigationTitle("Swap Asset")

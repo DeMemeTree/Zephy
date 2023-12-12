@@ -34,8 +34,6 @@
 		B1AA191B2B26D7D100BACE4B /* SeedPhraseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AA191A2B26D7D100BACE4B /* SeedPhraseService.swift */; };
 		B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C89A682B144E7800FA86A2 /* FileService.swift */; };
 		B1D1761B2B113FD2008C2F16 /* Zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761A2B113FD2008C2F16 /* Zephy.swift */; };
-		B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761C2B113FD2008C2F16 /* ContentView.swift */; };
-		B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1761E2B113FD2008C2F16 /* Item.swift */; };
 		B1D176212B113FD4008C2F16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D176202B113FD4008C2F16 /* Assets.xcassets */; };
 		B1D1762E2B113FD5008C2F16 /* ZephyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D1762D2B113FD5008C2F16 /* ZephyTests.swift */; };
 		B1D176382B113FD5008C2F16 /* ZephyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D176372B113FD5008C2F16 /* ZephyUITests.swift */; };
@@ -123,8 +121,6 @@
 		B1C89A682B144E7800FA86A2 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		B1D176172B113FD2008C2F16 /* Zephy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D1761A2B113FD2008C2F16 /* Zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephy.swift; sourceTree = "<group>"; };
-		B1D1761C2B113FD2008C2F16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B1D1761E2B113FD2008C2F16 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B1D176202B113FD4008C2F16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1D176292B113FD5008C2F16 /* ZephyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZephyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D1762D2B113FD5008C2F16 /* ZephyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZephyTests.swift; sourceTree = "<group>"; };
@@ -281,8 +277,6 @@
 				B1D176482B114032008C2F16 /* Router */,
 				B1D176462B113FF4008C2F16 /* Resources */,
 				B1C89A672B144E6600FA86A2 /* Services */,
-				B1D1761C2B113FD2008C2F16 /* ContentView.swift */,
-				B1D1761E2B113FD2008C2F16 /* Item.swift */,
 			);
 			path = Zephy;
 			sourceTree = "<group>";
@@ -576,9 +570,7 @@
 				B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */,
 				B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */,
 				B169D6902B1C3A390092B52A /* Logger.swift in Sources */,
-				B1D1761D2B113FD2008C2F16 /* ContentView.swift in Sources */,
 				B1C89A692B144E7800FA86A2 /* FileService.swift in Sources */,
-				B1D1761F2B113FD2008C2F16 /* Item.swift in Sources */,
 				B1D1766D2B11A792008C2F16 /* View+zephy.swift in Sources */,
 				B15713FB2B2562D90028F741 /* string+zephy.swift in Sources */,
 				B169D6972B1D02230092B52A /* NetworkService.swift in Sources */,
@@ -770,7 +762,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -789,6 +781,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -808,7 +801,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -827,6 +820,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = Splash.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
