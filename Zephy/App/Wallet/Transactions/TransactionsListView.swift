@@ -12,9 +12,9 @@ struct TransactionsListView: View {
         ScrollView {
             VStack {
                 Picker("Select Asset", selection: $viewModel.selectedAsset) {
-                    Text(Assets.zeph.rawValue).tag(Assets.zeph)
-                    Text(Assets.zrs.rawValue).tag(Assets.zrs)
-                    Text(Assets.zsd.rawValue).tag(Assets.zsd)
+                    Text(Assets.zeph.uiDisplay).tag(Assets.zeph)
+                    Text(Assets.zrs.uiDisplay).tag(Assets.zrs)
+                    Text(Assets.zsd.uiDisplay).tag(Assets.zsd)
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)

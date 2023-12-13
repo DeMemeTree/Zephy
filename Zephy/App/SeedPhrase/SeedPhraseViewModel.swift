@@ -50,7 +50,7 @@ class SeedPhraseViewModel: ObservableObject {
         for (index, word) in words.enumerated() {
             let seedIndex = indicesToConfirm[index] - 1
             guard seedIndex >= 0 else { return false }
-            let seedWord = seedPhrase.split(separator: " ")[seedIndex]
+            let seedWord = seedPhrase.split(separator: " ").map { $0.lowercased() }[seedIndex]
             if word != seedWord {
                 return false
             }
