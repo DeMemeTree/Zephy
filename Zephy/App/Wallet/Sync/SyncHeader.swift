@@ -17,7 +17,7 @@ struct SyncHeader: View {
     @State var blockData: BlockData
     static var isConnected: Bool = false
     static let syncRx = CurrentValueSubject<BlockData, Never>(BlockData(currentBlock: 0,
-                                                                        targetBlock: 0,
+                                                                        targetBlock: 1,
                                                                         synchronized: false))
     
     init() {

@@ -316,15 +316,19 @@ struct WalletService {
     }
     
     static func startBlockCheck() {
-        guard isConnected() else { return }
         guard refreshTimer == nil else { return }
         
-        var current = get_current_height()
-        var node = get_node_height()
-        var syncVal = synchronized()
-        print("Current: \(current)")
-        print("Node: \(node)")
-        print("Synchronized: \(syncVal)")
+        var current: UInt64 = 0
+        var node: UInt64 = 1
+        var syncVal: Bool = false
+        if isConnected() {
+            current = get_current_height()
+            node = get_node_height()
+            syncVal = synchronized()
+            print("Current: \(current)")
+            print("Node: \(node)")
+            print("Synchronized: \(syncVal)")
+        }
         guard current != node else {
             DispatchQueue.main.async {
                 SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
@@ -340,6 +344,7 @@ struct WalletService {
                                                         synchronized: syncVal))
             refreshTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
                 DispatchQueue.global(qos: .background).async {
+                    guard isConnected() else { return }
                     current = get_current_height()
                     node = get_node_height()
                     syncVal = synchronized()

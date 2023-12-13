@@ -120,14 +120,6 @@ struct TransactionView: View {
                     .foregroundColor(.white)
                     .font(.subheadline)
                     .lineLimit(1)
-            }
-            
-            HStack {
-                Text("\(Date(timeIntervalSince1970: TimeInterval(transaction.datetime)), formatter: dateFormatter)")
-                    .foregroundColor(.gray)
-                    .font(.subheadline)
-                    .lineLimit(1)
-                Spacer()
                 Text(isPendingIndicator)
             }
         }
