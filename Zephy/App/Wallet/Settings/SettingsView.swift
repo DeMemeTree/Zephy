@@ -102,7 +102,10 @@ struct SettingsView: View {
             }
         }
         .onAppear {
-            guard let found = UserDefaults.standard.value(forKey: "restoreHeight") as? UInt64 else { 
+            WalletService.fetchAllTransactions()
+            
+            
+            guard let found = UserDefaults.standard.value(forKey: "restoreHeight") as? UInt64 else {
                 return }
             restoreHeight = String(found)
         }

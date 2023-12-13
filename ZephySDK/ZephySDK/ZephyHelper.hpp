@@ -52,8 +52,10 @@ extern "C" {
     void set_recovering_from_seed(bool is_recovery);
     void store(char *path);
 
-    void set_trusted_daemon(bool arg);
-    bool trusted_daemon();
+    void transactions_refresh();
+    int64_t *transactions_get_all();
+    size_t transactions_count();
+
 #ifdef __cplusplus
 }
 #endif

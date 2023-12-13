@@ -45,7 +45,8 @@ struct WalletView: View {
             Divider()
                 .background(Color.white)
             
-            StatsView()
+            TransactionsListView()
+            //StatsView()
         }
         .onReceive(WalletView.pricingBlock, perform: { record in
             var totalBalance: Double = 0
@@ -169,6 +170,8 @@ struct WalletView: View {
                     .foregroundColor(.white)
             }
             
+            Spacer()
+            
             switch type {
             case .reserve:
                Text("ZRS")
@@ -183,8 +186,6 @@ struct WalletView: View {
                      .foregroundColor(.gray)
                      .font(.footnote)
             }
-            
-            Spacer()
         }
         .padding(.vertical, 4)
     }

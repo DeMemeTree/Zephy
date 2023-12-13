@@ -13,6 +13,9 @@
 		B11E13622B13A55A009BAB48 /* SeedPhraseGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */; };
 		B13446122B1BAB5B001A44F3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446112B1BAB5B001A44F3 /* SettingsView.swift */; };
 		B13446142B1BAC48001A44F3 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13446132B1BAC48001A44F3 /* KeychainService.swift */; };
+		B13A95842B29926600F30298 /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13A95832B29926600F30298 /* TransactionsListView.swift */; };
+		B13A95862B29938700F30298 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13A95852B29938700F30298 /* TransactionsViewModel.swift */; };
+		B13A95882B2993F500F30298 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13A95872B2993F500F30298 /* TransactionView.swift */; };
 		B150E06C2B26E44A003BD784 /* RestoreSeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150E06B2B26E44A003BD784 /* RestoreSeedViewModel.swift */; };
 		B15713F62B2439010028F741 /* UInt+zephy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F52B2439010028F741 /* UInt+zephy.swift */; };
 		B15713F92B255A9A0028F741 /* SyncHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15713F82B255A9A0028F741 /* SyncHeader.swift */; };
@@ -97,6 +100,9 @@
 		B11E13612B13A55A009BAB48 /* SeedPhraseGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseGrid.swift; sourceTree = "<group>"; };
 		B13446112B1BAB5B001A44F3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B13446132B1BAC48001A44F3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B13A95832B29926600F30298 /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
+		B13A95852B29938700F30298 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
+		B13A95872B2993F500F30298 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		B150E06B2B26E44A003BD784 /* RestoreSeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreSeedViewModel.swift; sourceTree = "<group>"; };
 		B15713F52B2439010028F741 /* UInt+zephy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+zephy.swift"; sourceTree = "<group>"; };
 		B15713F82B255A9A0028F741 /* SyncHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncHeader.swift; sourceTree = "<group>"; };
@@ -193,6 +199,16 @@
 				B169D6912B1CFF960092B52A /* Node */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		B13A95822B29925200F30298 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				B13A95832B29926600F30298 /* TransactionsListView.swift */,
+				B13A95852B29938700F30298 /* TransactionsViewModel.swift */,
+				B13A95872B2993F500F30298 /* TransactionView.swift */,
+			);
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 		B15713F72B255A870028F741 /* Sync */ = {
@@ -344,6 +360,7 @@
 				B1D176532B1141D5008C2F16 /* WalletView.swift */,
 				B1D176552B11422E008C2F16 /* WalletViewModel.swift */,
 				B1D176602B115A12008C2F16 /* Actions */,
+				B13A95822B29925200F30298 /* Transactions */,
 				B13446102B1BA9C4001A44F3 /* Settings */,
 				B1D1765A2B114460008C2F16 /* Stats */,
 				B15713F72B255A870028F741 /* Sync */,
@@ -559,10 +576,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1753BAF2B2107650060FA8B /* StatsViewModel.swift in Sources */,
+				B13A95862B29938700F30298 /* TransactionsViewModel.swift in Sources */,
 				B1F04A802B279E780095D7FB /* AssetLogo.swift in Sources */,
+				B13A95882B2993F500F30298 /* TransactionView.swift in Sources */,
 				B1D176622B115CB7008C2F16 /* SwapView.swift in Sources */,
 				B150E06C2B26E44A003BD784 /* RestoreSeedViewModel.swift in Sources */,
 				B1D1764A2B11403D008C2F16 /* Router.swift in Sources */,
+				B13A95842B29926600F30298 /* TransactionsListView.swift in Sources */,
 				B1A3A6562B1ED87900FFDAE6 /* ConnectedView.swift in Sources */,
 				B1189C6A2B26BB8000BC4950 /* RestoreSeedView.swift in Sources */,
 				B16F535B2B1999B800B066D5 /* AnyPublisher+zephy.swift in Sources */,
@@ -762,7 +782,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -789,9 +809,12 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.Zephy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -801,7 +824,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = ZL6B8A9W99;
 				ENABLE_PREVIEWS = YES;
@@ -828,9 +851,12 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = swift.wallet.Zephy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

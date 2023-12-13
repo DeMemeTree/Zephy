@@ -74,12 +74,10 @@ extern "C" {
         uint32_t subaddrAccount;
         int8_t direction;
         int8_t isPending;
-        uint32_t subaddrIndex;
+        int64_t datetime;
 
         char *hash;
-        char *paymentId;
-
-        int64_t datetime;
+        char *source_type;
 
         TransactionInfoRow(Monero::TransactionInfo *transaction)
         {
@@ -92,8 +90,9 @@ extern "C" {
             direction = transaction->direction();
             isPending = static_cast<int8_t>(transaction->isPending());
             std::string *hash_str = new std::string(transaction->hash());
+            std::string *source_type_str = new std::string(transaction->source_type());
             hash = strdup(hash_str->c_str());
-            paymentId = strdup(transaction->paymentId().c_str());
+            source_type = strdup(source_type_str->c_str());
         }
     };
 
@@ -360,15 +359,15 @@ extern "C" {
         store_lock.unlock();
     }
 
-    bool set_password(char *password) {
-        bool is_changed = get_current_wallet()->setPassword(std::string(password));
-
-        if (!is_changed) {
-           // error = Utf8Box(strdup(get_current_wallet()->errorString().c_str()));
-        }
-
-        return is_changed;
-    }
+//    bool set_password(char *password) {
+//        bool is_changed = get_current_wallet()->setPassword(std::string(password));
+//
+//        if (!is_changed) {
+//           // error = Utf8Box(strdup(get_current_wallet()->errorString().c_str()));
+//        }
+//
+//        return is_changed;
+//    }
 
     uint64_t transaction_create(char *source_asset,
                                 char *dest_asset,
@@ -448,8 +447,7 @@ extern "C" {
         m_account->refresh();
     }
 
-    int64_t *transactions_get_all()
-    {
+    int64_t *transactions_get_all() {
         std::vector<Monero::TransactionInfo *> transactions = m_transaction_history->getAll();
         size_t size = transactions.size();
         int64_t *transactionAddresses = (int64_t *)malloc(size * sizeof(int64_t));
@@ -464,41 +462,19 @@ extern "C" {
         return transactionAddresses;
     }
 
-    void transactions_refresh()
-    {
+    void transactions_refresh() {
         m_transaction_history->refresh();
     }
 
-    int64_t transactions_count()
-    {
+    size_t transactions_count() {
         return m_transaction_history->count();
     }
 
-    TransactionInfoRow* get_transaction(char * txId)
-    {
-        Monero::TransactionInfo *row = m_transaction_history->transaction(std::string(txId));
-        return new TransactionInfoRow(row);
-    }
-
-    int LedgerExchange(
-        unsigned char *command,
-        unsigned int cmd_len,
-        unsigned char *response,
-        unsigned int max_resp_len)
-    {
-        return -1;
-    }
-
-    int LedgerFind(char *buffer, size_t len)
-    {
-        return -1;
-    }
-
-    void on_startup()
-    {
-        Monero::Utils::onStartup();
-        Monero::WalletManagerFactory::setLogLevel(0);
-    }
+//    TransactionInfoRow* get_transaction(char * txId)
+//    {
+//        Monero::TransactionInfo *row = m_transaction_history->transaction(std::string(txId));
+//        return new TransactionInfoRow(row);
+//    }
 
     void rescan_blockchain() {
         m_wallet->rescanBlockchainAsync();
@@ -529,16 +505,6 @@ extern "C" {
             return nullptr;
         }
         return strdup(row->getAddress().c_str());
-    }
-
-    void set_trusted_daemon(bool arg)
-    {
-        m_wallet->setTrustedDaemon(arg);
-    }
-
-    bool trusted_daemon()
-    {
-        return m_wallet->trustedDaemon();
     }
 #ifdef __cplusplus
 }

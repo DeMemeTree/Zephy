@@ -209,6 +209,54 @@ struct WalletService {
         return publisher.eraseToAnyPublisher()
     }
     
+    struct TransactionInfoRowSwift {
+        let amount: UInt64
+        let fee: UInt64
+        let blockHeight: UInt64
+        let confirmations: UInt64
+        let subaddrAccount: UInt32
+        let direction: Int8
+        let isPending: Int8
+        let subaddrIndex: UInt32
+        let hash: UnsafePointer<CChar>?
+        let source_type: UnsafePointer<CChar>?
+        let datetime: Int64
+    }
+
+    
+    static func fetchAllTransactions() -> AnyPublisher<[TransactionInfoRowSwift], Never> {
+        let publisher = PassthroughSubject<[TransactionInfoRowSwift], Never>()
+        DispatchQueue.global(qos: .background).async {
+            let count = transactions_count()
+            guard let transactionAddresses = transactions_get_all() else { 
+                publisher.send([])
+                publisher.send(completion: .finished)
+                return }
+
+            var result = [TransactionInfoRowSwift]()
+            for i in 0..<count {
+                let transactionAddress = transactionAddresses.advanced(by: i).pointee
+                guard let bitPat = UnsafeRawPointer(bitPattern: UInt(transactionAddress)) else { continue }
+                let transactionPointer = bitPat.assumingMemoryBound(to: TransactionInfoRowSwift.self)
+
+
+                let transactionData = transactionPointer.pointee
+                result.append(transactionData)
+            }
+            
+            let sort = result.sorted(by: { a, b in
+                return a.blockHeight > b.blockHeight
+            })
+            // Lol to not overwhelm the UI
+            publisher.send(Array(sort.prefix(100)))
+            publisher.send(completion: .finished)
+
+            free(transactionAddresses)
+        }
+        return publisher.eraseToAnyPublisher()
+    }
+
+    
     static func commitTransaction() -> AnyPublisher<Bool, Never> {
         let publisher = PassthroughSubject<Bool, Never>()
         DispatchQueue.global(qos: .background).async {
