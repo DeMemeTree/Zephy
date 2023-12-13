@@ -12,7 +12,7 @@ Zephy is an iOS application designed to be a private secure wallet for Zeph/ZSD/
 - [X] Modify the helper lib to handle Zephyr/ZSD/ZRS 
 - [ ] Improve Scripts/Automation of build pipeline
 - [X] Create Testflight and run an MVP of the app with a group of people
-- [ ] App store submission
+- [X] App store submission
 
 ## Donations
 If you find Zephy helpful and would like to support its development, consider making a donation. Your contribution helps in maintaining and improving the app.
