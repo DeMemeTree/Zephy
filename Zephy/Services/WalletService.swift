@@ -316,6 +316,7 @@ struct WalletService {
     }
     
     static func startBlockCheck() {
+        guard isConnected() else { return }
         guard refreshTimer == nil else { return }
         
         var current = get_current_height()
