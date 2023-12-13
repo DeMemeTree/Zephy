@@ -3,7 +3,6 @@
 //  Zephy
 //
 //
-
 import SwiftUI
 
 struct StatsView: View {
@@ -12,10 +11,7 @@ struct StatsView: View {
     var body: some View {
         VStack {
             if viewModel.notConnected {
-                Text("Not connected to a node")
-                    .padding()
-                Text("Tap the gear icon and connect to a node!")
-                    .padding()
+                NodesView()
             } else if let record = viewModel.pricingRecord {
                 pricing(record: record)
             } else {
