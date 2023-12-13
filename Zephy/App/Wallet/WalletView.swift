@@ -10,6 +10,8 @@ struct WalletView: View {
     @EnvironmentObject var router: Router
     @StateObject var viewModel = WalletViewModel()
     @State var spotBalance: String? = nil
+    @State private var selectedTab = 0
+    
     let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     
     static let pricingBlock = PassthroughSubject<WalletService.PricingRecord, Never>()
@@ -45,9 +47,14 @@ struct WalletView: View {
             Divider()
                 .background(Color.white)
             
-            TransactionsListView()
-            //StatsView()
+            Text("swipe to change view")
+                .font(.footnote)
+                .foregroundColor(.gray)
+                .padding(.top)
+            
+            bottomView()
         }
+        .edgesIgnoringSafeArea(.bottom)
         .onReceive(WalletView.pricingBlock, perform: { record in
             var totalBalance: Double = 0
             totalBalance += (Double(viewModel.zephyrBalance.formatHuman()) ?? 0)
@@ -73,6 +80,17 @@ struct WalletView: View {
         }
         .onReceive(SyncHeader.syncRx) { newData in
             viewModel.loadB()
+        }
+    }
+    
+    private func bottomView() -> some View {
+        ScrollView(.horizontal) {
+            HStack {
+                StatsView()
+                    .frame(width: UIScreen.main.bounds.width)
+                TransactionsListView()
+                    .frame(width: UIScreen.main.bounds.width)
+            }
         }
     }
     

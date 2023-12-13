@@ -14,16 +14,18 @@ struct StatsView: View {
             if viewModel.notConnected {
                 Text("Not connected to a node")
                     .padding()
-                Spacer()
+                Text("Tap the gear icon and connect to a node!")
+                    .padding()
             } else if let record = viewModel.pricingRecord {
                 pricing(record: record)
             } else {
                 ProgressView()
                     .padding(.top)
-                Spacer()
             }
+            Spacer()
         }
         .onReceive(SyncHeader.syncRx) { newData in
+            guard newData.currentBlock != 0 else { return }
             Task {
                 await viewModel.load()
             }
@@ -102,7 +104,7 @@ struct StatsView: View {
             .padding(.horizontal, 20)
         }
         .padding()
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
+        //.frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
         .background(Color.black.opacity(0.3))
         .cornerRadius(10)
         .padding(.vertical, 5)

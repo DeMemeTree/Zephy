@@ -244,11 +244,22 @@ struct WalletService {
                 result.append(transactionData)
             }
             
-            let sort = result.sorted(by: { a, b in
-                return a.blockHeight > b.blockHeight
-            })
+            let sort = result.sorted { a, b in
+                if a.blockHeight == 0 && b.blockHeight != 0 {
+                    return true
+                } else if a.blockHeight != 0 && b.blockHeight == 0 {
+                    return false
+                } else {
+                    return a.blockHeight > b.blockHeight
+                }
+            }
             // Lol to not overwhelm the UI
-            publisher.send(Array(sort.prefix(100)))
+            if sort.count > 250 {
+                publisher.send(Array(sort.prefix(250)))
+            } else {
+                publisher.send(sort)
+            }
+            publisher.send(Array(sort.prefix(250)))
             publisher.send(completion: .finished)
 
             free(transactionAddresses)
@@ -263,6 +274,8 @@ struct WalletService {
             let result = transaction_commit()
             if result {
                 storeWallet()
+                transactions_refresh()
+                startBlockCheck()
             }
             publisher.send(result)
             publisher.send(completion: .finished)
@@ -324,7 +337,7 @@ struct WalletService {
             SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                         targetBlock: node,
                                                         synchronized: syncVal))
-            refreshTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+            refreshTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
                 DispatchQueue.global(qos: .background).async {
                     current = get_current_height()
                     node = get_node_height()

@@ -36,13 +36,17 @@ final class StatsViewModel: ObservableObject {
         cachePricingRecord(record, height: height)
         
         notConnected = false
-        pricingRecord = record
+        withAnimation {
+            pricingRecord = record
+        }
     }
 
     private func loadCachedPricingRecord() {
         if let data = UserDefaults.standard.data(forKey: pricingRecordKey),
            let savedRecord = try? JSONDecoder().decode(WalletService.PricingRecord.self, from: data) {
-            pricingRecord = savedRecord
+            withAnimation {
+                pricingRecord = savedRecord
+            }
             WalletView.pricingBlock.send(savedRecord)
         }
     }

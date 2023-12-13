@@ -96,17 +96,18 @@ struct TransactionView: View {
                     .lineLimit(1)
             }
             
-            
-            HStack {
-                Text("Block")
-                    .foregroundColor(.gray)
-                    .font(.subheadline)
-                    .lineLimit(1)
-                Spacer()
-                Text("\(transaction.blockHeight)")
-                    .foregroundColor(.white)
-                    .font(.subheadline)
-                    .lineLimit(1)
+            if transaction.blockHeight != 0 {
+                HStack {
+                    Text("Block")
+                        .foregroundColor(.gray)
+                        .font(.subheadline)
+                        .lineLimit(1)
+                    Spacer()
+                    Text("\(transaction.blockHeight)")
+                        .foregroundColor(.white)
+                        .font(.subheadline)
+                        .lineLimit(1)
+                }
             }
             
             HStack {

@@ -17,14 +17,12 @@ struct TransactionsListView: View {
                     Text(Assets.zsd.rawValue).tag(Assets.zsd)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding(.top)
                 .padding(.horizontal)
                 
-                if viewModel.filteredTransactions.count > 0 {
-                    Text("Showing \(viewModel.filteredTransactions.count) of the most recent transactions")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                }
+                Text("Showing \(viewModel.filteredTransactions.count) of the most recent transactions")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.vertical, 3)
 
                 if viewModel.filteredTransactions.isEmpty {
                     Text("No transactions to display.")
@@ -32,9 +30,19 @@ struct TransactionsListView: View {
                 } else {
                     ForEach(viewModel.filteredTransactions, id: \.hash) { transaction in
                         TransactionView(transaction: transaction)
+                            .id(transaction.hash)
                     }
                 }
+                
+                Rectangle()
+                    .frame(height: 50)
+                    .foregroundColor(.clear)
             }
+            .id(viewModel.filteredTransactions.count)
+        }
+        .padding(.top)
+        .onAppear {
+            load()
         }
         .onChange(of: viewModel.selectedAsset) { _ in
             load()
