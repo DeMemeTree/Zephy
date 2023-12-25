@@ -16,6 +16,8 @@ struct FileService {
 
         if !fileManager.fileExists(atPath: walletDir.path) {
             try fileManager.createDirectory(at: walletDir, withIntermediateDirectories: true)
+            let protectionValue = FileProtectionType.completeUntilFirstUserAuthentication
+            try fileManager.setAttributes([.protectionKey: protectionValue], ofItemAtPath: walletDir.path)
         }
 
         return walletDir

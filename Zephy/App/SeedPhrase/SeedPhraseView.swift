@@ -102,16 +102,11 @@ struct SeedPhraseView: View {
                 .padding()
             }
         }
+        .keyboardCloseButton()
         .padding(.horizontal)
         .alert(item: $viewModel.error) { error in
             Alert(title: Text("Alert"),
                   message: Text(error.text),dismissButton: .default(Text("Okay")))
-        }
-        .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                            to: nil,
-                                            from: nil,
-                                            for: nil)
         }
     }
 

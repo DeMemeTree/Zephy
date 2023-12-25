@@ -3,16 +3,16 @@
 //  Zephy
 //
 //
+
 import SwiftUI
 
 struct StatsView: View {
     @StateObject var viewModel = StatsViewModel()
+    @State var notConnectedToANode = false
     
     var body: some View {
         VStack {
-            if viewModel.notConnected {
-                NodesView()
-            } else if let record = viewModel.pricingRecord {
+            if let record = viewModel.pricingRecord {
                 pricing(record: record)
             } else {
                 ProgressView()
@@ -20,6 +20,9 @@ struct StatsView: View {
             }
             Spacer()
         }
+        .sheet(isPresented: $viewModel.notConnected, content: {
+            NodesView()
+        })
         .onReceive(SyncHeader.syncRx) { newData in
             guard newData.currentBlock != 0 else { return }
             Task {

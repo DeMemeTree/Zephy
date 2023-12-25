@@ -8,11 +8,11 @@ import SwiftUI
 
 struct WalletView: View {
     @EnvironmentObject var router: Router
+    @EnvironmentObject var timeKeeper: TimeKeeper
+    
     @StateObject var viewModel = WalletViewModel()
     @State var spotBalance: String? = nil
     @State private var selectedTab = 0
-    
-    let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     
     static let pricingBlock = PassthroughSubject<WalletService.PricingRecord, Never>()
     
@@ -66,26 +66,25 @@ struct WalletView: View {
             }
             
         })
-        .onReceive(timer) { _ in
-            guard SyncHeader.isConnected else { return }
-            WalletService.startBlockCheck()
+        .onReceive(timeKeeper.pulse) { _ in
+            startBlockCheck()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            guard SyncHeader.isConnected else { return }
-            WalletService.startBlockCheck()
-        }
-        .onAppear {
-            guard SyncHeader.isConnected else { return }
-            WalletService.startBlockCheck()
+            startBlockCheck()
         }
         .onReceive(SyncHeader.syncRx) { newData in
             viewModel.loadB()
         }
     }
     
+    private func startBlockCheck() {
+        guard SyncHeader.isConnected.value else { return }
+        WalletService.startBlockCheck()
+    }
+    
     private func bottomView() -> some View {
         ScrollView(.horizontal) {
-            HStack {
+            LazyHStack {
                 StatsView()
                     .frame(width: UIScreen.main.bounds.width)
                 TransactionsListView()
@@ -222,12 +221,14 @@ struct WalletView: View {
                 router.changeRoot(to: .receive)
             })
             
-            Spacer()
-            
-            actionButton(title: "Swap",
-                         action: {
-                router.changeRoot(to: .swap)
-            })
+//            Spacer()
+//            
+//            if UserDefaults.standard.bool(forKey: "xx") {
+//                actionButton(title: "Swap",
+//                             action: {
+//                    router.changeRoot(to: .swap)
+//                })
+//            }
         }
         .padding(.horizontal)
     }

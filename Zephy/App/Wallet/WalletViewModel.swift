@@ -26,9 +26,9 @@ class WalletViewModel: ObservableObject {
             if let node = KeychainService.fetchNode() {
                 let login = KeychainService.fetchNodeLogin()
                 let password = KeychainService.fetchNodePassword()
-                SyncHeader.isConnected = await WalletService.connect(node: node,
-                                                          login: login,
-                                                          password: password)
+                SyncHeader.isConnected.send(await WalletService.connect(node: node,
+                                                                        login: login,
+                                                                        password: password))
                 
                 loadB()
             }

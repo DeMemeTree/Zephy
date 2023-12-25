@@ -49,7 +49,18 @@ class SendViewModel: ObservableObject {
     }
     
     func makeTransaction() {
-        guard recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else { return }
+        error = nil
+        guard recipientAddress.lowercased().starts(with: "zephyr") || recipientAddress.lowercased().starts(with: "zeph") else {
+            error = "You need to enter a Zephyr address."
+            return }
+        
+        guard WalletService.isConnected() else {
+            error = "You are not connected to a node. Please go into settings and connect."
+            return }
+        
+        guard (Double(amount) ?? 0) > 0 else {
+            error = "You need to at least send greater than 0"
+            return }
         
         var assetType: String = ""
         if selectedAsset == Assets.zeph.uiDisplay {
@@ -70,7 +81,7 @@ class SendViewModel: ObservableObject {
             .sink { [weak self] result in
                 self?.currentFeeEstimate = result > 0 ? result : nil
                 if self?.currentFeeEstimate == nil {
-                    self?.error = "Hmm.. unable to get fee estimate."
+                    self?.error = "Unable to get fee estimate. Do you have enough balance?"
                 }
             }
             .store(in: &disposeBag)

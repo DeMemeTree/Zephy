@@ -44,6 +44,7 @@ struct WalletService {
     }
     
     static func storeWallet() {
+        guard TimeKeeper.isProtectedDataAvailable.value else { return }
         guard let path = try? FileService.pathForWallet(name: currentWalletName()) else { return }
         let pathC = (path.path() as NSString).utf8String
         let pathMP = UnsafeMutablePointer<CChar>(mutating: pathC)
@@ -79,7 +80,7 @@ struct WalletService {
         (0..<count).forEach { index in
             if let subAddy = get_subaddress_label(0, UInt32(index)) {
                 var found = String(cString: subAddy)
-                if found.isEmpty {
+                if (found == "Address #1" && index != 1) || found.isEmpty {
                     found = "Address #\(index)"
                 }
                 if let account = get_subaddress_account(0, UInt32(index)) {
@@ -223,48 +224,41 @@ struct WalletService {
         let datetime: Int64
     }
 
-    
-    static func fetchAllTransactions() -> AnyPublisher<[TransactionInfoRowSwift], Never> {
-        let publisher = PassthroughSubject<[TransactionInfoRowSwift], Never>()
-        DispatchQueue.global(qos: .background).async {
-            let count = transactions_count()
-            guard let transactionAddresses = transactions_get_all() else { 
-                publisher.send([])
-                publisher.send(completion: .finished)
-                return }
+    static func fetchAllTransactions(ofType: String) -> [TransactionInfoRowSwift] {
+        transactions_refresh()
+        let count = transactions_count()
+        guard let transactionAddresses = transactions_get_all() else {
+            return [] }
 
-            var result = [TransactionInfoRowSwift]()
-            for i in 0..<count {
-                let transactionAddress = transactionAddresses.advanced(by: i).pointee
-                guard let bitPat = UnsafeRawPointer(bitPattern: UInt(transactionAddress)) else { continue }
-                let transactionPointer = bitPat.assumingMemoryBound(to: TransactionInfoRowSwift.self)
+        var result = [TransactionInfoRowSwift]()
+        for i in 0..<count {
+            let transactionAddress = transactionAddresses.advanced(by: i).pointee
+            guard let bitPat = UnsafeRawPointer(bitPattern: UInt(transactionAddress)) else { continue }
+            let transactionPointer = bitPat.assumingMemoryBound(to: TransactionInfoRowSwift.self)
 
-
-                let transactionData = transactionPointer.pointee
+            let transactionData = transactionPointer.pointee
+            if let source_type = transactionData.source_type, String(cString: source_type) == ofType {
                 result.append(transactionData)
             }
-            
-            let sort = result.sorted { a, b in
-                if a.blockHeight == 0 && b.blockHeight != 0 {
-                    return true
-                } else if a.blockHeight != 0 && b.blockHeight == 0 {
-                    return false
-                } else {
-                    return a.blockHeight > b.blockHeight
-                }
-            }
-            // Lol to not overwhelm the UI
-            if sort.count > 250 {
-                publisher.send(Array(sort.prefix(250)))
-            } else {
-                publisher.send(sort)
-            }
-            publisher.send(Array(sort.prefix(250)))
-            publisher.send(completion: .finished)
-
-            free(transactionAddresses)
         }
-        return publisher.eraseToAnyPublisher()
+        
+        let sort = result.sorted { a, b in
+            if a.blockHeight == 0 && b.blockHeight != 0 {
+                return true
+            } else if a.blockHeight != 0 && b.blockHeight == 0 {
+                return false
+            } else {
+                return a.blockHeight > b.blockHeight
+            }
+        }
+        
+        free(transactionAddresses)
+        // Lol to not overwhelm the UI
+        if sort.count > 250 {
+            return Array(sort.prefix(250))
+        } else {
+            return sort
+        }
     }
 
     
@@ -310,7 +304,6 @@ struct WalletService {
     
     static func rescanBlockchain() {
         DispatchQueue.global(qos: .background).async {
-            print("Rescaning")
             rescan_blockchain()
         }
     }
@@ -329,7 +322,7 @@ struct WalletService {
             print("Node: \(node)")
             print("Synchronized: \(syncVal)")
         }
-        guard current != node else {
+        guard current != node || syncVal == false else {
             DispatchQueue.main.async {
                 SyncHeader.syncRx.send(SyncHeader.BlockData(currentBlock: current,
                                                             targetBlock: node,

@@ -32,14 +32,26 @@ class SwapViewModel: ObservableObject {
         updateAvailableAmount()
     }
 
-    func recalcSwapAssets() {
+    func recalcSwapAssets(fromChanged: Bool) {
         if fromAsset == toAsset {
             if fromAsset == Assets.zeph.uiDisplay {
-                toAsset = Assets.zsd.uiDisplay
+                if fromChanged {
+                    toAsset = Assets.zsd.uiDisplay
+                } else {
+                    fromAsset = Assets.zsd.uiDisplay
+                }
             } else if fromAsset == Assets.zsd.uiDisplay {
-                toAsset = Assets.zeph.uiDisplay
+                if fromChanged {
+                    toAsset = Assets.zeph.uiDisplay
+                } else {
+                    fromAsset = Assets.zeph.uiDisplay
+                }
             } else if fromAsset == Assets.zrs.uiDisplay {
-                toAsset = Assets.zeph.uiDisplay
+                if fromChanged {
+                    toAsset = Assets.zeph.uiDisplay
+                } else {
+                    fromAsset = Assets.zeph.uiDisplay
+                }
             }
         }
         updateAvailableAmount()
@@ -101,8 +113,6 @@ class SwapViewModel: ObservableObject {
             error = "Assets types cant be equal"
             return }
         
-        error = ""
-        
         guard (Double(fromAmount) ?? 0) > 0 else {
             error = "Amount of swap must be more than 0"
             return }
@@ -115,6 +125,9 @@ class SwapViewModel: ObservableObject {
             .backgroundToMain()
             .sink { [weak self] result in
                 self?.currentFeeEstimate = result > 0 ? result : nil
+                if self?.currentFeeEstimate == nil {
+                    self?.error = "Unable to get fee estimate. Do you have enough balance?"
+                }
             }
             .store(in: &disposeBag)
     }

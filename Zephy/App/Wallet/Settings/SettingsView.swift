@@ -11,64 +11,37 @@ struct SettingsView: View {
     @State private var showSeedPhraseView = false
     @State var restoreHeight = "0"
     
+    @State var selectedView: Int = 0
+    
+    var appVersion: String {
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+           let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            return "Build: \(version) (\(build))"
+        }
+        return "Unknown Version"
+    }
+    
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                HStack {
-                    restoreHeightView()
-                }
-                .padding(.horizontal)
+            VStack {
+                topNav()
                 
-                Text("Only do this if balances are incorrect or updated restore height has changed")
+                Text(appVersion)
                     .font(.footnote)
                     .foregroundColor(.gray)
-                    .padding(.vertical, 5)
-                    .padding(.horizontal)
+                    .padding()
                 
-                Button {
-                    guard let restoreHeight = UInt64(restoreHeight) else { return }
-                    UserDefaults.standard.setValue(restoreHeight, forKey: "restoreHeight")
-                    WalletService.restore(height: restoreHeight)
-                    WalletService.rescanBlockchain()
-                    router.changeRoot(to: .wallet)
-                } label: {
-                    Text("Rescan Blockchain")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
+                if selectedView == 0 {
+                    appSettings()
+                } else {
+                    NodesView()
                 }
-                .padding()
-                
-                NodesView()
-                    .frame(height: 400)
-                
-                Button {
-                    if showSeedPhraseView {
-                        showSeedPhraseView.toggle()
-                    } else {
-                        showingSeedPhraseAlert.toggle()
-                    }
-                } label: {
-                    Text(showSeedPhraseView ? "Hide Seed" : "Show Seed Phrase")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
-                        .padding(.bottom)
-                }
-                .padding(.horizontal)
-                
-                if showSeedPhraseView,
-                   let seed = KeychainService.fetchSeed() {
-                    SeedPhraseGrid(seedPhrase: seed)
-                }
+            }
+            .onAppear {
+                guard let found = UserDefaults.standard.value(forKey: "restoreHeight") as? UInt64 else {
+                    return }
+                restoreHeight = String(found)
             }
             .background(Color.zephyPurp)
             .alert(isPresented: $showingSeedPhraseAlert) {
@@ -82,16 +55,6 @@ struct SettingsView: View {
                 )
             }
             .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Spacer()
-                        Button("Done") {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-                    }
-                }
-            }
-            .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         router.changeRoot(to: .wallet)
@@ -101,22 +64,70 @@ struct SettingsView: View {
                 }
             }
         }
-        .onAppear {
-            WalletService.fetchAllTransactions()
-            
-            
-            guard let found = UserDefaults.standard.value(forKey: "restoreHeight") as? UInt64 else {
-                return }
-            restoreHeight = String(found)
+    }
+    
+    func topNav() -> some View {
+        Picker("Select Asset", selection: $selectedView) {
+            Text("App Settings").tag(0)
+            Text("Node Settings").tag(1)
         }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                HStack {
-                    Spacer()
-                    Button("Done") {
-                        closeKeyboard()
-                    }
+        .pickerStyle(SegmentedPickerStyle())
+        .padding(.horizontal)
+    }
+    
+    func appSettings() -> some View {
+        ScrollView {
+            HStack {
+                restoreHeightView()
+            }
+            .padding(.horizontal)
+            
+            Text("Only do this if balances are incorrect or updated restore height has changed")
+                .font(.footnote)
+                .foregroundColor(.gray)
+                .padding(.vertical, 5)
+                .padding(.horizontal)
+            
+            Button {
+                guard let restoreHeight = UInt64(restoreHeight) else { return }
+                UserDefaults.standard.setValue(restoreHeight, forKey: "restoreHeight")
+                WalletService.restore(height: restoreHeight)
+                WalletService.rescanBlockchain()
+                router.changeRoot(to: .wallet)
+            } label: {
+                Text("Rescan Blockchain")
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+            }
+            .padding()
+            
+            Button {
+                if showSeedPhraseView {
+                    showSeedPhraseView.toggle()
+                } else {
+                    showingSeedPhraseAlert.toggle()
                 }
+            } label: {
+                Text(showSeedPhraseView ? "Hide Seed" : "Show Seed Phrase")
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    .padding(.bottom)
+            }
+            .padding(.horizontal)
+            
+            if showSeedPhraseView,
+               let seed = KeychainService.fetchSeed() {
+                SeedPhraseGrid(seedPhrase: seed)
             }
         }
     }
@@ -140,12 +151,10 @@ struct SettingsView: View {
                 }
             }
         ))
+        .keyboardType(.numberPad)
         .foregroundColor(.white)
         .textFieldStyle(RoundedBorderTextFieldStyle())
         .padding()
-    }
-    
-    private func closeKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        .keyboardCloseButton()
     }
 }

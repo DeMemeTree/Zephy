@@ -21,6 +21,11 @@ struct SeedPhraseGrid: View {
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(5)
+                        .onTapGesture {
+                            if index + 1 == 25, UserDefaults.standard.bool(forKey: "xxx") {
+                                UserDefaults.standard.setValue(true, forKey: "xx")
+                            }
+                        }
                 }
             }
             .padding()

@@ -26,7 +26,12 @@ struct NodesView: View {
                     await viewModel.connectToNode()
                 }
             }) {
-                Text("Connect")
+                Text("Try connection")
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(viewModel.connectedState == .connected ? Color.green : Color.red, lineWidth: 2)
+                    )
             }
             .disabled(viewModel.node.isEmpty)
 
@@ -37,6 +42,9 @@ struct NodesView: View {
                              : (viewModel.connectedState == .loading ? .yellow : .red))
             
             nodeListLogic()
+            Rectangle()
+                .frame(height: 40)
+                .foregroundColor(.clear)
         }
         .listStyle(PlainListStyle())
         .background(Color.zephyPurp)
@@ -50,9 +58,19 @@ struct NodesView: View {
                 viewModel.fetch()
             } label: {
                 Text("Fetch node list")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
             }
         case .loading:
-            ProgressView()
+            HStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
         case .found(let fetchedNodes):
             ForEach(fetchedNodes, id: \.urlPort) { node in
                 row(node: node)
@@ -63,6 +81,9 @@ struct NodesView: View {
     private func row(node: NodeService.Node) -> some View {
         Button {
             viewModel.node = "\(node.port == 443 ? "https" : "http")://\(node.url):\(node.port)"
+            Task {
+                await viewModel.connectToNode()
+            }
         } label: {
             VStack(alignment: .leading) {
                 Text(node.name)

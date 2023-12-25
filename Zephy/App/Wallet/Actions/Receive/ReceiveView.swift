@@ -9,6 +9,7 @@ struct ReceiveView: View {
     @EnvironmentObject var router: Router
     @StateObject var viewModel = ReceiveViewModel()
     @State private var showToastMessage: String? = nil
+    @State var tap = 0
     
     var body: some View {
         NavigationStack {
@@ -19,7 +20,7 @@ struct ReceiveView: View {
                     .padding()
 
                 if viewModel.addresses.count > 0 {
-                    Picker("Select or Create Address", selection: $viewModel.selectedAddress) {
+                    Picker("", selection: $viewModel.selectedAddress) {
                         ForEach(0..<viewModel.addresses.count,
                                 id: \.self) { index in
                             Text(viewModel.addresses[index].0)

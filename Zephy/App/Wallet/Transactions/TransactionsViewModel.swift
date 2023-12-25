@@ -6,24 +6,17 @@
 import Combine
 import SwiftUI
 
+struct TransactionUIWrapper: Identifiable {
+    let id = UUID()
+    let tx: WalletService.TransactionInfoRowSwift
+}
+
 final class TransactionsViewModel: ObservableObject {
     @Published var selectedAsset: Assets = .zeph 
-    @Published var txs: [WalletService.TransactionInfoRowSwift] = []
-    
-    var filteredTransactions: [WalletService.TransactionInfoRowSwift] {
-        txs.filter { transaction in
-            guard let sourceType = transaction.source_type else { return false }
-            return String(cString: sourceType) == selectedAsset.rawValue
-        }
-    }
-    
-    var disposeBag = Set<AnyCancellable>()
+    @Published var filteredTransactions: [TransactionUIWrapper] = []
     
     func load() {
-        WalletService.fetchAllTransactions()
-            .backgroundToMain()
-            .sink { [weak self] result in
-                self?.txs = result
-            }.store(in: &disposeBag)
+        let result = WalletService.fetchAllTransactions(ofType: selectedAsset.rawValue)
+        self.filteredTransactions = result.map({ TransactionUIWrapper(tx: $0) })
     }
 }

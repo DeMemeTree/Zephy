@@ -15,10 +15,12 @@ struct SyncHeader: View {
     
     @EnvironmentObject var router: Router
     @State var blockData: BlockData
-    static var isConnected: Bool = false
+    static var isConnected = CurrentValueSubject<Bool, Never>(false)
     static let syncRx = CurrentValueSubject<BlockData, Never>(BlockData(currentBlock: 0,
                                                                         targetBlock: 1,
                                                                         synchronized: false))
+    
+    @State var connected = false
     
     init() {
         self.blockData = SyncHeader.syncRx.value
@@ -32,7 +34,7 @@ struct SyncHeader: View {
     var body: some View {
         HStack {
             Image(systemName: blockData.synchronized ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted")
-                .foregroundColor(blockData.synchronized == false ? .yellow : (SyncHeader.isConnected ? .green : .red))
+                .foregroundColor(blockData.synchronized == false ? .yellow : (connected ? .green : .red))
             
             if blockData.currentBlock != 0 {
                 if progress < 1 {
@@ -53,6 +55,16 @@ struct SyncHeader: View {
                 Image(systemName: "gearshape")
             }
         }
+        .onAppear {
+            withAnimation {
+                connected = SyncHeader.isConnected.value
+            }
+        }
+        .onReceive(SyncHeader.isConnected, perform: { val in
+            withAnimation {
+                connected = val
+            }
+        })
         .onReceive(SyncHeader.syncRx) { newData in
             var newData = newData
             withAnimation {

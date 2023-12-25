@@ -13,7 +13,7 @@ final class RestoreSeedViewModel: ObservableObject {
     @Published var allWords: [String] = SeedPhraseService.allWords
     @Published var filteredWords: [String] = []
     @Published var selectedWords: [String] = []
-    
+    @Published var rawText = ""
     @Published var error = ""
     
     private var disposeBag = Set<AnyCancellable>()
@@ -57,7 +57,8 @@ final class RestoreSeedViewModel: ObservableObject {
 
     func restoreWallet(router: Router) {
         UserDefaults.standard.setValue(UInt64(restoreHeight) ?? 0, forKey: "restoreHeight")
-        WalletService.restoreWallet(seed: selectedWords.joined(separator: " "),
+        let seed = selectedWords.count > 0 ? selectedWords.joined(separator: " ") : rawText.replacingOccurrences(of: ",", with: "").lowercased()
+        WalletService.restoreWallet(seed: seed,
                                     password: walletPassword,
                                     restoreHeight: UInt64(restoreHeight) ?? 0)
             .backgroundToMain()
@@ -65,7 +66,7 @@ final class RestoreSeedViewModel: ObservableObject {
                 if success {
                     router.changeRoot(to: .wallet)
                 } else {
-                    self?.error = "There was an error restoring your wallet. Double check your seedphrase"
+                    self?.error = "There was an error restoring your wallet. Double check your seedphrase, try deleting the app and reinstalling as maybe something got corrupted."
                 }
             }.store(in: &disposeBag)
     }

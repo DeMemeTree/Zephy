@@ -17,24 +17,29 @@ struct RestoreSeedView: View {
     @State var hideElements = false
     @State private var scrollToIndex: Int?
     
+    @State var selectedView: Int = 0
+    
     var body: some View {
         VStack {
-            ZStack {
-                HStack {
-                    Button {
-                        router.changeRoot(to: .splash)
-                    } label: {
-                        Text("Back")
-                    }
-                    Spacer()
+            HStack {
+                Button {
+                    router.changeRoot(to: .splash)
+                } label: {
+                    Text("Back")
                 }
-                .padding()
-                
-                Text("Enter your 25 word seed phrase...")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .padding(.top)
-                    .offset(y: -8)
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            Picker("Select Asset", selection: $selectedView) {
+                Text("Word selection").tag(0)
+                Text("Raw Text").tag(1)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+            .onChange(of: selectedView) { _ in
+                viewModel.selectedWords.removeAll()
+                viewModel.rawText = ""
             }
             
             if viewModel.error.isEmpty == false {
@@ -44,88 +49,14 @@ struct RestoreSeedView: View {
                     .padding()
             }
             
-            VStack {
-                TextField("Search", text: $searchText)
-                    .frame(height: 50)
-                    .focused($isTextFieldFocused)
-                    .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocorrectionDisabled(true)
-                    .onChange(of: searchText) { newValue in
-                        viewModel.searchDebounce.send(newValue)
-                    }
-
-                HStack {
-                    Text("Tap a word to select")
-                        .font(.footnote)
-                        .padding()
-                    Spacer()
-                }
-
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(viewModel.filteredWords, id: \.self) { word in
-                            Text(word)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .listRowBackground(Color.clear)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    viewModel.addWord(word)
-                                    searchText = ""
-                                }
-                        }
-                    }
-                }
-                .padding()
-
-                Divider()
-                    .padding()
-
-                HStack {
-                    VStack(spacing: 0) {
-                        Text("Seed phrase word count: (\(viewModel.selectedWords.count))")
-                            .font(.footnote)
-                            .padding(.horizontal)
-                        
-                        Text("Tap word to remove from list")
-                            .font(.footnote)
-                            .padding(.horizontal)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Spacer()
-                }
-
-                ScrollViewReader { scrollViewProxy in
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(0..<viewModel.selectedWords.count, id: \.self) { index in
-                                Text("\(index + 1). \(viewModel.selectedWords[index])")
-                                    .id(index)
-                                    .onTapGesture {
-                                        viewModel.removeWord(index)
-                                    }
-                            }
-                        }
-                    }
-                    .onChange(of: viewModel.selectedWords.count) { newCount in
-                        if newCount > 0 {
-                            scrollToIndex = newCount - 1
-                        }
-                    }
-                    .onChange(of: scrollToIndex) { newIndex in
-                        if let index = newIndex {
-                            withAnimation {
-                                scrollViewProxy.scrollTo(index, anchor: .trailing)
-                            }
-                        }
-                    }
-                    .padding()
-                }
+            if selectedView == 0 {
+                wordSelection()
+            } else {
+                rawText()
             }
             
             if hideElements == false {
-                HStack {
+                VStack(alignment: .leading) {
                     restoreHeight()
                 }
                 .padding()
@@ -137,18 +68,123 @@ struct RestoreSeedView: View {
                 restoreButton()
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
+        .keyboardCloseButton()
+        .onChange(of: isTextFieldFocused) { focused in
+            withAnimation {
+                hideElements = focused
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func rawText() -> some View {
+        HStack {
+            Text("Seedphrase (words seperated by space)")
+                .font(.footnote)
+                .padding(.horizontal)
+                .foregroundColor(.gray)
+            Spacer()
+        }
+        .padding(.top)
+        
+        TextEditor(text: $viewModel.rawText)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func wordSelection() -> some View {
+        VStack(alignment: .leading) {
+            Text("Use the search bar below to filter the phrase words")
+                .font(.footnote)
+                .foregroundColor(.gray)
+                .padding(.top)
+                .padding(.horizontal)
+            
+            TextField("", text: $searchText)
+                .frame(height: 50)
+                .focused($isTextFieldFocused)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocorrectionDisabled(true)
+                .onChange(of: searchText) { newValue in
+                    viewModel.searchDebounce.send(newValue)
+                }
+                .padding(.horizontal)
+
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Select your 25 word seed phrase")
+                        .font(.footnote)
+                    Text("Tap a word to select")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                
+                Spacer()
+            }
+
+            ScrollView(.horizontal) {
                 HStack {
-                    Spacer()
-                    Button("Done") {
-                        closeKeyboard()
+                    ForEach(viewModel.filteredWords, id: \.self) { word in
+                        Text(word)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .listRowBackground(Color.clear)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                viewModel.addWord(word)
+                                searchText = ""
+                            }
                     }
                 }
             }
-        }
-        .onChange(of: isTextFieldFocused) { focused in
-            hideElements = focused
+            .padding(.leading)
+
+            Divider()
+                .padding()
+
+            HStack {
+                VStack(spacing: 0) {
+                    Text("Seed phrase word count: (\(viewModel.selectedWords.count))")
+                        .font(.footnote)
+                        .padding(.horizontal)
+                    
+                    Text("Tap word to remove from list")
+                        .font(.footnote)
+                        .padding(.horizontal)
+                        .foregroundColor(.gray)
+                }
+                
+                Spacer()
+            }
+
+            ScrollViewReader { scrollViewProxy in
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(0..<viewModel.selectedWords.count, id: \.self) { index in
+                            Text("\(index + 1). \(viewModel.selectedWords[index])")
+                                .id(index)
+                                .onTapGesture {
+                                    viewModel.removeWord(index)
+                                }
+                        }
+                    }
+                }
+                .onChange(of: viewModel.selectedWords.count) { newCount in
+                    if newCount > 0 {
+                        scrollToIndex = newCount - 1
+                    }
+                }
+                .onChange(of: scrollToIndex) { newIndex in
+                    if let index = newIndex {
+                        withAnimation {
+                            scrollViewProxy.scrollTo(index, anchor: .trailing)
+                        }
+                    }
+                }
+                .padding()
+            }
         }
     }
     
@@ -170,10 +206,9 @@ struct RestoreSeedView: View {
     
     @ViewBuilder
     private func restoreHeight() -> some View {
-        Text("Restore Height (Optional)")
+        Text("Restore Height (Should be set to block height 1 block before first wallet use)")
             .font(.footnote)
             .foregroundColor(.gray)
-            .padding()
         
         TextField("", text: Binding(
             get: { self.viewModel.restoreHeight },
@@ -187,9 +222,9 @@ struct RestoreSeedView: View {
                 }
             }
         ))
+        .keyboardType(.numberPad)
         .foregroundColor(.white)
         .textFieldStyle(RoundedBorderTextFieldStyle())
-        .padding()
     }
     
     private func passwordView() -> some View {
@@ -207,11 +242,7 @@ struct RestoreSeedView: View {
             }
             
             Button(viewModel.showPassword ? "HIDE" : "SHOW", action: { viewModel.showPassword.toggle() })
-                .padding(.trailing, 10)
+                .padding(.trailing)
         }
-    }
-    
-    private func closeKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

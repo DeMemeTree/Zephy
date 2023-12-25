@@ -48,6 +48,7 @@ class NodesViewModel: ObservableObject {
         connectedState = res ? .connected : .notConnected
         if res {
             WalletService.startBlockCheck()
+            SyncHeader.isConnected.send(true)
         }
     }
     

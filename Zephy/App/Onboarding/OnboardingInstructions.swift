@@ -120,7 +120,8 @@ struct OnbaordingInstructions: View {
             } label: {
                 Text("CREATE")
                     .font(.system(size: 19, weight: .bold))
-                    .frame(width: proxy.size.width - 20, height: 45)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
                     .background(RoundedRectangle(cornerRadius: 40)
                         .stroke(.white, lineWidth: 1))
             }
