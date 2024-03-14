@@ -34,8 +34,8 @@ struct TransactionsListView: View {
         VStack {
             Picker("Select Asset", selection: $viewModel.selectedAsset) {
                 Text(Assets.zeph.uiDisplay).tag(Assets.zeph)
-                Text(Assets.zrs.uiDisplay).tag(Assets.zrs)
                 Text(Assets.zsd.uiDisplay).tag(Assets.zsd)
+                Text(Assets.zrs.uiDisplay).tag(Assets.zrs)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)

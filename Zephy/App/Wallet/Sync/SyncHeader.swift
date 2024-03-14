@@ -28,7 +28,11 @@ struct SyncHeader: View {
 
     private var progress: Double {
         guard blockData.targetBlock != 0 else { return 0.3 }
-        return Double(blockData.currentBlock) / Double(blockData.targetBlock)
+        var retVal = Double(blockData.currentBlock) / Double(blockData.targetBlock)
+        if retVal >= 0.95 && retVal < 1 {
+            retVal = 0.95
+        }
+        return retVal
     }
 
     var body: some View {

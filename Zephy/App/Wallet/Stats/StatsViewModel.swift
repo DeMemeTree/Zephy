@@ -23,7 +23,7 @@ final class StatsViewModel: ObservableObject {
 
     @MainActor
     func load() async {
-        let height = await WalletService.getCurrentBlockHeight()
+        let height: UInt64 = await WalletService.getCurrentBlockHeight()
         guard height != cachedHeight() else {
             loadCachedPricingRecord()
             return

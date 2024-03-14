@@ -174,7 +174,7 @@ struct SwapView: View {
         .alert(isPresented: $showingPreviewAlert) {
             Alert(
                 title: Text("Confirm"),
-                message: Text("Are you sure you swap from \(viewModel.fromAmount) \(viewModel.fromAsset) to \(viewModel.toAsset)? This process is irreversible."),
+                message: Text("Are you sure you send to self from \(viewModel.fromAmount) \(viewModel.fromAsset) to \(viewModel.toAsset)? This process is irreversible."),
                 primaryButton: .destructive(Text("Yes"), action: {
                     viewModel.commitSwap(router: router)
                 }),

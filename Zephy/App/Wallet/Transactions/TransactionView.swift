@@ -13,7 +13,7 @@ struct TransactionView: View {
         return formatter
     }()
     
-    var transaction: WalletService.TransactionInfoRowSwift
+    let transaction: WalletService.TransactionInfoRowSwift
 
     private var sourceColor: Color {
         guard let source_type = transaction.source_type else { return .gray }
@@ -30,7 +30,7 @@ struct TransactionView: View {
     }
 
     private var isPendingIndicator: String {
-        return transaction.isPending != 0 ? "⏳" : "✅"
+        return transaction.isPending != 0 ? "/10 ⏳" : "✅"
     }
 
     var body: some View {
@@ -44,6 +44,12 @@ struct TransactionView: View {
         .foregroundColor(.white)
         .padding(.horizontal)
         .padding(.vertical, 2)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard let hash = transaction.hash,
+                  let url = URL(string: "https://explorer.zephyrprotocol.com/tx/\(String(cString: hash))") else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     func outInIndicator() -> some View {

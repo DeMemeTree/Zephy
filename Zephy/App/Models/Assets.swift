@@ -12,7 +12,7 @@ enum Assets: String {
     
     var uiDisplay: String {
         switch self {
-        case .zeph: return "Zeph"
+        case .zeph: return "ZEPH"
         case .zsd: return "ZSD"
         case .zrs: return "ZRS"
         }

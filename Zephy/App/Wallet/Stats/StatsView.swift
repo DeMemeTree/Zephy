@@ -37,7 +37,7 @@ struct StatsView: View {
     private func pricing(record: WalletService.PricingRecord) -> some View {
         ScrollView {
             VStack(spacing: 0) {
-                statCardView(title: "Zeph Price",
+                statCardView(title: "Zephyr Price",
                              spot: String(format: "%.2f%@", record.spot, ""),
                              ma: String(format: "%.2f%@", record.movingAverage, ""),
                              dollars: true)

@@ -2,7 +2,7 @@
 
 . ./config.sh
 
-ZEPHYR_URL="https://github.com/ZephyrProtocol/zephyr.git"
+ZEPHYR_URL="https://github.com/DeMemeTree/zephyr.git"
 ZEPHYR_DIR_PATH="${EXTERNAL_IOS_SOURCE_DIR}/zephyr"
 ZEPHYR_VERSION=master
 BUILD_TYPE=release

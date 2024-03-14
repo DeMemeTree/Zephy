@@ -165,15 +165,15 @@ struct WalletView: View {
             case .reserve:
                 Image("zrs")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
             case .stableDollars:
                 Image("zsd")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
             case .zephyr:
                 Image("zeph")
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 30, height: 30)
             }
             
             VStack(alignment: .leading, spacing: 0) {
@@ -204,7 +204,7 @@ struct WalletView: View {
                      .font(.footnote)
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 1)
     }
     
     private func walletActions() -> some View {
