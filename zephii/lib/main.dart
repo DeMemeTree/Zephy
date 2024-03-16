@@ -5,6 +5,7 @@ import 'src/wallet/wallet.dart';
 import 'src/wallet/unlock.dart';
 import 'src/wallet/create.dart';
 import 'src/wallet/home/home.dart';
+import 'src/wallet/home/receive/receive.dart';
 
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
@@ -54,7 +55,7 @@ final GoRouter _router = GoRouter(
         GoRoute(
             path: 'receive',
             builder: (BuildContext context, GoRouterState state) {
-              return const DetailsScreen();
+              return const ReceiveView();
             }),
       ],
     ),
@@ -67,6 +68,7 @@ class Zephii extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: _router,
     );
   }
