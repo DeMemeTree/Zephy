@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zephii/src/wallet/home/settings/settings.dart';
+import 'package:zephii/src/wallet/restore/restore.dart';
 import 'src/splash/splash.dart';
 import 'src/wallet/wallet.dart';
 import 'src/wallet/unlock.dart';
@@ -35,7 +36,7 @@ final GoRouter _router = GoRouter(
           GoRoute(
               path: 'restore',
               builder: (BuildContext context, GoRouterState state) {
-                return const Text("restore wallet");
+                return const RestoreScreen();
               })
         ]),
     GoRoute(

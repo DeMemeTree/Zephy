@@ -26,7 +26,7 @@ class _SettingsViewState extends State<SettingsView>
   String _appVersion = '';
   late TabController _tabController;
 
-  bool _showNodesList = false; // Flag to control the visibility of the nodes list
+  bool _showNodesList = false;
 
   @override
   void initState() {
@@ -104,15 +104,14 @@ class _SettingsViewState extends State<SettingsView>
 
   TabBar buildTabBar() {
     return TabBar(
-      dividerColor: ZephiiColors.zephPurp,
-      labelColor: Colors.white,
-      indicatorColor: Colors.white,
-      controller: _tabController,
-      tabs: const [
-        Tab(text: 'App Settings'),
-        Tab(text: 'Node Settings'),
-      ]
-    );
+        dividerColor: ZephiiColors.zephPurp,
+        labelColor: Colors.white,
+        indicatorColor: Colors.white,
+        controller: _tabController,
+        tabs: const [
+          Tab(text: 'App Settings'),
+          Tab(text: 'Node Settings'),
+        ]);
   }
 
   Widget buildAppSettingsSection() => ListView(
@@ -165,7 +164,6 @@ class _SettingsViewState extends State<SettingsView>
           const Text("Added Nodes",
               style: TextStyle(color: Colors.white, fontSize: 16)),
           ..._buildAddedNodeList(),
-
           ZButton(text: "FETCH NODE LIST", onPressed: _fetchNodes),
           const SizedBox(height: 20),
           if (_fetchedNodes.isNotEmpty) ...[

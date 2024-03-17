@@ -5,7 +5,7 @@ import 'package:zephii/src/uiwidgets/zbutton.dart';
 import 'seedgrid.dart';
 
 class CreateScreen extends StatefulWidget {
-  const CreateScreen({Key? key}) : super(key: key);
+  const CreateScreen({super.key});
 
   @override
   _CreateScreenState createState() => _CreateScreenState();
