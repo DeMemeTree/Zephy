@@ -42,7 +42,8 @@ class _ReceiveViewState extends State<ReceiveView> {
 
   List<Address> get _filteredAddresses => _addresses
       .where((address) =>
-          address.label.toLowerCase().contains(_filter.toLowerCase()))
+          address.label.toLowerCase().contains(_filter.toLowerCase()) ||
+          address.address.toLowerCase().contains(_filter.toLowerCase()))
       .toList();
 
   @override

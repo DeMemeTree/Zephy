@@ -5,18 +5,27 @@ class ZButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double? width;
+  final bool isCancel;
 
-  const ZButton({required this.text, this.width, required this.onPressed, super.key});
+  const ZButton({
+    required this.text,
+    this.width,
+    required this.onPressed,
+    this.isCancel = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    Color buttonColor = isCancel ? Colors.red : ZephiiColors.zephPurp;
+
     return Container(
       width: width,
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.white,
+          color: isCancel ? Colors.red.shade400 : Colors.white,
           width: 2.0,
         ),
         boxShadow: const [
@@ -29,7 +38,7 @@ class ZButton extends StatelessWidget {
         ],
       ),
       child: Material(
-        color: ZephiiColors.zephPurp,
+        color: buttonColor,
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
           onTap: onPressed,

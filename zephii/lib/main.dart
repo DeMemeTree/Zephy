@@ -6,6 +6,7 @@ import 'src/wallet/unlock.dart';
 import 'src/wallet/create.dart';
 import 'src/wallet/home/home.dart';
 import 'src/wallet/home/receive/receive.dart';
+import 'src/wallet/home/send/send.dart';
 
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
@@ -50,7 +51,7 @@ final GoRouter _router = GoRouter(
         GoRoute(
             path: 'send',
             builder: (BuildContext context, GoRouterState state) {
-              return const DetailsScreen();
+              return const SendView();
             }),
         GoRoute(
             path: 'receive',

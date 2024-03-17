@@ -64,7 +64,9 @@ class HomeScreen extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          ZButton(text: "SEND", onPressed: () {}),
+          ZButton(text: "SEND", onPressed: () {
+            context.go("/home/send");
+          }),
           const Spacer(),
           ZButton(text: "RECEIVE", onPressed: () {
             context.go("/home/receive");

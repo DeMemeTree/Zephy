@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zephii/src/extensions/color.dart';
-import 'package:zephii/src/uiwidgets/zbutton.dart';
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({super.key});
@@ -24,12 +23,13 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
       color: ZephiiColors.zephPurp,
       child: Column(
         children: [
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _selectorButton('ZEPH', 0),
-              _selectorButton('ZSD', 1),
-              _selectorButton('ZRS', 2),
+              Expanded(child: _selectorButton('ZEPH', 0)),
+              Expanded(child: _selectorButton('ZSD', 1)),
+              Expanded(child: _selectorButton('ZRS', 2)),
             ],
           ),
           Expanded(
@@ -41,13 +41,27 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   }
 
   Widget _selectorButton(String title, int index) {
-    return ZButton(
-      text: title,
+    bool isSelected = _selectedIndex == index;
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ZephiiColors.zephPurp,
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20), // Remove padding
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+          side: isSelected
+              ? const BorderSide(color: Colors.white, width: 2.0)
+              : BorderSide.none,
+        ),
+        textStyle: const TextStyle(color: Colors.white),
+      ),
       onPressed: () {
-       setState(() {
+        setState(() {
           _selectedIndex = index;
         });
-      }
+      },
+      child: Text(title,
+          style: TextStyle(color: isSelected ? Colors.white : Colors.grey)),
     );
   }
 }
