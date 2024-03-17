@@ -12,8 +12,7 @@ class QRView extends StatelessWidget {
       data: data,
       version: QrVersions.auto,
       eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.white),
-      dataModuleStyle: const QrDataModuleStyle(dataModuleShape: QrDataModuleShape.square, color: Colors.white),
-      size: 200.0
+      dataModuleStyle: const QrDataModuleStyle(dataModuleShape: QrDataModuleShape.square, color: Colors.white)
     );
   }
 }

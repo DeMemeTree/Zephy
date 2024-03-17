@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:zephii/src/extensions/color.dart';
 import 'package:zephii/src/uiwidgets/zbutton.dart';
 
@@ -44,6 +45,8 @@ class _SendViewState extends State<SendView> {
         _amountController.text = '';
         recipientAddress = '';
       });
+
+      context.go("/home");
     });
   }
 
@@ -61,7 +64,7 @@ class _SendViewState extends State<SendView> {
           backgroundColor: ZephiiColors.zephPurp,
           foregroundColor: Colors.white,
           title: Text(isConfirming ? 'CONFIRM' : 'SEND',
-              style: TextStyle(color: Colors.white))),
+              style: const TextStyle(color: Colors.white))),
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: isConfirming ? _confirmationView() : _sendView(),
@@ -70,7 +73,7 @@ class _SendViewState extends State<SendView> {
   }
 
   Widget _sendView() {
-    return Padding(padding: EdgeInsets.all(20),
+    return Padding(padding: const EdgeInsets.all(20),
     child: 
     Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -106,11 +106,11 @@ class _ReceiveViewState extends State<ReceiveView> {
   Widget _buildFilterTextField() {
     return TextField(
       controller: _filterController,
-      style: const TextStyle(color: Colors.white), // Text color
+      style: const TextStyle(color: Colors.white),
       decoration: const InputDecoration(
         labelText: 'Filter by label',
-        labelStyle: TextStyle(color: Colors.grey), // Label text color
-        suffixIcon: Icon(Icons.search, color: Colors.white), // Icon color
+        labelStyle: TextStyle(color: Colors.grey),
+        suffixIcon: Icon(Icons.search, color: Colors.white),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
@@ -125,7 +125,6 @@ class _ReceiveViewState extends State<ReceiveView> {
   void _showQRCode(BuildContext context, String data) {
     final Size screenSize = MediaQuery.of(context).size;
     final double dialogWidth = screenSize.width * 0.8;
-    final double dialogHeight = screenSize.height * 0.8;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -133,7 +132,6 @@ class _ReceiveViewState extends State<ReceiveView> {
           alignment: Alignment.center,
           content: SizedBox(
             width: dialogWidth,
-            height: dialogHeight,
             child: QRView(data: data),
           ),
           actions: <Widget>[
